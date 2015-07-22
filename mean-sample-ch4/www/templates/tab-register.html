@@ -1,0 +1,24 @@
+<ion-view title="<b>帐号">
+    <ion-content has-header="true" class="padding" ng-show = "usernameExist === null">
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">用户名</span>
+                <input type="text" ng-model="username">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">密码</span>
+                <input type="password" ng-model="password">
+            </label>
+        </div>
+        <button class="button button-full button-positive" ng-click="register(username,password)">注册</button>
+    </ion-content>
+
+    <ion-content has-header="true" class="padding" ng-hide = "usernameExist === null">
+        <button class="button button-full button-positive">已经注册并登录！</button>
+        <button class="button button-full button-positive">为保持公平，本软件仅限1帐号</button>
+        <button class="button button-full button-positive">{{username}}</button>
+    </ion-content>
+
+</ion-view>
+
+

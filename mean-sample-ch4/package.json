@@ -1,0 +1,15 @@
+{
+  "name": "socialapp",
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "^5.0.0-alpha.2",
+    "express-rate-limiter": "*",
+    "express-useragent": "^0.1.9",
+    "jwt-simple": "^0.3.0",
+    "lodash": "^3.10.0",
+    "mongoose": "^4.0.7",
+    "morgan": "^1.6.1",
+    "node-localstorage": "^0.5.1",
+    "weixin-api": "*"
+  }
+}

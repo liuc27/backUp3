@@ -1,0 +1,21 @@
+
+
+- 数据的object参数确定
+- 服务器提供json数据
+- post传输数据  已经下载数据不重新下载
+- 限量领取
+
+- 仅wifi下显示图片
+- 数据输入页面制作
+
+{
+     "name": "req.body.name",
+      "category": "req.body.category",
+        "productName": "req.body.productName",
+        "productIntroduction": "req.body.productIntroduction",
+        "productDetail": "req.body.productDetail",
+        "image": "D:\myApp\img\shoes.jpg"
+  }
+
+
+

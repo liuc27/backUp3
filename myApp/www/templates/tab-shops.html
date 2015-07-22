@@ -1,0 +1,33 @@
+<ion-view title="<b>店铺">
+    <!--
+    <ion-nav-buttons side="left">
+        <button  menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="doSomething()">
+        </button>
+    </ion-nav-buttons>
+    -->
+  <ion-content >
+      <div class="button-bar">
+        <a class="button buttonSpace button-block button-calm " ng-click="openPopoverCategory($event)">cate<div style = "float: right" class="ion-chevron-down"></div></a>
+        <a class="button buttonSpace button-block button-calm" ng-click="openPopoverCategory($event)">location<div style = "float: right" class="ion-chevron-down"></div></a>
+        <a class="button buttonSpace button-block button-calm" ng-click="openPopoverOrder($event)">order<div style = "float: right" class="ion-chevron-down"></div></a>
+      </div>
+
+    <ion-refresher pulling-text="刷新中" on-refresh="doRefresh()">
+    </ion-refresher>
+
+  <div class=" bordLine" collection-repeat="shop in shops | shopFilter : chosenItem.value | orderBy :'-id'">
+    <a href="#/tab/shop-detail/{{shop._id}}" class=" item item-thumbnail-left borderRadius5">
+      <img class="product_image" ng-src="{{ shop.shopImage }}">
+      <div lang="zh-cn" class="category">{{shop.shopCategory}}</div>
+      <ul>
+        <li  lang="zh-cn" class="productName">{{shop.shopName}}</li>
+        <li  lang="zh-cn" class="productIntroduction">{{shop.shopIntroduction}}</li>
+        <li  lang="zh-cn">
+          <div class = "fullPrice floatLeft">{{shop.shopAddress}}</div>
+
+        </li>
+      </ul>
+    </a>
+  </div>
+    </ion-content>
+</ion-view>

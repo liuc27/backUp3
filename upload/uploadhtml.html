@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="css/test.css">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Example - example-input-directive-production</title>
+</head>
+
+<body ng-app="inputExample">
+<div ng-controller="ExampleController">
+
+
+        真名(产品名相同):
+        <input type="text" ng-model="product.name">
+        <br>类别(shopping,beauty,food,hotel):
+        <input type="text" ng-model="product.category">
+        <br>数量:
+        <input type="number" ng-model="product.numbers">
+        <br>产品名:
+        <input type="text" ng-model="product.productName">
+        <br>公司名:
+        <input type="text" ng-model="product.shopName">
+        <br>原价:
+        <input type="text" ng-model="product.fullPrice">
+        <br>折后价:
+        <input type="text" ng-model="product.discountPrice">
+        <br>产品简介:
+        <input type="text" ng-model="product.productIntroduction">
+        <br>产品详细:
+        <input type="text" ng-model="product.productDetail">
+        <br>到期日期:
+        <input type="text" ng-model="year">年
+        <input type="text" ng-model="month">月
+        <input type="text" ng-model="day">日
+        <br>图片:
+
+        <br>图片:
+        <input ng-change="abc()" type='file' ng-model='image' base-sixty-four-input>
+
+
+
+    <hr>
+
+    <button ng-click="sendJson()">添加</button>
+    </br>
+    </br>
+    </br>
+    </br>
+    <button ng-click="replace()">替换</button>
+    </br>
+    </br>
+    <div id="jsonDiv">{{product}}</div>
+    <br/>
+
+
+
+    <form name="myForm">
+
+        公司名:
+        <input type="text" ng-model="shop.shopName">
+        <br>公司类别:
+        <input type="text" ng-model="shop.shopCategory">
+        <br>地址:
+        <input type="text" ng-model="shop.shopAddress">
+        <br>简介:
+        <input type="text" ng-model="shop.shopIntroduction">
+        <br>联系方式:
+        <input type="text" ng-model="shop.shopContactWay">
+
+        <br>图片:
+        <br>图片:
+
+        <input ng-change="abc2()" type='file' ng-model='shopImage' base-sixty-four-input>
+
+
+
+    <hr>
+
+    <button ng-click="sendJsonShop()">添加或者更新店铺</button>
+    </br>
+    </br>
+    </br>
+    </br>
+    <div>{{shop}}</div>
+
+</div>
+
+</body>
+<script src="js/angular.js"></script>
+<script src="js/angular-base64-upload.js"></script>
+<script>
+    angular.module('inputExample', ['naif.base64'])
+            .controller('ExampleController', function ($scope, $http) {
+                $scope.product = {};
+                $scope.shop = {};
+                $scope.image = {};
+                //$scope.product.productName = new Date('2015', '02', '16', '12', '33');
+
+                //var m = $scope.product.productName;
+                //console.log(m.getTime());
+                //var k = new Date();
+                //console.log(k.getTime());
+                $scope.abc = function () {
+                    $scope.product.image = "data:" + $scope.image.filetype + ";base64," + $scope.image.base64;
+                    console.log($scope.product)
+                }
+
+                $scope.abc2 = function () {
+                    $scope.shop.shopImage = "data:" + $scope.shopImage.filetype + ";base64," + $scope.shopImage.base64;
+                    console.log($scope.shop)
+                }
+
+                $scope.sendJson = function () {
+                    $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
+                    $http.post("http://120.24.168.7/api/posts", $scope.product).success(function (data) {
+                        console.log(data)
+                        if (data == "already exists") {
+                            alert("商品名已经存在，推送失败")
+
+                        } else {
+                            alert("成功推送")
+
+                        }
+                    })
+                }
+
+                $scope.replace = function () {
+                    $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
+                    $http.post("http://120.24.168.7/api/replace", $scope.product).success(function (data) {
+                        console.log(data)
+                        if (data = "OK")
+                            alert("successfully replaced")
+                    })
+                }
+
+
+                $scope.sendJsonShop = function () {
+                    $http.post("http://120.24.168.7/api/shops", $scope.shop).success(function (data) {
+                        console.log(data)
+                        if (data == "OK") {
+
+                            alert("成功推送")
+
+                        }
+                    })
+                }
+/*
+                $scope.replaceShop = function () {
+                    $http.post("http://120.24.168.7/api/replaceShop", $scope.product).success(function (data) {
+                        console.log(data)
+                        if (data = "OK")
+                            alert("successfully replaced")
+                    })
+                }*/
+
+
+            });
+</script>
+
+</html>

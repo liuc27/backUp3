@@ -1,0 +1,31 @@
+<!--
+  This template loads for the 'tab.type-detail' state (app.js)
+  'type' is a $scope variable created in the typesCtrl controller (controllers.js)
+  The typesCtrl pulls data from the types service (service.js)
+  The types service returns an array of type data
+-->
+<ion-view title="{{type.name}}">
+  <ion-content has-header="true" padding="true">
+      <ion-refresher pulling-text="刷新中" on-refresh="doRefresh()">
+      </ion-refresher>
+    <div class="product bordLine list  borderRadius" collection-repeat="item in items | typeFilter : type | orderBy :'-id'">
+      <a href="#/tab/tab-types-couponList-detail/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
+        <img class="product_image" ng-src="{{ item.image }}">
+        <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
+        <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
+
+        <div class="category ion-heart" ng-if="find(item)">已领</div>
+
+        <ul>
+          <li lang="zh-cn" class="productName"><b>{{item.name}}</li>
+          <li lang="zh-cn" class="productIntroduction"><b>{{item.productIntroduction}}</li>
+          <li  lang="zh-cn">
+            <div class = "discountPrice floatLeft">{{item.discountPrice}}</div>
+            <div class="fullPrice  strike-center floatLeft">{{item.fullPrice}}</div>
+            <div class="productDate floatRight">{{item.timeLimit|date:'至yy年MM月dd日'}}</div>
+          </li>
+        </ul>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

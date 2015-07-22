@@ -1,0 +1,431 @@
+.bar.bar-positive .title{
+    font-size: 22px;
+    font-weight: bolder;
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+}
+
+body {
+    background-color: #FAEDF0;
+    overflow: scroll;
+}
+
+.bordLine {
+
+    border-style: solid;
+
+    border-color: #FAEDF0;
+
+    padding: 10px 0 0 0;
+
+}
+
+.item {
+
+    padding-top: 0;
+
+    padding-right: 0;
+
+    top: 0;
+
+}
+
+.item-thumbnail-left > img:first-child,
+
+.item-thumbnail-left .item-image,
+
+.item-thumbnail-left .item-content > img:first-child,
+
+.item-thumbnail-left .item-content .item-image {
+
+    top: 0;
+
+    padding-top: 0;
+
+    padding-right: 0;
+
+}
+
+.bordLineLast {
+
+    border-bottom-width: 1px;
+
+}
+
+.productName {
+
+    padding-top: 12px;
+
+    font-size: 3.8vw;
+
+    font-weight: bold;
+
+    color: #FF69B4;
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+
+}
+
+.category {
+
+    float: right;
+
+    font-size: 3.8vw;
+
+    margin: 3px;
+
+    top: 0;
+
+    right: 0;
+
+    color: #FF69B4;
+
+    font-weight: bold;
+
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+
+}
+
+.productIntroduction {
+
+    line-height: 1.5em;
+
+    height: 3em;
+
+    overflow: hidden;
+
+    padding: 0 20px 0 0;
+
+    font-size: 3.0vw;
+
+    white-space: normal;
+
+    color: #FF69B4;
+
+    font-weight: bold;
+
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+}
+
+.floatLeft{
+    float:left;
+}
+
+.floatRight{
+    float:right;
+}
+
+.dateLocation{
+
+    position: absolute;
+
+    top: 45px;
+
+    left: 9px;
+
+    float: none;
+}
+.leftNumber{
+
+    padding-right: 30px;
+}
+.productDate {
+
+    font-size: 3.8vw;
+
+    font-weight: bold;
+
+    color: #ff1642;
+
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+
+}
+
+.discountPrice {
+
+    font-size: 4.8vw;
+
+    font-weight: bold;
+
+
+    color: #ff010f;
+
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+
+}
+
+.fullPrice {
+
+    padding-top: 0.4vw;
+
+    font-size: 4.0vw;
+
+    margin-left: 0.6vw;
+
+    font-weight: bold;
+
+    color: #ff5a5f;
+
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+
+}
+
+.strike-center {
+    position: relative;
+    white-space: nowrap; /* would center line-through in the middle of the wrapped lines */
+}
+
+.strike-center:after {
+    border-top: 2px solid #5ab2ff;
+    position: absolute;
+    content: "";
+    right: 0;
+    top:50%;
+    left: 0;
+}
+
+.list {
+
+    margin-bottom: 0;
+
+}
+
+.product_image {
+
+    margin-top: 12px;
+
+}
+
+ion-content {
+
+    background-color: #FAEDF0;
+
+}
+
+.buttons.left-buttons {
+
+    width: 40px;
+
+    height: 34px;
+
+    display: block;
+
+}
+
+
+
+.borderRadius {
+
+    border-radius: 2vw;
+
+}
+
+.highIndex {
+
+    z-index: 100000;
+
+    width: 100px;
+
+    height: 100px;
+
+    top: 0;
+
+    left: 0;
+
+    position: fixed;
+
+}
+
+.bar-stable .button,
+
+.bar.bar-stable .title {
+
+    color: #FF69B4;
+
+    font-weight: bolder;
+
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+
+
+}
+
+.pink {
+
+    background-color: #FAEDF0;
+
+}
+
+.list.card.pink {
+
+    margin-top: 0;
+
+    margin-bottom: 0;
+
+}
+
+div.item.item-avatar {
+
+    padding-left: 10px;
+
+    padding-top: 10px;
+
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+
+
+}
+
+div.item.item-body {
+
+    padding: 1px;
+
+}
+
+.padding{
+    padding: 3vw;
+    margin: 0;
+}
+
+.item-body h1,
+
+.item-body h2,
+
+.item-body h3,
+
+.item-body h4,
+
+.item-body h5,
+
+.item-body h6,
+
+.item-body p {
+
+    padding: 3px 3px;
+
+    margin: 0;
+
+}
+
+
+.addToCart {
+
+    width: 130px;
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 0px;
+
+}
+
+.item {
+
+    border-radius: 5px;
+
+}
+
+.item-complex .item-content,
+
+.item-radio .item-content {
+
+    padding: 16px 0;
+
+    font-size: 7.6vw;
+
+    text-align: center;
+
+    font-weight: 100;
+}
+
+.tabs-positive .tabs,
+.tabs-positives,
+.bar.bar-positive,
+.tabs-icon-top > .tabs .tab-item, .tabs-icon-top.tabs .tab-item, .tabs-icon-bottom > .tabs .tab-item, .tabs-icon-bottom.tabs .tab-item{
+
+    background-color: #6DA6FC;
+
+}
+
+.bar.bar-positive {
+
+    background-color: #6DA6FC;
+
+}
+
+.typeListItem{
+    margin: 0.2vw 0;
+}
+
+.item p{
+
+    color: #FF69B4;
+    font-size: 3.8vw;
+    font-weight: bolder;
+}
+
+.alignLeft{
+    text-align: left
+}
+
+.font{
+    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+}
+
+.comment{
+    width: 100%;
+    height: auto;
+}
+
+ul.rating li {
+    display: inline;
+    border: 0px;
+    background: none;
+    padding: 5px 10px;
+}
+ul.rating li i {
+    font-size: 7.6vw;
+}
+
+.orangered{
+    color:orangered;
+
+}
+
+.font12{
+    font-size: 3.6vw;
+    margin-left:9.2vw;
+    margin-top:0;
+    padding-top:0;
+
+}
+
+.menuButton{
+    width: 12vw;
+    height:12vw;
+    border-radius: 12vw;
+    border:0;
+    overflow:hidden;
+    padding: 0em;
+    box-shadow: 0 0 2vw gray;
+    color:white;
+    margin: 1vw 0 1vw 7vw;
+}
+
+.menuItem{
+    font-size: 8vw;
+}
+
+.menu{
+    height: 48vw;
+    width: 100%;
+    margin: 0 0 5vw 0;
+    padding: 2vw 0 0 0;
+    border-width:0;
+}
+
+.selected-class-name{
+    width: 14vw;
+    height:14vw;
+    border-radius: 14vw;
+    margin: 0 0 0 5vw;
+
+
+}

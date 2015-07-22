@@ -1,0 +1,22 @@
+#jsonDiv {
+  word-wrap: break-word;
+  /* All browsers since IE 5.5+ */
+  overflow-wrap: break-word;
+  /* Renamed property in CSS3 draft spec */
+}
+#hugeButton {
+  width: 450px;
+  height: 50px;
+}
+table {
+  border-collapse: collapse;
+}
+table,
+th,
+td {
+  border: 1px solid #e1e1e1;
+}
+th,
+td {
+  padding: 6px;
+}

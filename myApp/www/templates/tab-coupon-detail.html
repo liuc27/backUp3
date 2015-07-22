@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<ion-view title="{{coupon.name}}">
+  <ion-content has-header="true" padding="true">
+    <div class="list card pink">
+
+      <div class="item item-avatar">
+        <div class="productName">
+            <div class = "leftNumber floatLeft">剩余{{coupon.numbers}}</div>
+            <div class = "discountPrice floatLeft">{{coupon.discountPrice}}</div>
+            <div class="fullPrice  strike-center floatLeft">{{coupon.fullPrice}}</div>
+        </div>
+        <div class="productDate dateLocation">{{coupon.timeLimit|date:'至yy年MM月dd日'}}</div>
+        <div class="addToCart">
+          <button ng-class="favorites" ng-if="coupon.numbers>0" ng-init="favoriteClass()" ng-click="changeClass()" ng-disabled="disableClick.value">{{favoritesText}}</button>
+          <button ng-class="favorites" ng-if="coupon.numbers<=0">没有剩余</button>
+        </div>
+
+      </div>
+
+      <div class="item item-body">
+        <img class="full-image" src="{{coupon.image}}">
+        <p font>
+
+          <div>优惠详情:{{coupon.productDetail}}</div>
+          <div>登录店家:{{coupon.shopName}}</div>
+
+          </p>
+        <p>
+          <!--<a href="#" class="subdued font">1 顶</a>-->
+          <a href="#" class="subdued font">评价数:{{commentLength}}</a>
+            <a href="#" class="subdued font">平均评分:{{averageRate}}</a>
+
+        </p>
+      </div>
+      <div class="item tabs tabs-secondary tabs-icon-left" ng-click="changeShowComment()">
+         <a class="tab-item" style = "font-size: 18px" >
+           <i class="icon ion-chatbox"></i>
+           评价
+         </a>
+       </div>
+         <div ng-if="showComment">
+             <rating data-ng-model="rate.value" max="max"></rating>评分:{{rate.value}}
+             <input class="comment" type="text" ng-model="comment.comment">
+             <button ng-click="submitComment()">提交</button>
+         </div>
+        <div ng-repeat = "xxx in comment | orderBy : '-date'">
+            <div>{{xxx.title}}  评分:{{xxx.rate.value}}</div>
+            <div>{{xxx.username}}  {{xxx.date|date:'yyyy年MM月dd日HH时mm分'}}</div>
+        </div>
+
+     </div>
+   </ion-content>
+ </ion-view>

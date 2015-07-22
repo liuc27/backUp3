@@ -1,0 +1,15 @@
+<ion-view title="<b>分类">
+    <!--
+    <ion-nav-buttons side="left">
+        <button  menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="doSomething()">
+        </button>
+    </ion-nav-buttons>
+    -->
+    <ion-content>
+        <ion-list>
+            <ion-item class="typeListItem" ng-repeat="type in typeList" type="item-text-wrap" href="#/tab/type/{{type.id}}">
+                {{type.name}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

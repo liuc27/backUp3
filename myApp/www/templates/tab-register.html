@@ -1,0 +1,53 @@
+
+<ion-view title="<b>帐号">
+    <ion-content has-header="true" class="padding" ng-show = "usernameExist === null">
+        <div class="list">
+            <center><button class="button ">用户注册</button></center>
+
+            <label class="item item-input">
+                <span class="input-label">用户名</span>
+                <input type="text" ng-model="username">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">密码</span>
+                <input type="password" ng-model="password">
+            </label>
+        </div>
+        <button class="button button-full button-positive" ng-click="register(username,password)">注册</button>
+    </ion-content>
+
+    <ion-content has-header="true" class="padding" ng-hide = "usernameExist === null">
+        <button class="button button-full button-positive">已经注册并登录！</button>
+        <button class="button button-full button-positive">{{username}}</button>
+        <label class="item item-input">
+            <span class="input-label">公司名</span>
+            <input type="text" ng-model="shop.shopName">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">公司分类</span>
+            <input type="text" ng-model="shop.shopCategory">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">公司地址</span>
+            <input type="text" ng-model="shop.shopAddress">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">联系方式</span>
+            <input type="text" ng-model="shop.shopContactWay">
+        </label>
+        <label class="item item-input">
+                <span class="input-label">营业执照</span>
+                <input ng-change="createCertificate()" type="file" ng-model="image.shopCertificate" base-sixty-four-input>
+        </label>
+        <label class="item item-input">
+                <span class="input-label">公司照片</span>
+                <form>
+                <input ng-change="createShopImage()" type="file" ng-model="image.shopImage" base-sixty-four-input>
+                </form>
+        </label>
+        <button class="button button-full button-positive" ng-click="registerShop()">注册公司</button>
+
+        <div>{{shop}}</div>
+    </ion-content>
+
+</ion-view>

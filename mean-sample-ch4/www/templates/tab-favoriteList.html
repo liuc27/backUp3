@@ -1,0 +1,27 @@
+<ion-view title="<b>已领取">
+    <!--
+    <ion-nav-buttons side="left">
+        <button  menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="doSomething()">
+        </button>
+    </ion-nav-buttons>
+    -->
+    <ion-content class="padding">
+        <div class="product bordLine list  borderRadius" ng-repeat="item in items | possessed : possession | reverse">
+            <a href="#/tab/favoriteList/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
+                <img class="product_image" ng-src="{{ item.image }}">
+                <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
+                <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
+                <div lang="zh-cn" class="category ion-heart">已领</div>
+                <ul>
+                    <li  lang="zh-cn" class="productName">{{item.name}}</li>
+                    <li  lang="zh-cn" class="productIntroduction">{{item.productIntroduction}}</li>
+                    <li  lang="zh-cn">
+                        <div class = "discountPrice floatLeft">{{item.discountPrice}}</div>
+                        <div class="fullPrice  strike-center floatLeft">{{item.fullPrice}}</div>
+                        <div class="productDate floatRight">{{item.timeLimit|date:'至yy年MM月dd日'}}</div>
+                    </li>
+                </ul>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

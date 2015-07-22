@@ -1,0 +1,26 @@
+ <ion-view title="<b>登录">
+   <ion-nav-buttons side="left" >
+     <button class="button button-icon icon ion-chevron-left" href="">
+     </button>
+   </ion-nav-buttons>
+  <ion-content has-header="true" ng-controller="MyCtrl" class="padding" padding="true">
+        <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+        </ion-refresher>
+
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">用户名:</span>
+                    <input type="text">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">密码:</span>
+                    <input type="password">
+                </label>
+            </div>
+
+        <button class="button button-full button-positive">登录</button>
+
+    </ion-content>
+</ion-view>
+
+
