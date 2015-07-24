@@ -116,7 +116,7 @@ weixin.textMsg(function(msg) {
     console.log(JSON.stringify(msg));
 
     var resMsg = {};
-
+    if('content' in msg){
     switch (msg.content) {
         case "文本":
             // 返回文本消息
@@ -176,6 +176,7 @@ weixin.textMsg(function(msg) {
     }
 
     weixin.sendMsg(resMsg);
+    }
 });
 
 // 监听图片消息
@@ -313,8 +314,8 @@ app.post('/api/registerShop', limiterPost.middleware({
     headers: false
 }), function(req, res, next) {
     var idNumber;
-    var imageURL = "http://120.24.168.7/shopImages/" + req.body.shopName + ".jpg";
-    data = req.body.shopImage;
+    var userCertificateURL = "http://120.24.168.7/userCertificates/" + req.body.userCertificate + ".jpg";
+    data = req.body.userCertificate;
     var base64Data, binaryData;
     if (data) {
 
@@ -322,12 +323,12 @@ app.post('/api/registerShop', limiterPost.middleware({
         base64Data += base64Data.replace('+', ' ');
         binaryData = new Buffer(base64Data, 'base64').toString('binary');
 
-        fs.writeFile("shopImages/" + req.body.shopName + ".jpg", binaryData, "binary", function(err) {
+        fs.writeFile("userCertificates/" + req.body.shopName + ".jpg", binaryData, "binary", function(err) {
             console.log(err); // writes out file without error, but it's not a valid image
         });
     }
 
-    certificateURL = "http://120.24.168.7/shopCertificates/" + req.body.shopName +".jpg";
+    shopCertificateURL = "http://120.24.168.7/shopCertificates/" + req.body.shopName +".jpg";
     data = req.body.shopCertificate;
     if (data) {
         base64Data = data.replace(/^data:image\/jpeg;base64,/, "").replace(/^data:image\/png;base64,/, "");
@@ -341,12 +342,13 @@ app.post('/api/registerShop', limiterPost.middleware({
     Shop.update({
         "shopName": req.body.shopName
     }, {
+        userName: req.body.userName,
         shopName: req.body.shopName,
         shopCategory: req.body.shopCategory,
         shopAddress: req.body.shopAddress,
         shopContactWay: req.body.shopContactWay,
-        shopCertificate:certificateURL,
-        shopImage: imageURL
+        shopCertificate:shopCertificateURL,
+        userCertificate: userCertificateURL
     }, {
         upsert: true
     }, function(err, data) {

@@ -19,6 +19,7 @@
     <ion-content has-header="true" class="padding" ng-hide = "usernameExist === null">
         <button class="button button-full button-positive">已经注册并登录！</button>
         <button class="button button-full button-positive">{{username}}</button>
+        <div ng-hide = "registeredShop.done">
         <label class="item item-input">
             <span class="input-label">公司名</span>
             <input type="text" ng-model="shop.shopName">
@@ -37,16 +38,16 @@
         </label>
         <label class="item item-input">
                 <span class="input-label">营业执照</span>
-                <input ng-change="createCertificate()" type="file" ng-model="image.shopCertificate" base-sixty-four-input>
+                <input ng-change="createShopCertificate()" type="file" ng-model="image.shopCertificate" base-sixty-four-input>
         </label>
         <label class="item item-input">
-                <span class="input-label">公司照片</span>
+                <span class="input-label">法人身份证</span>
                 <form>
-                <input ng-change="createShopImage()" type="file" ng-model="image.shopImage" base-sixty-four-input>
+                <input ng-change="createUserCertificate()" type="file" ng-model="image.userCertificate" base-sixty-four-input>
                 </form>
         </label>
         <button class="button button-full button-positive" ng-click="registerShop()">注册公司</button>
-
+        <div>
         <div>{{shop}}</div>
     </ion-content>
 

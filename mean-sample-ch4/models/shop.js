@@ -1,5 +1,9 @@
 var db = require('../db')
 var Shop = db.model('Shop', {
+    userName: {
+        type: String,
+        required: true
+    },
     shopName: {
         type: String,
         required: true
@@ -20,9 +24,9 @@ var Shop = db.model('Shop', {
         type: String,
         required: false
     },
-    shopImage:{
+    userCertificate:{
         type: String,
-        required: false
+        required: true
     }
 })
 

@@ -291,6 +291,13 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $scope.username = preLoadAccount ? preLoadAccount : localStorageService.get("usernameData")
     $scope.usernameExist = preLoadAccount
+    $scope.registeredShop = {};
+    if($scope.username.shop){
+        $scope.registeredShop.done = true;
+    } else{
+        $scope.registeredShop.done = false;
+    }
+
 
     $scope.register = function (username, password) {
       if (username == null || password == null) {
@@ -344,12 +351,16 @@ angular.module('starter.controllers', ['naif.base64'])
       console.log($scope.product)
     }
 
-    $scope.createCertificate = function () {
-      $scope.shop.shopCertificate = "data:" + $scope.image.shopCertificate.filetype + ";base64," + $scope.image.shopCertificate.base64;
+    $scope.createShopCertificate = function () {
+      if($scope.image.shopCertificate) {
+          $scope.shop.shopCertificate = "data:" + $scope.image.shopCertificate.filetype + ";base64," + $scope.image.shopCertificate.base64;
+      }
     }
 
-    $scope.createShopImage = function () {
-      $scope.shop.shopImage = "data:" + $scope.image.shopImage.filetype + ";base64," + $scope.image.shopImage.base64;
+    $scope.createUserCertificate = function () {
+        if($scope.image.userCertificate) {
+            $scope.shop.userCertificate = "data:" + $scope.image.userCertificate.filetype + ";base64," + $scope.image.userCertificate.base64;
+        }
     }
 
     $scope.sendJson = function () {
@@ -376,8 +387,9 @@ angular.module('starter.controllers', ['naif.base64'])
     }
 
 
-    $scope.sendJsonShop = function () {
-      if ($scope.shop.shopName == null || $scope.shop.shopAddress == null || $scope.shop.shopContactWay == null || $scope.shopCertificate.base64 == null) {
+    $scope.registerShop = function () {
+      $scope.shop.userName = $scope.username;
+      if ($scope.shop.shopName == null || $scope.shop.shopAddress == null || $scope.shop.userCertificate == null|| $scope.shop.shopContactWay == null || $scope.image.shopCertificate.base64 == null) {
         $ionicPopup.alert({
           title: '请输入必须填写的项目！'
         });
@@ -386,7 +398,7 @@ angular.module('starter.controllers', ['naif.base64'])
         $http.post("http://120.24.168.7/api/registerShop", $scope.shop).success(function (data) {
           console.log(data)
           if (data == "OK") {
-
+            $scope.registeredShop.done = true;
             alert("成功推送")
 
           }

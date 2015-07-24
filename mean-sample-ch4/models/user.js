@@ -11,6 +11,9 @@ var Schema = {
     phonenumber: {
         type: String,
     },
+    shopName: {
+        type: String,
+    },
     possession: []
 }
 
