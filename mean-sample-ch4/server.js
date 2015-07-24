@@ -101,9 +101,9 @@ app.get('/', function(req, res) {
 
     // 签名成功
     if (weixin.checkSignature(req)) {
-        res.send(200, req.query.echostr);
+        res.status(200).send(req.query.echostr);
     } else {
-        res.send(200, 'fail');
+        res.status(200).send('fail');
     }
 });
 
@@ -117,65 +117,65 @@ weixin.textMsg(function(msg) {
 
     var resMsg = {};
     if('content' in msg){
-    switch (msg.content) {
-        case "文本":
-            // 返回文本消息
-            resMsg = {
-                fromUserName: msg.toUserName,
-                toUserName: msg.fromUserName,
-                msgType: "text",
-                content: "这是文本回复",
-                funcFlag: 0
-            };
-            break;
+        switch (msg.content) {
+            case "文本":
+                // 返回文本消息
+                resMsg = {
+                    fromUserName: msg.toUserName,
+                    toUserName: msg.fromUserName,
+                    msgType: "text",
+                    content: "这是文本回复",
+                    funcFlag: 0
+                };
+                break;
 
-        case "音乐":
-            // 返回音乐消息
-            resMsg = {
-                fromUserName: msg.toUserName,
-                toUserName: msg.fromUserName,
-                msgType: "music",
-                title: "音乐标题",
-                description: "音乐描述",
-                musicUrl: "音乐url",
-                HQMusicUrl: "高质量音乐url",
-                funcFlag: 0
-            };
-            break;
+            case "音乐":
+                // 返回音乐消息
+                resMsg = {
+                    fromUserName: msg.toUserName,
+                    toUserName: msg.fromUserName,
+                    msgType: "music",
+                    title: "音乐标题",
+                    description: "音乐描述",
+                    musicUrl: "音乐url",
+                    HQMusicUrl: "高质量音乐url",
+                    funcFlag: 0
+                };
+                break;
 
-        case "优惠卷":
-        case "红安优惠卷":
-        case "优惠":
-        case "打折卷":
-        case "打折":
-        case "便宜":
-        case "活动":
-        case "做活动":
-        case "酬宾":
-        case "coupon":
+            case "优惠卷":
+            case "红安优惠卷":
+            case "优惠":
+            case "打折卷":
+            case "打折":
+            case "便宜":
+            case "活动":
+            case "做活动":
+            case "酬宾":
+            case "coupon":
 
-            var articles = [];
+                var articles = [];
 
-            articles[0] = {
-                title: "红安优惠卷",
-                description: "红安优惠卷",
-                picUrl: "http://120.24.168.7/images/icon.jpg",
-                url: "http://120.24.168.7/www/index.html"
-            };
+                articles[0] = {
+                    title: "红安优惠卷",
+                    description: "红安优惠卷",
+                    picUrl: "http://120.24.168.7/images/icon.jpg",
+                    url: "http://120.24.168.7/www/index.html"
+                };
 
 
 
-            // 返回图文消息
-            resMsg = {
-                fromUserName: msg.toUserName,
-                toUserName: msg.fromUserName,
-                msgType: "news",
-                articles: articles,
-                funcFlag: 0
-            }
-    }
+                // 返回图文消息
+                resMsg = {
+                    fromUserName: msg.toUserName,
+                    toUserName: msg.fromUserName,
+                    msgType: "news",
+                    articles: articles,
+                    funcFlag: 0
+                }
+        }
 
-    weixin.sendMsg(resMsg);
+        weixin.sendMsg(resMsg);
     }
 });
 
@@ -314,7 +314,7 @@ app.post('/api/registerShop', limiterPost.middleware({
     headers: false
 }), function(req, res, next) {
     var idNumber;
-    var userCertificateURL = "http://120.24.168.7/userCertificates/" + req.body.userCertificate + ".jpg";
+    var userCertificateURL = "http://120.24.168.7/userCertificates/" + req.body.username + req.body.shopName + ".jpg";
     data = req.body.userCertificate;
     var base64Data, binaryData;
     if (data) {
@@ -323,7 +323,7 @@ app.post('/api/registerShop', limiterPost.middleware({
         base64Data += base64Data.replace('+', ' ');
         binaryData = new Buffer(base64Data, 'base64').toString('binary');
 
-        fs.writeFile("userCertificates/" + req.body.shopName + ".jpg", binaryData, "binary", function(err) {
+        fs.writeFile("userCertificates/" + req.body.username + req.body.shopName + ".jpg", binaryData, "binary", function(err) {
             console.log(err); // writes out file without error, but it's not a valid image
         });
     }
@@ -342,7 +342,7 @@ app.post('/api/registerShop', limiterPost.middleware({
     Shop.update({
         "shopName": req.body.shopName
     }, {
-        userName: req.body.userName,
+        username: req.body.username,
         shopName: req.body.shopName,
         shopCategory: req.body.shopCategory,
         shopAddress: req.body.shopAddress,
@@ -355,9 +355,24 @@ app.post('/api/registerShop', limiterPost.middleware({
         if (err) {
             res.send("error")
         } else {
-            res.send("OK")
+            User.update({
+                "username": req.body.username
+            },  { $set:
+            {
+                "shopName": req.body.shopName
+            }
+            },  function(err, data) {
+                if (err) {
+                    res.send("error")
+                }else{
+                    res.send("OK")
+                }
+            })
         }
     })
+
+
+
 })
 
 
@@ -588,15 +603,15 @@ function findUsername(users, user) {
 }
 
 function validUser(user, password) {
-        return user.password === password
-    }
-    /*
-     app.get('/api/user', limiter.middleware({innerLimit: 10, outerLimit: 60}),function (req, res, next) {
-     var token = req.headers['x-auth']
-     var user = jwt.decode(token, secretKey)
-     res.json(user)
-     })
-     */
+    return user.password === password
+}
+/*
+ app.get('/api/user', limiter.middleware({innerLimit: 10, outerLimit: 60}),function (req, res, next) {
+ var token = req.headers['x-auth']
+ var user = jwt.decode(token, secretKey)
+ res.json(user)
+ })
+ */
 
 app.listen(80, function() {
     console.log('server listening on', 80)

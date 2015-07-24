@@ -17,8 +17,9 @@
     </ion-content>
 
     <ion-content has-header="true" class="padding" ng-hide = "usernameExist === null">
-        <button class="button button-full button-positive">已经注册并登录！</button>
-        <button class="button button-full button-positive">{{username}}</button>
+        <button class="button button-full button-positive">{{username}}已经注册并登录！</button>
+        <button class="button button-full button-positive" ng-click="toggleRegisterShop()">注册店铺↓</button>
+
         <div ng-hide = "registeredShop.done">
         <label class="item item-input">
             <span class="input-label">公司名</span>
@@ -46,7 +47,7 @@
                 <input ng-change="createUserCertificate()" type="file" ng-model="image.userCertificate" base-sixty-four-input>
                 </form>
         </label>
-        <button class="button button-full button-positive" ng-click="registerShop()">注册公司</button>
+        <button class="button button-full button-positive" ng-click="registerShop()">确认注册</button>
         <div>
         <div>{{shop}}</div>
     </ion-content>

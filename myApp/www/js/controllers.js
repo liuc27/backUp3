@@ -298,6 +298,9 @@ angular.module('starter.controllers', ['naif.base64'])
         $scope.registeredShop.done = false;
     }
 
+      $scope.toggleRegisterShop = function(){
+        $scope.registeredShop.done = !($scope.registeredShop.done);
+      }
 
     $scope.register = function (username, password) {
       if (username == null || password == null) {
@@ -388,7 +391,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
 
     $scope.registerShop = function () {
-      $scope.shop.userName = $scope.username;
+      $scope.shop.username = $scope.username;
       if ($scope.shop.shopName == null || $scope.shop.shopAddress == null || $scope.shop.userCertificate == null|| $scope.shop.shopContactWay == null || $scope.image.shopCertificate.base64 == null) {
         $ionicPopup.alert({
           title: '请输入必须填写的项目！'

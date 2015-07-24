@@ -1,6 +1,6 @@
 var db = require('../db')
 var Shop = db.model('Shop', {
-    userName: {
+    username: {
         type: String,
         required: true
     },
