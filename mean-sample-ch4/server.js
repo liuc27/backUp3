@@ -116,65 +116,65 @@ weixin.textMsg(function(msg) {
     console.log(JSON.stringify(msg));
 
     var resMsg = {};
-    if('content' in msg){
-        switch (msg.content) {
-            case "文本":
-                // 返回文本消息
-                resMsg = {
-                    fromUserName: msg.toUserName,
-                    toUserName: msg.fromUserName,
-                    msgType: "text",
-                    content: "这是文本回复",
-                    funcFlag: 0
-                };
-                break;
+    if(msg != "undefined"){
+        if(msg.content != "undefined") {
+            switch (msg.content) {
+                case "文本":
+                    // 返回文本消息
+                    resMsg = {
+                        fromUserName: msg.toUserName,
+                        toUserName: msg.fromUserName,
+                        msgType: "text",
+                        content: "这是文本回复",
+                        funcFlag: 0
+                    };
+                    break;
 
-            case "音乐":
-                // 返回音乐消息
-                resMsg = {
-                    fromUserName: msg.toUserName,
-                    toUserName: msg.fromUserName,
-                    msgType: "music",
-                    title: "音乐标题",
-                    description: "音乐描述",
-                    musicUrl: "音乐url",
-                    HQMusicUrl: "高质量音乐url",
-                    funcFlag: 0
-                };
-                break;
+                case "音乐":
+                    // 返回音乐消息
+                    resMsg = {
+                        fromUserName: msg.toUserName,
+                        toUserName: msg.fromUserName,
+                        msgType: "music",
+                        title: "音乐标题",
+                        description: "音乐描述",
+                        musicUrl: "音乐url",
+                        HQMusicUrl: "高质量音乐url",
+                        funcFlag: 0
+                    };
+                    break;
 
-            case "优惠卷":
-            case "红安优惠卷":
-            case "优惠":
-            case "打折卷":
-            case "打折":
-            case "便宜":
-            case "活动":
-            case "做活动":
-            case "酬宾":
-            case "coupon":
+                case "优惠卷":
+                case "红安优惠卷":
+                case "优惠":
+                case "打折卷":
+                case "打折":
+                case "便宜":
+                case "活动":
+                case "做活动":
+                case "酬宾":
+                case "coupon":
 
-                var articles = [];
+                    var articles = [];
 
-                articles[0] = {
-                    title: "红安优惠卷",
-                    description: "红安优惠卷",
-                    picUrl: "http://120.24.168.7/images/icon.jpg",
-                    url: "http://120.24.168.7/www/index.html"
-                };
+                    articles[0] = {
+                        title: "红安优惠卷",
+                        description: "红安优惠卷",
+                        picUrl: "http://120.24.168.7/images/icon.jpg",
+                        url: "http://120.24.168.7/www/index.html"
+                    };
 
 
-
-                // 返回图文消息
-                resMsg = {
-                    fromUserName: msg.toUserName,
-                    toUserName: msg.fromUserName,
-                    msgType: "news",
-                    articles: articles,
-                    funcFlag: 0
-                }
+                    // 返回图文消息
+                    resMsg = {
+                        fromUserName: msg.toUserName,
+                        toUserName: msg.fromUserName,
+                        msgType: "news",
+                        articles: articles,
+                        funcFlag: 0
+                    }
+            }
         }
-
         weixin.sendMsg(resMsg);
     }
 });
@@ -357,8 +357,7 @@ app.post('/api/registerShop', limiterPost.middleware({
         } else {
             User.update({
                 "username": req.body.username
-            },  { $set:
-            {
+            },  { $push: {
                 "shopName": req.body.shopName
             }
             },  function(err, data) {
@@ -581,7 +580,7 @@ app.post('/api/register', limiterRegister.middleware({
             var user = new User({
                 username: req.body.username,
                 password: req.body.password,
-                phonenumber: req.body.phonenumber
+                phoneNumber: req.body.phoneNumber
             })
             user.save(function(err, data) {
                 if (err) {
@@ -595,6 +594,25 @@ app.post('/api/register', limiterRegister.middleware({
 
 })
 
+app.post('/api/exist', limiterRegister.middleware({
+    innerLimit: 10,
+    outerLimit: 60,
+    headers: false
+}), function(req, res, next) {
+    var name = req.body.username
+    User.find({"username":name}, function(err, data) {
+        if (data.length>1) {
+            console.log("data is"+ data)
+            console.log( data.count)
+
+            res.send("already registered")
+        }else {
+            res.send("not registered")
+
+        }
+    })
+
+})
 
 function findUsername(users, user) {
     return _.find(users, {

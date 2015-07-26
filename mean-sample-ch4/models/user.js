@@ -8,13 +8,11 @@ var Schema = {
         type: String,
         required: true
     },
-    phonenumber: {
-        type: String,
+    phoneNumber: {
+        type: String
     },
-    shopName: {
-        type: String,
-    },
-    possession: []
+    shopName: [String],
+    possession: [String]
 }
 
 var user = db.model('user', Schema)

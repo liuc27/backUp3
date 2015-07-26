@@ -289,14 +289,19 @@ angular.module('starter.controllers', ['naif.base64'])
     $scope.shop = {};
     $scope.image = {};
 
-    $scope.username = preLoadAccount ? preLoadAccount : localStorageService.get("usernameData")
-    $scope.usernameExist = preLoadAccount
+    $scope.username = preLoadAccount
     $scope.registeredShop = {};
-    if($scope.username.shop){
-        $scope.registeredShop.done = true;
-    } else{
-        $scope.registeredShop.done = false;
-    }
+      if($scope.username) {
+        $scope.usernameExist = true
+
+        if ($scope.username.shop) {
+          $scope.registeredShop.done = true;
+        } else {
+          $scope.registeredShop.done = false;
+        }
+      }else{
+        $scope.usernameExist = false
+      }
 
       $scope.toggleRegisterShop = function(){
         $scope.registeredShop.done = !($scope.registeredShop.done);

@@ -1,6 +1,6 @@
 
 <ion-view title="<b>帐号">
-    <ion-content has-header="true" class="padding" ng-show = "usernameExist === null">
+    <ion-content has-header="true" class="padding" ng-show = "usernameExist == false">
         <div class="list">
             <center><button class="button ">用户注册</button></center>
 
@@ -16,7 +16,7 @@
         <button class="button button-full button-positive" ng-click="register(username,password)">注册</button>
     </ion-content>
 
-    <ion-content has-header="true" class="padding" ng-hide = "usernameExist === null">
+    <ion-content has-header="true" class="padding" ng-hide = "usernameExist == false">
         <button class="button button-full button-positive">{{username}}已经注册并登录！</button>
         <button class="button button-full button-positive" ng-click="toggleRegisterShop()">注册店铺↓</button>
 
