@@ -15,10 +15,10 @@
     "shelljs": "^0.4.0"
   },
   "cordovaPlugins": [
-    "org.apache.cordova.inappbrowser",
     "cordova-plugin-whitelist",
     "cordova-plugin-keyboard",
-    "cordova-plugin-statusbar"
+    "cordova-plugin-statusbar",
+    "org.apache.cordova.inappbrowser"
   ],
   "cordovaPlatforms": [
     "ios"

@@ -5,6 +5,7 @@
     "express": "^5.0.0-alpha.2",
     "express-rate-limiter": "*",
     "express-useragent": "^0.1.9",
+    "ipware": "0.0.5",
     "jwt-simple": "^0.3.0",
     "lodash": "^3.10.0",
     "mongoose": "^4.0.7",

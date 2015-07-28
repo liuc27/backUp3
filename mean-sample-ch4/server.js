@@ -49,6 +49,8 @@ var fs = require('fs')
 var secretKey = 'supersecretkey'
 
 var logger = require('morgan')
+var get_ip = require('ipware')().get_ip;
+
 app.use(bodyParser.json({
     limit: '600kb'
 }))
@@ -56,7 +58,12 @@ app.use(logger('dev'))
 app.use('/images/', express.static(__dirname + '/images/'))
 app.use('/www/', express.static(__dirname + '/www/'))
 app.use('/shopImages/', express.static(__dirname + '/shopImages/'))
-
+app.use(function(req, res, next) {
+    var ip_info = get_ip(req);
+    console.log(ip_info);
+    // { clientIp: '127.0.0.1', clientIpRoutable: false }
+    next();
+});
 
 app.get('/api/posts', limiterGet.middleware({
     innerLimit: 10,
@@ -116,8 +123,8 @@ weixin.textMsg(function(msg) {
     console.log(JSON.stringify(msg));
 
     var resMsg = {};
-    if(msg != "undefined"){
-        if(msg.content != "undefined") {
+    if(typeof msg != "undefined"){
+        if(msg.indexOf("content")>0) {
             switch (msg.content) {
                 case "文本":
                     // 返回文本消息
