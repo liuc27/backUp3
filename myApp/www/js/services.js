@@ -8,28 +8,7 @@ angular.module('starter.services', [])
     var checked = new Array();
     var username;
     var possession = [];
-    username = localStorageService.get("usernameData")
-        //localStorageService.clearAll();
 
-    console.log(localStorageService.get("usernameData"))
-
-    if (username === null) {
-        $ionicPopup.alert({
-            title: '请注册帐号'
-        });
-        setTimeout(function() {
-            $state.go('tab.register');
-        }, 100)
-    } else {
-        $ionicPopup.alert({
-            title: '已登录帐号: ' + username
-        });
-        console.log(username)
-        setTimeout(function() {
-            $state.go('tab.coupon');
-        }, 100)
-
-    }
 
     var menuList = [{
         id: 0,
@@ -184,7 +163,10 @@ angular.module('starter.services', [])
             })
         },
         autoLoginAccount: function() {
+            username = localStorageService.get("usernameData")
+
             return username;
+
         }
     }
 });

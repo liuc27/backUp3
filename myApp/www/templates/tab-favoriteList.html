@@ -7,7 +7,7 @@
     -->
     <ion-content class="padding">
         <div class="product bordLine list  borderRadius" ng-repeat="item in items | possessed : possession | reverse">
-            <a href="#/tab/favoriteList/{{item.id}}" class=" item item-thumbnail-left borderRadius5">
+            <a href="#/tab/favoriteList/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
                 <img class="product_image" ng-src="{{ item.image }}">
                 <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
                 <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>

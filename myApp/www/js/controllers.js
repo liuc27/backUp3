@@ -204,7 +204,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
     } else {
       $ionicPopup.alert({
-        title: '请先注册'
+        title: '请先注册或登陆'
       })
       $scope.disableClick.value = true
     }
@@ -252,7 +252,7 @@ angular.module('starter.controllers', ['naif.base64'])
       }
     } else {
       $ionicPopup.alert({
-        title: '请先注册'
+        title: '请先注册或登陆'
       })
       $scope.disableClick.value = false
 
@@ -290,6 +290,23 @@ angular.module('starter.controllers', ['naif.base64'])
     $scope.image = {};
 
     $scope.username = preLoadAccount
+      if (typeof $scope.username === "undefined" || $scope.username === null) {
+        $ionicPopup.alert({
+          title: '请注册或登陆'
+        });
+        setTimeout(function() {
+          $state.go('tab.register');
+        }, 150)
+      } else {
+        $ionicPopup.alert({
+          title: '已登录帐号: ' + $scope.username
+        });
+        console.log($scope.username)
+        setTimeout(function() {
+          $state.go('tab.coupon');
+        }, 150)
+
+      }
     $scope.registeredShop = {};
       if($scope.username) {
         $scope.usernameExist = true
@@ -301,6 +318,15 @@ angular.module('starter.controllers', ['naif.base64'])
         }
       }else{
         $scope.usernameExist = false
+      }
+
+      $scope.logout = function(){
+        localStorageService.clearAll();
+        console.log($scope.username)
+
+        setTimeout(function() {
+          $state.go('tab.register');
+        }, 300)
       }
 
       $scope.toggleRegisterShop = function(){
@@ -321,6 +347,14 @@ angular.module('starter.controllers', ['naif.base64'])
             $ionicPopup.alert({
               title: '用户名已经注册，请换用户名！'
             });
+          } else if(data === "passed") {
+            $rootScope.username = username
+            $scope.username = username
+            $scope.usernameExist = true
+            $ionicPopup.alert({
+              title: '成功登陆！'
+            });
+
           } else {
             $rootScope.username = username
             $scope.username = username

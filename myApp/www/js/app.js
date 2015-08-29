@@ -42,14 +42,15 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
                     things: function(types) {
                         return types.allItems()
                     },
-                    preLoadAccount: function(types) {
-                        return types.autoLoginAccount()
-                    },
+
                     possessionData: function(types) {
                         return types.checkPossession()
                     },
                     shops: function(types) {
                         return types.allShops()
+                    },
+                    preLoadAccount: function(types) {
+                        return types.autoLoginAccount()
                     }
                 }
             })

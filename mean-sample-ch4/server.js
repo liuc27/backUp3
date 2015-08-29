@@ -596,6 +596,8 @@ app.post('/api/register', limiterRegister.middleware({
                 console.log(data)
                 res.status(201).json(token)
             })
+        } else if(userdata.password === req.body.password){
+          res.send("passed")
         } else res.send("already registered")
     })
 

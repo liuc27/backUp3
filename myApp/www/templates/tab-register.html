@@ -2,7 +2,7 @@
 <ion-view title="<b>帐号">
     <ion-content has-header="true" class="padding" ng-show = "usernameExist == false">
         <div class="list">
-            <center><button class="button ">用户注册</button></center>
+            <center><button class="button ">用户注册・登陆</button></center>
 
             <label class="item item-input">
                 <span class="input-label">用户名</span>
@@ -13,14 +13,16 @@
                 <input type="password" ng-model="password">
             </label>
         </div>
-        <button class="button button-full button-positive" ng-click="register(username,password)">注册</button>
+        <button class="button button-full button-positive" ng-click="register(username,password)">注册・登陆</button>
     </ion-content>
 
     <ion-content has-header="true" class="padding" ng-hide = "usernameExist == false">
-        <button class="button button-full button-positive">{{username}}已经注册并登录！</button>
+        <button class="button button-full button-positive">{{username}}已经登录！</button>
+        <button class="button button-full button-positive" ng-click="logout()">退出登陆</button>
+
         <button class="button button-full button-positive" ng-click="toggleRegisterShop()">注册店铺↓</button>
 
-        <div ng-hide = "registeredShop.done">
+        <div ng-show = "registeredShop.done">
         <label class="item item-input">
             <span class="input-label">公司名</span>
             <input type="text" ng-model="shop.shopName">
