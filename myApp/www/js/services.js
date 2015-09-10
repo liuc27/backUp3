@@ -154,7 +154,11 @@ angular.module('starter.services', [])
                 "username": localStorageService.get("usernameData")
             }).success(function(data) {
                 console.log(data);
-                if (data == "not exist") {
+                console.log(localStorageService.get("usernameData"));
+
+                console.log(data.length);
+
+                if (data.length == 0) {
                     localStorageService.remove("usernameData");
                     username = null;
                 } else {

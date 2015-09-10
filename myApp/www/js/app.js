@@ -37,7 +37,6 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
                 url: "/tab",
                 abstract: true,
                 templateUrl: "templates/tabs.html",
-                controller: 'MenuCtrl',
                 resolve: {
                     things: function(types) {
                         return types.allItems()
@@ -55,42 +54,12 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
                 }
             })
 
-            .state('tab.account', {
-                url: '/account',
-                views: {
-                    'tab-account': {
-                        templateUrl: 'templates/tab-account.html',
-                        controller: 'sss'
-                    }
-                }
-            })
-
             .state('tab.register', {
                 url: '/register',
                 views: {
                     'tab-account': {
                         templateUrl: 'templates/tab-register.html',
                         controller: 'registerCtrl'
-                    }
-                }
-            })
-
-            .state('tab.login', {
-                url: '/login',
-                views: {
-                    'tab-account': {
-                        templateUrl: 'templates/tab-login.html',
-                        controller: 'sss'
-                    }
-                }
-            })
-
-            .state('tab.setting', {
-                url: '/setting',
-                views: {
-                    'tab-account': {
-                        templateUrl: 'templates/tab-setting.html',
-                        controller: 'sss'
                     }
                 }
             })
@@ -165,6 +134,6 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
             });
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/coupon');
+        $urlRouterProvider.otherwise('/tab/register');
 
     });

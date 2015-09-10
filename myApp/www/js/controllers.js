@@ -277,13 +277,9 @@ angular.module('starter.controllers', ['naif.base64'])
     //localStorageService.clearAll()
     $scope.items = things.data;
     $scope.possession = possessionData.data;
+    
   })
-  .controller('AccountCtrl', function ($scope, types, $http, $ionicSideMenuDelegate, localStorageService, $state, $q) {
 
-  })
-  .controller('MenuCtrl', function ($scope, types, $http, $ionicSideMenuDelegate, localStorageService, $state, $q) {
-
-  })
   .controller('registerCtrl', function ($scope, $rootScope, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, preLoadAccount) {
     $scope.product = {};
     $scope.shop = {};
@@ -354,6 +350,25 @@ angular.module('starter.controllers', ['naif.base64'])
             $ionicPopup.alert({
               title: '成功登陆！'
             });
+            var promise = $q(function (resolve, reject) {
+              setTimeout(function () {
+                if (localStorageService.set("usernameData", username)) {
+                  resolve('开始抢折扣卷吧!');
+                } else {
+                  reject('出错咯,开始抢折扣卷吧!');
+                }
+              }, 10);
+            });
+
+            promise.then(function (greeting) {
+              //console.log(localStorageService.get("usernameData"));
+              //alert('Success: ' + greeting);
+              $state.go('tab.coupon');
+            }, function (reason) {
+              //alert('Failed: ' + reason);
+              $state.go('tab.coupon');
+            });
+
 
           } else {
             $rootScope.username = username
