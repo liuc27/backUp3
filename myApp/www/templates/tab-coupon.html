@@ -1,7 +1,16 @@
-<ion-view title="<b>优惠卷">
-    <ion-nav-buttons side="left">
-    </ion-nav-buttons>
+<ion-view hide-nav-bar="true">
+
     <ion-content class="padding">
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" placeholder="Search">
+            </label>
+            <button class="button button-clear">
+                Cancel
+            </button>
+        </div>
+
         <ion-refresher pulling-text="刷新中" on-refresh="doRefresh()">
         </ion-refresher>
 

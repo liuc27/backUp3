@@ -277,7 +277,7 @@ angular.module('starter.controllers', ['naif.base64'])
     //localStorageService.clearAll()
     $scope.items = things.data;
     $scope.possession = possessionData.data;
-    
+
   })
 
   .controller('registerCtrl', function ($scope, $rootScope, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, preLoadAccount) {

@@ -41,7 +41,6 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
                     things: function(types) {
                         return types.allItems()
                     },
-
                     possessionData: function(types) {
                         return types.checkPossession()
                     },
@@ -64,6 +63,26 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
                 }
             })
 
+            .state('tab.favoriteList', {
+                url: '/favoriteList',
+                views: {
+                    'tab-account': {
+                        templateUrl: 'templates/tab-favoriteList.html',
+                        controller: 'favoriteListCtrl'
+
+                    }
+                }
+            })
+
+            .state('tab.favoriteListCouponDetail', {
+                url: '/favoriteList/:couponId',
+                views: {
+                    'tab-account': {
+                        templateUrl: 'templates/tab-coupon-detail.html',
+                        controller: 'CouponDetailCtrl'
+                    }
+                }
+            })
             .state('tab.coupon', {
                 url: '/coupon',
                 views: {
@@ -103,35 +122,16 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
                     }
                 }
             })
-          .state('tab.tab-shop-coupon-detail', {
-          url: '/shop-detail-item/:couponId',
-          views: {
-            'tab-types': {
-              templateUrl: 'templates/tab-coupon-detail.html',
-              controller: 'CouponDetailCtrl'
-            }
-          }
-        })
-            .state('tab.favoriteList', {
-                url: '/favoriteList',
+            .state('tab.tab-shop-coupon-detail', {
+                url: '/shop-detail-item/:couponId',
                 views: {
-                    'tab-favoriteList': {
-                        templateUrl: 'templates/tab-favoriteList.html',
-                        controller: 'favoriteListCtrl'
-
-                    }
-                }
-            })
-
-            .state('tab.favoriteListCouponDetail', {
-                url: '/favoriteList/:couponId',
-                views: {
-                    'tab-favoriteList': {
+                    'tab-types': {
                         templateUrl: 'templates/tab-coupon-detail.html',
                         controller: 'CouponDetailCtrl'
                     }
                 }
             });
+
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tab/register');

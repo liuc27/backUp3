@@ -19,6 +19,9 @@
     <ion-content has-header="true" class="padding" ng-hide = "usernameExist == false">
         <button class="button button-full button-positive">{{username}}已经登录！</button>
         <button class="button button-full button-positive" ng-click="logout()">退出登陆</button>
+        <a href="#/tab/favoriteList">
+             <button class="button button-full button-positive">我的收藏</button>
+        </a>
 
         <button class="button button-full button-positive" ng-click="toggleRegisterShop()">注册店铺↓</button>
 
