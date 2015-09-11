@@ -20,6 +20,9 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
             }
         });
     })
+    .config(function($ionicConfigProvider) {
+        $ionicConfigProvider.tabs.position('bottom');
+    })
     .config(function (localStorageServiceProvider) {
         localStorageServiceProvider
             .setPrefix('myApp')
