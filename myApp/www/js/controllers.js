@@ -42,23 +42,54 @@ angular.module('starter.controllers', ['naif.base64'])
 .controller('shopsCtrl', function ($scope, types, shops, $ionicPopover) {
   $scope.typeList = types.typeList();
   $scope.orderList = types.getOrderList();
-  $scope.chosenItem = {
+  $scope.locationList = types.getLocationList();
+
+  $scope.chosenCategory = {
+    "value": "all"
+  }
+  $scope.chosenLocation = {
+    "value": "all"
+  }
+  $scope.chosenOrder = {
     "value": "all"
   }
   $scope.shops = shops.data
-  $scope.choosePopoverItem = function (type) {
-    $scope.chosenItem.value = type.type;
+  $scope.cate = {"value":"全部"};
+  $scope.location = {"value":"全部"};
+  $scope.order = {"value":"全部"};
+
+  $scope.chooseCategoryItem = function (type) {
+    $scope.chosenCategory.value = type.type;
     console.log(type.type)
     $scope.popoverCategory.hide();
+    $scope.cate.value = type.name
   }
 
+  $scope.chooseLocationItem = function (type) {
+    $scope.chosenLocation.value = type.type;
+    console.log(type.type)
+    $scope.popoverLocation.hide();
+    $scope.location.value = type.name
+  }
+
+  $scope.chooseOrderItem = function (type) {
+    $scope.chosenOrder.value = type.type;
+    console.log(type)
+    console.log(type.type)
+    $scope.popoverOrder.hide();
+    $scope.order.value = type.name
+  }
   // .fromTemplate() method
   $ionicPopover.fromTemplateUrl('templates/popover/popoverCategory.html', {
     scope: $scope
   }).then(function (popover) {
     $scope.popoverCategory = popover;
   });
-
+  $ionicPopover.fromTemplateUrl('templates/popover/popoverLocation.html', {
+    scope: $scope
+  }).then(function (popover) {
+    $scope.popoverLocation = popover;
+  });
   $ionicPopover.fromTemplateUrl('templates/popover/popoverOrder.html', {
     scope: $scope
   }).then(function (popover) {
@@ -69,9 +100,13 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.openPopoverCategory = function ($event) {
     $scope.popoverCategory.show($event);
   };
+  $scope.openPopoverLocation = function ($event) {
+    $scope.popoverLocation.show($event);
+  };
   $scope.openPopoverOrder = function ($event) {
     $scope.popoverOrder.show($event);
   };
+
   $scope.closePopoverCategory = function () {
     $scope.popoverCategory.hide();
   };

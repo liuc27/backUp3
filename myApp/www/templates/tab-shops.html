@@ -7,15 +7,15 @@
     -->
   <ion-content >
       <div class="button-bar">
-        <a class="button buttonSpace button-block button-calm " ng-click="openPopoverCategory($event)">cate<div style = "float: right" class="ion-chevron-down"></div></a>
-        <a class="button buttonSpace button-block button-calm" ng-click="openPopoverCategory($event)">location<div style = "float: right" class="ion-chevron-down"></div></a>
-        <a class="button buttonSpace button-block button-calm" ng-click="openPopoverOrder($event)">order<div style = "float: right" class="ion-chevron-down"></div></a>
+        <a class="button buttonSpace button-block button-calm " ng-click="openPopoverCategory($event)">{{cate.value}}<div style = "float: right" class="ion-chevron-down"></div></a>
+        <a class="button buttonSpace button-block button-calm" ng-click="openPopoverLocation($event)">{{location.value}}<div style = "float: right" class="ion-chevron-down"></div></a>
+        <a class="button buttonSpace button-block button-calm" ng-click="openPopoverOrder($event)">{{order.value}}<div style = "float: right" class="ion-chevron-down"></div></a>
       </div>
 
     <ion-refresher pulling-text="刷新中" on-refresh="doRefresh()">
     </ion-refresher>
 
-  <div class=" bordLine" collection-repeat="shop in shops | shopFilter : chosenItem.value | orderBy :'-id'">
+  <div class=" bordLine" collection-repeat="shop in shops | shopFilter : chosenCategory.value | shopFilter : chosenOrder.value| shopFilter : chosenLocation.value| orderBy :'-id'">
     <a href="#/tab/shop-detail/{{shop._id}}" class=" item item-thumbnail-left borderRadius5">
       <img class="product_image" ng-src="{{ shop.shopImage }}">
       <div lang="zh-cn" class="category">{{shop.shopCategory}}</div>

@@ -59,24 +59,73 @@ angular.module('starter.services', [])
         icon: 'ion-speakerphone',
         color: 'lightgreen',
         type: 'job'
+    }, {
+        id: 8,
+        name: '全部',
+        icon: 'ion-speakerphone',
+        color: 'lightgreen',
+        type: 'all'
     }];
 
     var orderList = [{
         id: 0,
-        name: '评分',
-        color: 'red',
-        type: 'rate'
+        name: '距离',
+        color: '#5383FF',
+        type: 'distance'
     }, {
         id: 1,
+        name: '评价',
+        color: '#5383FF',
+        type: 'rating'
+
+    }, {
+        id: 2,
         name: '评价数',
         color: '#5383FF',
         type: 'ratingNumber'
 
     }, {
-        id: 2,
+        id: 3,
         name: '销量',
         color: '#5383FF',
-        type: 'shopping'
+        type: 'salesNumber'
+    }, {
+        id: 4,
+        name: '全部',
+        icon: 'ion-speakerphone',
+        color: 'lightgreen',
+        type: 'all'
+    }];
+
+
+    var locationList = [{
+        id: 0,
+        name: '湖北',
+        color: '#5383FF',
+        type: 'hubei'
+    }, {
+        id: 1,
+        name: '上海',
+        color: '#5383FF',
+        type: 'shanghai'
+
+    }, {
+        id: 2,
+        name: '北京',
+        color: '#5383FF',
+        type: 'beijing'
+
+    }, {
+        id: 3,
+        name: '香港',
+        color: '#5383FF',
+        type: 'xianggang'
+    }, {
+        id: 4,
+        name: '全部',
+        icon: 'ion-speakerphone',
+        color: 'lightgreen',
+        type: 'all'
     }];
 
     return {
@@ -88,6 +137,9 @@ angular.module('starter.services', [])
         },
         getOrderList: function(){
             return orderList;
+        },
+        getLocationList: function(){
+            return locationList;
         },
         get: function(typeId) {
             return menu[typeId];

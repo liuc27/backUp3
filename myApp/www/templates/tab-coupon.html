@@ -4,13 +4,13 @@
         <div class="bar bar-header item-input-inset">
             <label class="item-input-wrapper">
                 <i class="icon ion-ios-search placeholder-icon"></i>
-                <input type="search" placeholder="Search">
+                <input type="search" placeholder="请输入关键词" ng-model="searchbar.value">
             </label>
-            <button class="button button-clear">
-                Cancel
+            <button class="button button-clear" ng-click="searchbar.value = null" >
+                取消
             </button>
-        </div>
 
+        </div>
         <ion-refresher pulling-text="刷新中" on-refresh="doRefresh()">
         </ion-refresher>
 
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class=" bordLine  " collection-repeat="item in items | typeFilter : chosenItem.value | orderBy :'-id'">
+        <div class=" bordLine  " collection-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
             <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
                 <img class="product_image" ng-src="{{ item.image }}">
                 <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>

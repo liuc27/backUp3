@@ -13,6 +13,9 @@ body {
     overflow: scroll;
 }
 
+.pane, .view{
+    background-color: #FAEDF0;
+}
 .bordLine {
 
     border-style: solid;
