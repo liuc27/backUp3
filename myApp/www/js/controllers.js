@@ -199,7 +199,7 @@ angular.module('starter.controllers', ['naif.base64'])
   //$scope.comment.push({"text":theNewCoupon.productName})
   $scope.changeShowComment = function () {
     $scope.showComment = !$scope.showComment
-    $ionicScrollDelegate.scrollBy(0, 100);
+    //$ionicScrollDelegate.scrollBy(0, 100);
   }
   $scope.submitComment = function () {
     var couponName = $scope.coupon.name

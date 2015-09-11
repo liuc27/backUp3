@@ -59,12 +59,6 @@ angular.module('starter.services', [])
         icon: 'ion-speakerphone',
         color: 'lightgreen',
         type: 'job'
-    }, {
-        id: 8,
-        name: '全部',
-        icon: 'ion-speakerphone',
-        color: 'lightgreen',
-        type: 'all'
     }];
 
     var orderList = [{
