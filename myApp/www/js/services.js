@@ -140,7 +140,7 @@ angular.module('starter.services', [])
         },
         fetch: function(couponId) {
             var x = [];
-            angular.forEach(items, function(value) {
+            angular.forEach($rootScope.items, function(value) {
                 if (value._id == couponId) {
                     x = value;
                 }
@@ -182,6 +182,7 @@ angular.module('starter.services', [])
                 return data
             })
         },
+
         favoriteList: function() {
             return checked;
         },

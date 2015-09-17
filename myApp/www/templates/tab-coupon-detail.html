@@ -21,20 +21,19 @@
       <div class="item item-body">
         <img class="full-image" src="{{coupon.image}}">
         <p font>
-
+          <div  class="subdued font" style = "font-size: 4.8vw">{{commentLength}}评价　{{averageRate.value}}分</div>
           <div>优惠详情:{{coupon.productDetail}}</div>
           <div>登录店家:{{coupon.shopName}}</div>
 
           </p>
         <p>
           <!--<a href="#" class="subdued font">1 顶</a>-->
-          <a href="#" class="subdued font">评价数:{{commentLength}}</a>
-            <a href="#" class="subdued font">平均评分:{{averageRate}}</a>
+
 
         </p>
       </div>
       <div class="item tabs tabs-secondary tabs-icon-left" ng-click="changeShowComment()">
-         <a class="tab-item" style = "font-size: 18px" >
+         <a class="tab-item" style = "font-size: 4.0vw" >
            <i class="icon ion-chatbox"></i>
            评价
          </a>

@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['naif.base64'])
 .controller('CouponCtrl', function ($scope, $http, $rootScope, localStorageService, types, things, possessionData) {
 
   console.log(things)
-  $scope.items = things.data
+  $rootScope.items = things.data
   $scope.chosenItem = {
     "value": "all"
   }
@@ -29,8 +29,8 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.doRefresh = function () {
     $http.get("http://120.24.168.7/api/posts").success(function (data) {
       $rootScope.items = data
-      $scope.items = data
-      things.data = data
+      //$scope.items = data
+      //things.data = data
 
     }).finally(function () {
       // Stop the ion-refresher from spinning
@@ -124,16 +124,36 @@ angular.module('starter.controllers', ['naif.base64'])
   });
 })
 
-.controller('ShopDetailCtrl', function ($scope, $http, $rootScope, $stateParams, types, shops, things, possessionData) {
+.controller('ShopDetailCtrl', function ($scope, $http, $rootScope, $stateParams ,types, shops, things, possessionData) {
   //$scope.shops = shops.data;
   $scope.shop = types.fetchShop($stateParams.shopId);
-  var shopItems = [];
-  angular.forEach(things.data, function (itemValue) {
+  console.log($stateParams.shopId);
+  $scope.shopRate = {
+    value: 3
+  };
+  $scope.shopAverageRate = {
+    value: 0
+  };
+  $scope.shopProducts = [];
+  $scope.shopCommentLength = 0;
+  $scope.shopSumRate = 0;
+
+  angular.forEach($rootScope.items, function (itemValue) {
     if (itemValue.shopName == $scope.shop.shopName) {
-      shopItems.push(itemValue)
+      $scope.shopProducts.push(itemValue);
+      $scope.shopCommentLength += types.getCommentLength(itemValue.comment);
+      angular.forEach(itemValue.comment,function(value){
+          $scope.shopSumRate += value.rate.value
+      })
+
     }
   })
-  $scope.items = shopItems;
+  $scope.shopAverageRate.value = ( $scope.shopSumRate / $scope.shopCommentLength).toFixed(2) != "NaN" ? ($scope.shopSumRate / $scope.shopCommentLength).toFixed(2) : "暂无";
+
+
+
+
+
   $scope.find = function (item) {
     var exist = false;
     angular.forEach(possessionData.data, function (value) {
@@ -143,6 +163,7 @@ angular.module('starter.controllers', ['naif.base64'])
     });
     return exist;
   }
+
   $scope.doRefresh = function () {
     $http.get("http://120.24.168.7/api/shops").success(function (data) {
       $rootScope.shops = data
@@ -156,20 +177,24 @@ angular.module('starter.controllers', ['naif.base64'])
 })
 
 
-.controller('CouponDetailCtrl', function ($scope, $stateParams, localStorageService, $ionicPopup, $ionicScrollDelegate, types, $http, things, preLoadAccount, possessionData) {
+.controller('CouponDetailCtrl', function ($scope, $stateParams,$rootScope, localStorageService, $ionicPopup, $ionicScrollDelegate, types, $http, things, preLoadAccount, possessionData) {
 
-  $scope.items = things.data;
+  //$scope.items = $rootScope.items;
+  console.log($rootScope.items);
   $scope.possession = possessionData.date
 
   $scope.username = preLoadAccount ? preLoadAccount : $scope.username
   $scope.rate = {
     value: 3
   };
+  $scope.averageRate = {
+    value: 0
+  };
   $scope.max = 5;
   console.log("stateParams are");
   console.log($stateParams);
   console.log(possessionData.data)
-  $scope.coupon = types.fetch($stateParams.couponId);
+  $scope.coupon = types.fetch($stateParams.couponId)
   console.log($scope.coupon)
   $scope.favorites = "button icon-left ion-plus button-positive";
   $scope.favoritesText = "点击领取";
@@ -191,7 +216,7 @@ angular.module('starter.controllers', ['naif.base64'])
       }
     }
   })
-  $scope.averageRate = (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2) : "暂无";
+  $scope.averageRate.value = (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2) : "暂无";
 
   $scope.showComment = false;
   console.log($scope.comment)
@@ -218,7 +243,7 @@ angular.module('starter.controllers', ['naif.base64'])
         $scope.showComment = !$scope.showComment
 
         $scope.comment = data
-        $scope.averageRate = ((sumRate + $scope.rate.value) / (lengthRate + 1)).toFixed(2);
+        $scope.averageRate.value = ((sumRate + $scope.rate.value) / (lengthRate + 1)).toFixed(2);
 
         $scope.commentLength++;
         things.data[$stateParams.couponId].comment = data
@@ -308,9 +333,9 @@ angular.module('starter.controllers', ['naif.base64'])
     }
   };
 })
-  .controller('favoriteListCtrl', function ($scope, $stateParams, localStorageService, types, things, possessionData) {
+  .controller('favoriteListCtrl', function ($scope,$rootScope, $stateParams, localStorageService, types, things, possessionData) {
     //localStorageService.clearAll()
-    $scope.items = things.data;
+    //$rootScope.items = things.data;
     $scope.possession = possessionData.data;
 
   })

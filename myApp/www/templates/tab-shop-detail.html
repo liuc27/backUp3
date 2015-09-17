@@ -19,38 +19,17 @@
       <div class="item item-body">
         <img class="full-image" src="{{shop.shopImage}}">
         <p font>
+        <div  class="subdued font" style = "font-size: 4.8vw">{{shopCommentLength}}评价　{{shopAverageRate.value}}分</div>
 
         <div>优惠详情:{{shop.productDetail}}</div>
         <div>登录店家:{{shop.shopName}}</div>
 
         </p>
-      <p>
-        <!--<a href="#" class="subdued font">1 顶</a>-->
-        <a href="#" class="subdued font">评价数:{{commentLength}}</a>
-        <a href="#" class="subdued font">平均评分:{{averageRate}}</a>
-
-      </p>
-    </div>
-
-
-    <div class="item tabs tabs-secondary tabs-icon-left" ng-click="changeShowComment()">
-      <a class="tab-item" style = "font-size: 18px" >
-        <i class="icon ion-chatbox"></i>
-        评价
-      </a>
-    </div>
-    <div ng-if="showComment">
-      <rating data-ng-model="rate.value" max="max"></rating>评分:{{rate.value}}
-      <input class="comment" type="text" ng-model="comment.comment">
-      <button ng-click="submitComment()">提交</button>
-    </div>
-    <div ng-repeat = "xxx in comment | orderBy : '-date'">
-      <div>{{xxx.title}}  评分:{{xxx.rate.value}}</div>
-      <div>{{xxx.username}}  {{xxx.date|date:'yyyy年MM月dd日HH时mm分'}}</div>
     </div>
     </div>
 
-  <div class=" bordLine  " collection-repeat="item in items | orderBy :'-id'">
+
+  <div class=" bordLine  " collection-repeat="item in shopProducts | orderBy :'-id'">
     <a href="#/tab/shop-detail-item/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
       <img class="product_image" ng-src="{{ item.image }}">
       <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
