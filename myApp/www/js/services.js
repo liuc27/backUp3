@@ -5,6 +5,7 @@ angular.module('starter.services', [])
  */
 .factory('types', function($rootScope, $http, localStorageService, $q, $state, $ionicPopup) {
     var items = [];
+        var shops = [];
     var checked = new Array();
     var username;
     var possession = [];
@@ -40,7 +41,7 @@ angular.module('starter.services', [])
         name: '电影',
         icon: 'ion-ios-film',
         color: 'silver',
-        type: 'house'
+        type: 'movie'
     }, {
         id: 5,
         name: '车房',
@@ -49,16 +50,16 @@ angular.module('starter.services', [])
         type: 'car'
     }, {
         id: 6,
-        name: 'K歌',
-        icon: 'ion-music-note',
-        color: 'orange',
-        type: 'KTV'
-    }, {
-        id: 7,
         name: '招聘',
         icon: 'ion-speakerphone',
         color: 'lightgreen',
         type: 'job'
+    }, {
+        id: 7,
+        name: '全部',
+        icon: 'ion-pinpoint',
+        color: 'orange',
+        type: 'all'
     }];
 
     var orderList = [{
@@ -182,7 +183,27 @@ angular.module('starter.services', [])
                 return data
             })
         },
+        doRefresh: function(){
+          return function(){ $http.get("http://120.24.168.7/api/posts").success(function (data) {
+              $rootScope.items = data
+              //$scope.items = data
+              //resolvedItems.data = data
+              console.log(data)
 
+
+          }).finally(function () {
+              // Stop the ion-refresher from spinning
+              $http.get("http://120.24.168.7/api/shops").success(function(data) {
+                  $rootScope.shops = data
+                  console.log(data)
+
+              }).finally(function(){
+                  $rootScope.$broadcast('scroll.refreshComplete');
+
+              })
+          });
+          }
+        },
         favoriteList: function() {
             return checked;
         },

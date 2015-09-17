@@ -1,9 +1,11 @@
 angular.module('starter.controllers', ['naif.base64'])
 
-.controller('CouponCtrl', function ($scope, $http, $rootScope, localStorageService, types, things, possessionData) {
+.controller('CouponCtrl', function ($scope, $http, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
 
-  console.log(things)
-  $rootScope.items = things.data
+  console.log(resolvedItems)
+  $rootScope.items = resolvedItems.data
+      $rootScope.shops = resolvedShops.data
+      $rootScope.possession = resolvedPossession.data
   $scope.chosenItem = {
     "value": "all"
   }
@@ -15,10 +17,11 @@ angular.module('starter.controllers', ['naif.base64'])
   }
 
   console.log($scope.chosenItem.value)
-  console.log(possessionData.data)
+  console.log(resolvedPossession.data)
+
   $scope.find = function (item) {
     var exist = false;
-    angular.forEach(possessionData.data, function (value) {
+    angular.forEach($rootScope.possession, function (value) {
       if (value == item._id) {
         exist = true;
       }
@@ -26,23 +29,14 @@ angular.module('starter.controllers', ['naif.base64'])
     return exist;
   }
   $scope.menus = types.getMenu()
-  $scope.doRefresh = function () {
-    $http.get("http://120.24.168.7/api/posts").success(function (data) {
-      $rootScope.items = data
-      //$scope.items = data
-      //things.data = data
-
-    }).finally(function () {
-      // Stop the ion-refresher from spinning
-      $scope.$broadcast('scroll.refreshComplete');
-    });
-  }
+  $scope.doRefresh = types.doRefresh()
 })
 
-.controller('shopsCtrl', function ($scope, types, shops, $ionicPopover) {
+.controller('shopsCtrl', function ($scope, types, resolvedShops, $ionicPopover) {
   $scope.typeList = types.typeList();
   $scope.orderList = types.getOrderList();
   $scope.locationList = types.getLocationList();
+      $scope.doRefresh = types.doRefresh();
 
   $scope.chosenCategory = {
     "value": "all"
@@ -53,7 +47,7 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.chosenOrder = {
     "value": "all"
   }
-  $scope.shops = shops.data
+  //$scope.shops = resolvedShops.data
   $scope.cate = {"value":"全部"};
   $scope.location = {"value":"全部"};
   $scope.order = {"value":"全部"};
@@ -124,8 +118,8 @@ angular.module('starter.controllers', ['naif.base64'])
   });
 })
 
-.controller('ShopDetailCtrl', function ($scope, $http, $rootScope, $stateParams ,types, shops, things, possessionData) {
-  //$scope.shops = shops.data;
+.controller('ShopDetailCtrl', function ($scope, $http, $rootScope, $stateParams ,types, resolvedShops, resolvedItems, resolvedPossession) {
+  //$scope.shops = resolvedShops.data;
   $scope.shop = types.fetchShop($stateParams.shopId);
   console.log($stateParams.shopId);
   $scope.shopRate = {
@@ -156,7 +150,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
   $scope.find = function (item) {
     var exist = false;
-    angular.forEach(possessionData.data, function (value) {
+    angular.forEach($rootScope.possession, function (value) {
       if (value == item._id) {
         exist = true;
       }
@@ -164,26 +158,16 @@ angular.module('starter.controllers', ['naif.base64'])
     return exist;
   }
 
-  $scope.doRefresh = function () {
-    $http.get("http://120.24.168.7/api/shops").success(function (data) {
-      $rootScope.shops = data
-      $scope.shops = data
-      shops.data = data
-    }).finally(function () {
-      // Stop the ion-refresher from spinning
-      $scope.$broadcast('scroll.refreshComplete');
-    });
-  }
 })
 
 
-.controller('CouponDetailCtrl', function ($scope, $stateParams,$rootScope, localStorageService, $ionicPopup, $ionicScrollDelegate, types, $http, things, preLoadAccount, possessionData) {
+.controller('CouponDetailCtrl', function ($scope, $stateParams,$rootScope, localStorageService, $ionicPopup, $ionicScrollDelegate, types, $http, resolvedItems, resolvedAccount, resolvedPossession) {
 
   //$scope.items = $rootScope.items;
   console.log($rootScope.items);
-  $scope.possession = possessionData.date
+  $scope.possession = resolvedPossession.date
 
-  $scope.username = preLoadAccount ? preLoadAccount : $scope.username
+  $scope.username = resolvedAccount ? resolvedAccount : $scope.username
   $scope.rate = {
     value: 3
   };
@@ -193,7 +177,7 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.max = 5;
   console.log("stateParams are");
   console.log($stateParams);
-  console.log(possessionData.data)
+  console.log($rootScope.possession)
   $scope.coupon = types.fetch($stateParams.couponId)
   console.log($scope.coupon)
   $scope.favorites = "button icon-left ion-plus button-positive";
@@ -246,7 +230,7 @@ angular.module('starter.controllers', ['naif.base64'])
         $scope.averageRate.value = ((sumRate + $scope.rate.value) / (lengthRate + 1)).toFixed(2);
 
         $scope.commentLength++;
-        things.data[$stateParams.couponId].comment = data
+        resolvedItems.data[$stateParams.couponId].comment = data
       }).error(function (data) {
         console.log(data)
         if (data == "Rate limit exceeded") {
@@ -280,7 +264,7 @@ angular.module('starter.controllers', ['naif.base64'])
     if ($scope.username) {
       var _id = $scope.coupon._id
       if ($scope.favoritesText === "点击领取") {
-        console.log(possessionData)
+        console.log(resolvedPossession)
         console.log($scope.username)
         console.log(_id)
         $http.post("http://120.24.168.7/api/add", {
@@ -298,10 +282,10 @@ angular.module('starter.controllers', ['naif.base64'])
             $ionicPopup.alert({
               title: '恭喜,成功领取!'
             });
-            console.log(possessionData)
-            console.log(possessionData.data)
+            console.log(resolvedPossession)
+            console.log($rootScope.possession)
 
-            possessionData.data.push(_id);
+            $rootScope.possession.push(_id);
 
             $scope.favoritesText = "已经领取"
             $scope.favorites = "button icon-left ion-heart button-positive"
@@ -321,7 +305,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
   $scope.favoriteClass = function () {
     var exist = false
-    angular.forEach(possessionData.data, function (value) {
+    angular.forEach($rootScope.possession, function (value) {
       if (value == $scope.coupon._id) {
         exist = true;
       }
@@ -333,19 +317,19 @@ angular.module('starter.controllers', ['naif.base64'])
     }
   };
 })
-  .controller('favoriteListCtrl', function ($scope,$rootScope, $stateParams, localStorageService, types, things, possessionData) {
+  .controller('favoriteListCtrl', function ($scope,$rootScope, $stateParams, localStorageService, types, resolvedItems, resolvedPossession) {
     //localStorageService.clearAll()
-    //$rootScope.items = things.data;
-    $scope.possession = possessionData.data;
+    //$rootScope.items = resolvedItems.data;
+    //$scope.possession = resolvedPossession.data;
 
   })
 
-  .controller('registerCtrl', function ($scope, $rootScope, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, preLoadAccount) {
+  .controller('registerCtrl', function ($scope, $rootScope, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, resolvedAccount) {
     $scope.product = {};
     $scope.shop = {};
     $scope.image = {};
 
-    $scope.username = preLoadAccount
+    $scope.username = resolvedAccount
       if (typeof $scope.username === "undefined" || $scope.username === null) {
         $ionicPopup.alert({
           title: '请注册或登陆'

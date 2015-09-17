@@ -41,16 +41,16 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
                 abstract: true,
                 templateUrl: "templates/tabs.html",
                 resolve: {
-                    things: function(types) {
+                    resolvedItems: function(types) {
                         return types.allItems()
                     },
-                    possessionData: function(types) {
+                    resolvedPossession: function(types) {
                         return types.checkPossession()
                     },
-                    shops: function(types) {
+                    resolvedShops: function(types) {
                         return types.allShops()
                     },
-                    preLoadAccount: function(types) {
+                    resolvedAccount: function(types) {
                         return types.autoLoginAccount()
                     }
                 }
