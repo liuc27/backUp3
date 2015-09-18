@@ -22,7 +22,8 @@ body {
 
     border-color: #FAEDF0;
 
-    padding: 10px 0 0 0;
+    padding: 3vw 0 0 0;
+    margin: 0;
 
 }
 
@@ -33,22 +34,6 @@ body {
     padding-right: 0;
 
     top: 0;
-
-}
-
-.item-thumbnail-left > img:first-child,
-
-.item-thumbnail-left .item-image,
-
-.item-thumbnail-left .item-content > img:first-child,
-
-.item-thumbnail-left .item-content .item-image {
-
-    top: 0;
-
-    padding-top: 0;
-
-    padding-right: 0;
 
 }
 
@@ -195,9 +180,13 @@ body {
 
 }
 
-.product_image {
+.cardSize{
+    padding-bottom: 0;
+    padding-top: 0;
 
-    margin-top: 12px;
+}
+
+.product_image {
 
 }
 
@@ -270,9 +259,9 @@ ion-content {
 
 div.item.item-avatar {
 
-    padding-left: 10px;
+    padding-left: 4vw;
 
-    padding-top: 10px;
+    padding-top: 2vw;
 
     font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
@@ -286,8 +275,7 @@ div.item.item-body {
 }
 
 .padding{
-    padding: 3vw;
-    margin: 0;
+    padding: 3.5vw;
 }
 
 .item-body h1,
@@ -374,12 +362,14 @@ div.item.item-body {
     width: 100%;
     height: auto;
 }
-
+ul.rating{
+    text-align: center;
+}
 ul.rating li {
     display: inline;
     border: 0px;
     background: none;
-    padding: 5px 10px;
+    margin: 0vw 1.1vw;
 }
 ul.rating li i {
     font-size: 7.6vw;
@@ -390,7 +380,7 @@ ul.rating li i {
 
 }
 
-.font12{
+.menuFont{
     font-size: 3.6vw;
     margin-left:9.2vw;
     margin-top:0;
@@ -417,8 +407,8 @@ ul.rating li i {
 .menu{
     height: 48vw;
     width: 100%;
-    margin: 0 0 5vw 0;
-    padding: 2vw 0 0 0;
+    margin: 1vw 0 4vw 0;
+    padding: 1vw 0 0 0;
     border-width:0;
 }
 
@@ -426,7 +416,7 @@ ul.rating li i {
     width: 14vw;
     height:14vw;
     border-radius: 14vw;
-    margin: 0 0 0 5vw;
+    margin: 0 0 0 5.8vw;
 }
 
 .popover{

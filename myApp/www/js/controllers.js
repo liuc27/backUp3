@@ -139,7 +139,6 @@ angular.module('starter.controllers', ['naif.base64'])
       angular.forEach(itemValue.comment,function(value){
           $scope.shopSumRate += value.rate.value
       })
-
     }
   })
   $scope.shopAverageRate.value = ( $scope.shopSumRate / $scope.shopCommentLength).toFixed(2) != "NaN" ? ($scope.shopSumRate / $scope.shopCommentLength).toFixed(2) : "暂无";

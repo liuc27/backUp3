@@ -17,14 +17,14 @@
         <div class="list  borderRadius menu">
             <div ng-repeat="menu in menus | orderBy :'id'" class = "floatLeft">
                 <div class="col ">
-                    <button ng-click = "chooseMenuItem(menu,$index)" class=" menuItem {{menu.icon}} menuButton " ng-class="{ 'selected-class-name': $index == selectedIndex }" style="background:{{menu.color}}"></button></br><div class="font12">{{menu.name}}</div>
+                    <button ng-click = "chooseMenuItem(menu,$index)" class=" menuItem {{menu.icon}} menuButton " ng-class="{ 'selected-class-name': $index == selectedIndex }" style="background:{{menu.color}}"></button></br><div class="menuFont">{{menu.name}}</div>
                 </div>
             </div>
         </div>
 
-        <div class=" bordLine  " collection-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
-            <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
-                <img class="product_image" ng-src="{{ item.image }}">
+        <div class=" bordLine" collection-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
+            <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left cardSize">
+                <img class="product_image " src="{{ item.image }}">
                 <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
                 <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
                 <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">已领</div>

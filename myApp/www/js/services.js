@@ -189,17 +189,13 @@ angular.module('starter.services', [])
               //$scope.items = data
               //resolvedItems.data = data
               console.log(data)
-
-
           }).finally(function () {
               // Stop the ion-refresher from spinning
               $http.get("http://120.24.168.7/api/shops").success(function(data) {
                   $rootScope.shops = data
                   console.log(data)
-
               }).finally(function(){
                   $rootScope.$broadcast('scroll.refreshComplete');
-
               })
           });
           }
