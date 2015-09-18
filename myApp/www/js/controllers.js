@@ -19,6 +19,26 @@ angular.module('starter.controllers', ['naif.base64'])
   console.log($scope.chosenItem.value)
   console.log(resolvedPossession.data)
 
+
+
+      $scope.averageRate = function(item){
+        var sumRate = 0,
+            lengthRate = 0;
+        console.log($scope.comment)
+        angular.forEach(item.comment, function (value) {
+          if (value.rate) {
+            if (value.rate.value > 0) {
+              sumRate += value.rate.value;
+              lengthRate++;
+            }
+          }
+        })
+        return (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2) : "暂无";
+
+
+      }
+
+
   $scope.find = function (item) {
     var exist = false;
     angular.forEach($rootScope.possession, function (value) {
@@ -142,7 +162,6 @@ angular.module('starter.controllers', ['naif.base64'])
     }
   })
   $scope.shopAverageRate.value = ( $scope.shopSumRate / $scope.shopCommentLength).toFixed(2) != "NaN" ? ($scope.shopSumRate / $scope.shopCommentLength).toFixed(2) : "暂无";
-
 
 
 

@@ -25,12 +25,16 @@
         <div class=" bordLine" collection-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
             <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left cardSize">
                 <img class="product_image " src="{{ item.image }}">
+
                 <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
                 <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
                 <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">已领</div>
+                <div lang="zh-cn" class="category ">{{averageRate(item)}}分</div>
+
                 <ul>
                     <li  lang="zh-cn" class="productName">{{item.name}}</li>
                     <li  lang="zh-cn" class="productIntroduction">{{item.productIntroduction}}</li>
+
                     <li  lang="zh-cn">
                         <div class = "discountPrice floatLeft">{{item.discountPrice}}</div>
                         <div class="fullPrice  strike-center floatLeft">{{item.fullPrice}}</div>
