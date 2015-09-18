@@ -16,15 +16,13 @@ body {
 .pane, .view{
     background-color: #FAEDF0;
 }
+
 .bordLine {
-
     border-style: solid;
-
+    border-width: 0;
     border-color: #FAEDF0;
-
-    padding: 3vw 0 0 0;
+    padding: 0;
     margin: 0;
-
 }
 
 .item {
@@ -39,13 +37,13 @@ body {
 
 .bordLineLast {
 
-    border-bottom-width: 1px;
+    border-bottom-width: 0px;
 
 }
 
 .productName {
 
-    padding-top: 12px;
+    padding-top: 2vw;
 
     font-size: 3.8vw;
 
@@ -62,7 +60,7 @@ body {
 
     font-size: 3.8vw;
 
-    margin: 3px;
+    margin: 0.3vw;
 
     top: 0;
 
@@ -74,17 +72,18 @@ body {
 
     font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
+    display: inline-block;
 }
 
 .productIntroduction {
 
-    line-height: 1.5em;
+    line-height: 4vw;
 
-    height: 3em;
+    height: 12vw;
 
     overflow: hidden;
 
-    padding: 0 20px 0 0;
+    padding: 0;
 
     font-size: 3.0vw;
 
@@ -109,19 +108,16 @@ body {
 
     position: absolute;
 
-    top: 45px;
+    top: 12vw;
 
-    left: 9px;
+    left: 5vw;
 
     float: none;
 }
-.leftNumber{
 
-    padding-right: 30px;
-}
 .productDate {
 
-    font-size: 3.8vw;
+    font-size: 3.2vw;
 
     font-weight: bold;
 
@@ -132,14 +128,10 @@ body {
 }
 
 .discountPrice {
-
     font-size: 4.8vw;
-
     font-weight: bold;
-
-
     color: #ff010f;
-
+    padding-left: 1vw;
     font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
 }
@@ -148,9 +140,9 @@ body {
 
     padding-top: 0.4vw;
 
-    font-size: 4.0vw;
+    font-size: 3.4vw;
 
-    margin-left: 0.6vw;
+    margin-left: 0.2vw;
 
     font-weight: bold;
 
@@ -196,15 +188,7 @@ ion-content {
 
 }
 
-.buttons.left-buttons {
 
-    width: 40px;
-
-    height: 34px;
-
-    display: block;
-
-}
 
 
 
@@ -218,9 +202,7 @@ ion-content {
 
     z-index: 100000;
 
-    width: 100px;
 
-    height: 100px;
 
     top: 0;
 
@@ -270,7 +252,7 @@ div.item.item-avatar {
 
 div.item.item-body {
 
-    padding: 1px;
+    padding: 0;
 
 }
 
@@ -292,7 +274,7 @@ div.item.item-body {
 
 .item-body p {
 
-    padding: 3px 3px;
+    padding: 1vw;
 
     margin: 0;
 
@@ -301,13 +283,13 @@ div.item.item-body {
 
 .addToCart {
 
-    width: 130px;
+    width: 35vw;
 
     position: absolute;
 
-    top: 20px;
+    top: 5vw;
 
-    right: 0px;
+    right: 0;
 
 }
 

@@ -33,11 +33,22 @@ angular.module('starter.controllers', ['naif.base64'])
             }
           }
         })
-        return (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2) : "暂无";
-
-
+        return (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2)+"分" : "";
       }
 
+      $scope.sumRate = function(item){
+        var sumRate = null;
+        console.log($scope.comment)
+        angular.forEach(item.comment, function (value) {
+          if (value.rate) {
+            if (value.rate.value > 0) {
+              sumRate += value.rate.value;
+            }
+          }
+        })
+
+        return sumRate ? (sumRate+"评价") : "";
+      }
 
   $scope.find = function (item) {
     var exist = false;
