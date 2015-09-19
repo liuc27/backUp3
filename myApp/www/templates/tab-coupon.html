@@ -30,7 +30,7 @@
                 <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
                 <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
                 <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">已领</div><br>
-                <div class="category">{{averageRate(item)}}{{sumRate(item)}}</div>
+                <div class="category">{{averageRate(item)}}{{commentNumbers(item)}}</div>
                 </div>
                 <ul>
                     <li  lang="zh-cn" class="productName">{{item.name}}</li>

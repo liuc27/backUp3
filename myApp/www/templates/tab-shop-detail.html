@@ -19,7 +19,7 @@
       <div class="item item-body">
         <img class="full-image" src="{{shop.shopImage}}">
         <p font>
-        <div  class="subdued font" style = "font-size: 4.8vw">{{shopCommentLength}}评价　{{shopAverageRate.value}}分</div>
+        <div  class="subdued font" style = "font-size: 4.8vw">{{shopCommentNumbers(shop)}}　{{shopAverageRate(shop)}}</div>
 
         <div>优惠详情:{{shop.productDetail}}</div>
         <div>登录店家:{{shop.shopName}}</div>
@@ -29,12 +29,18 @@
     </div>
 
 
-  <div class=" bordLine  " collection-repeat="item in shopProducts | orderBy :'-id'">
+  <div class=" bordLine  " collection-repeat="item in items | orderBy :'-id'">
     <a href="#/tab/shop-detail-item/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
       <img class="product_image" ng-src="{{ item.image }}">
-      <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
-      <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
-      <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">已领</div>
+
+
+      <div style="float:right;margin-top: 2vw">
+        <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
+        <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
+        <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">已领</div><br>
+        <div class="category">{{averageRate(item)}}{{commentNumbers(item)}}</div>
+      </div>
+
       <ul>
         <li  lang="zh-cn" class="productName">{{item.name}}</li>
         <li  lang="zh-cn" class="productIntroduction">{{item.productIntroduction}}</li>

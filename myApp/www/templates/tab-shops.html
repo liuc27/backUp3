@@ -18,7 +18,13 @@
   <div class=" bordLine" collection-repeat="shop in shops | shopFilter : chosenCategory.value | shopFilter : chosenOrder.value| shopFilter : chosenLocation.value| orderBy :'-id'">
     <a href="#/tab/shop-detail/{{shop._id}}" class=" item item-thumbnail-left borderRadius5">
       <img class="product_image" ng-src="{{ shop.shopImage }}">
-      <div lang="zh-cn" class="category">{{shop.shopCategory}}</div>
+        <div style="float:right;margin-top: 2vw">
+            <div lang="zh-cn" class="category">{{shop.shopCategory}}</div>
+
+            <div lang="zh-cn" class="category">剩{{item.numbers}}</div>
+            <div lang="zh-cn" class="category ion-heart" ng-if="findShopInFavoriteList(shop) ">已关注</div><br>
+            <div class="category">{{shopAverageRate(shop)}}{{shopCommentNumbers(shop)}}</div>
+        </div>
       <ul>
         <li  lang="zh-cn" class="productName">{{shop.shopName}}</li>
         <li  lang="zh-cn" class="productIntroduction">{{shop.shopIntroduction}}</li>

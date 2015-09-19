@@ -160,13 +160,6 @@ angular.module('starter.services', [])
         fetchFavorite: function(couponId) {
             return checked[couponId];
         },
-        getCommentLength: function(comment) {
-            if (typeof comment === "undefined") {
-                return 0
-            } else {
-                return comment.length;
-            }
-        },
         allItems: function() {
             return $http.get("http://120.24.168.7/api/posts").success(function(data) {
                 console.log(data.length)
@@ -199,6 +192,55 @@ angular.module('starter.services', [])
               })
           });
           }
+        },
+        caculateItemAverageRate: function(item){
+            var sumRate = 0,
+                lengthRate = 0;
+            angular.forEach(item.comment, function (value) {
+                if (value.rate) {
+                    if (value.rate.value > 0) {
+                        sumRate += value.rate.value;
+                        lengthRate++;
+                    }
+                }
+            })
+            return (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2)+"分" : "";
+        },
+        caculateItemCommentNumbers: function(item){
+            var commentNumbers = 0;
+            angular.forEach(item.comment, function (value) {
+                commentNumbers += value.rate.value>0 ? 1:0;
+            })
+
+            return commentNumbers>0 ? (commentNumbers+"评价") : "";
+        },
+        caculateShopAverageRate: function(shop){
+                var shopCommentLength = 0,
+                    shopSumRate = 0;
+                angular.forEach($rootScope.items, function (itemValue) {
+                    if (itemValue.shopName == shop.shopName) {
+
+
+                        shopCommentLength += itemValue.comment.length ? itemValue.comment.length:0;
+                        angular.forEach(itemValue.comment,function(value){
+                            shopSumRate += value.rate.value
+                        })
+                    }
+                });
+                console.log( shopSumRate / shopCommentLength);
+                return ( shopSumRate / shopCommentLength).toFixed(2) != "NaN" ? (shopSumRate / shopCommentLength).toFixed(2)+"分" : "";
+        },
+        caculateShopCommentNumbers: function(shop){
+            var shopCommentLength = 0,
+                shopSumRate = 0;
+            angular.forEach($rootScope.items, function (itemValue) {
+                if (itemValue.shopName == shop.shopName) {
+
+                    shopCommentLength += itemValue.comment.length ? itemValue.comment.length:0;
+
+                }
+            });
+            return shopCommentLength>0 ? shopCommentLength+"评价" : "";
         },
         favoriteList: function() {
             return checked;

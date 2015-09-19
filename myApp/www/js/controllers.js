@@ -21,33 +21,13 @@ angular.module('starter.controllers', ['naif.base64'])
 
 
 
-      $scope.averageRate = function(item){
-        var sumRate = 0,
-            lengthRate = 0;
-        console.log($scope.comment)
-        angular.forEach(item.comment, function (value) {
-          if (value.rate) {
-            if (value.rate.value > 0) {
-              sumRate += value.rate.value;
-              lengthRate++;
-            }
-          }
-        })
-        return (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2)+"分" : "";
+      $rootScope.averageRate = function(item){
+        return types.caculateItemAverageRate(item);
       }
 
-      $scope.sumRate = function(item){
-        var sumRate = null;
-        console.log($scope.comment)
-        angular.forEach(item.comment, function (value) {
-          if (value.rate) {
-            if (value.rate.value > 0) {
-              sumRate += value.rate.value;
-            }
-          }
-        })
 
-        return sumRate ? (sumRate+"评价") : "";
+      $rootScope.commentNumbers = function(item){
+        return types.caculateItemCommentNumbers(item);
       }
 
   $scope.find = function (item) {
@@ -63,7 +43,7 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.doRefresh = types.doRefresh()
 })
 
-.controller('shopsCtrl', function ($scope, types, resolvedShops, $ionicPopover) {
+.controller('shopsCtrl', function ($rootScope,$scope, types, resolvedShops, $ionicPopover) {
   $scope.typeList = types.typeList();
   $scope.orderList = types.getOrderList();
   $scope.locationList = types.getLocationList();
@@ -83,7 +63,22 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.location = {"value":"全部"};
   $scope.order = {"value":"全部"};
 
-  $scope.chooseCategoryItem = function (type) {
+      $scope.shopRate = {
+        value: null
+      };
+
+
+
+      $rootScope.shopAverageRate = function(shop){
+        return types.caculateShopAverageRate(shop);
+      }
+
+      $rootScope.shopCommentNumbers = function(shop){
+        return types.caculateShopCommentNumbers(shop);
+      }
+
+
+      $scope.chooseCategoryItem = function (type) {
     $scope.chosenCategory.value = type.type;
     console.log(type.type)
     $scope.popoverCategory.hide();
@@ -153,26 +148,6 @@ angular.module('starter.controllers', ['naif.base64'])
   //$scope.shops = resolvedShops.data;
   $scope.shop = types.fetchShop($stateParams.shopId);
   console.log($stateParams.shopId);
-  $scope.shopRate = {
-    value: 3
-  };
-  $scope.shopAverageRate = {
-    value: 0
-  };
-  $scope.shopProducts = [];
-  $scope.shopCommentLength = 0;
-  $scope.shopSumRate = 0;
-
-  angular.forEach($rootScope.items, function (itemValue) {
-    if (itemValue.shopName == $scope.shop.shopName) {
-      $scope.shopProducts.push(itemValue);
-      $scope.shopCommentLength += types.getCommentLength(itemValue.comment);
-      angular.forEach(itemValue.comment,function(value){
-          $scope.shopSumRate += value.rate.value
-      })
-    }
-  })
-  $scope.shopAverageRate.value = ( $scope.shopSumRate / $scope.shopCommentLength).toFixed(2) != "NaN" ? ($scope.shopSumRate / $scope.shopCommentLength).toFixed(2) : "暂无";
 
 
 
@@ -200,9 +175,7 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.rate = {
     value: 3
   };
-  $scope.averageRate = {
-    value: 0
-  };
+
   $scope.max = 5;
   console.log("stateParams are");
   console.log($stateParams);
@@ -211,27 +184,20 @@ angular.module('starter.controllers', ['naif.base64'])
   console.log($scope.coupon)
   $scope.favorites = "button icon-left ion-plus button-positive";
   $scope.favoritesText = "点击领取";
-  $scope.commentLength = types.getCommentLength($scope.coupon.comment)
-  $scope.disableClick = {
+      $scope.commentNumbers = function(item){
+        return types.caculateItemCommentNumbers(item);
+      }
+
+      $scope.disableClick = {
     value: false
   }
 
   $scope.clicked = false;
   $scope.comment = types.comment($stateParams.couponId);
-  var sumRate = 0,
-    lengthRate = 0;
-  console.log($scope.comment)
-  angular.forEach($scope.comment, function (value) {
-    if (value.rate) {
-      if (value.rate.value > 0) {
-        sumRate += value.rate.value;
-        lengthRate++;
-      }
-    }
-  })
-  $scope.averageRate.value = (sumRate / lengthRate).toFixed(2) != "NaN" ? (sumRate / lengthRate).toFixed(2) : "暂无";
 
-  $scope.showComment = false;
+
+
+      $scope.showComment = false;
   console.log($scope.comment)
   var theNewCoupon = angular.copy($scope.coupon);
   //$scope.comment.push({"text":theNewCoupon.productName})
