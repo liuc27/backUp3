@@ -248,7 +248,7 @@ angular.module('starter.services', [])
         comment: function(couponId) {
 
             var x = [];
-            angular.forEach(items, function(value) {
+            angular.forEach($rootScope.items, function(value) {
                 if (value._id == couponId) {
                     x = value.comment;
                 }

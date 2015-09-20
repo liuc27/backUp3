@@ -41,7 +41,7 @@
          <div ng-if="showComment">
              <rating data-ng-model="rate.value" max="max"></rating>
              <input class="comment" type="text" ng-model="comment.comment">
-             <button ng-click="submitComment()">提交</button>
+             <button ng-click="submitComment(coupon._id)">提交</button>
          </div>
         <div ng-repeat = "xxx in comment | orderBy : '-date'">
             <div>{{xxx.title}}  评分:{{xxx.rate.value}}</div>

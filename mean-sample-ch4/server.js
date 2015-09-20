@@ -480,9 +480,9 @@ app.post('/api/add', limiterAdd.middleware({
 
 
 app.post('/api/comment', limiterComment.middleware({
-    innerLimit: 1,
+    innerLimit: 10,
     outerTimeLimit: 3600000,
-    outerLimit: 1,
+    outerLimit: 60,
     headers: false
 }), function(req, res, next) {
     console.log(req.body);

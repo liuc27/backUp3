@@ -205,14 +205,13 @@ angular.module('starter.controllers', ['naif.base64'])
     $scope.showComment = !$scope.showComment
     //$ionicScrollDelegate.scrollBy(0, 100);
   }
-  $scope.submitComment = function () {
-    var couponName = $scope.coupon.name
+  $scope.submitComment = function (couponId) {
     $scope.disableClick.value = true
 
     if ($scope.username) {
 
       $http.post("http://120.24.168.7/api/comment", {
-        "name": couponName,
+        "name": $scope.coupon.name,
         "username": $scope.username,
         "comment": $scope.comment.comment,
         "rate": $scope.rate
@@ -222,10 +221,18 @@ angular.module('starter.controllers', ['naif.base64'])
         $scope.showComment = !$scope.showComment
 
         $scope.comment = data
-        $scope.averageRate.value = ((sumRate + $scope.rate.value) / (lengthRate + 1)).toFixed(2);
 
         $scope.commentLength++;
-        resolvedItems.data[$stateParams.couponId].comment = data
+
+        angular.forEach($rootScope.items, function (itemValue) {
+          if (itemValue._id == couponId) {
+            console.log(itemValue.comment)
+            itemValue.comment = data;
+            console.log(itemValue.comment)
+          }
+        });
+
+
       }).error(function (data) {
         console.log(data)
         if (data == "Rate limit exceeded") {
