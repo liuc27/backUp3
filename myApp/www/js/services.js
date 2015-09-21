@@ -227,12 +227,10 @@ angular.module('starter.services', [])
                         })
                     }
                 });
-                console.log( shopSumRate / shopCommentLength);
                 return ( shopSumRate / shopCommentLength).toFixed(2) != "NaN" ? (shopSumRate / shopCommentLength).toFixed(2)+"分" : "";
         },
         caculateShopCommentNumbers: function(shop){
-            var shopCommentLength = 0,
-                shopSumRate = 0;
+            var shopCommentLength = 0;
             angular.forEach($rootScope.items, function (itemValue) {
                 if (itemValue.shopName == shop.shopName) {
 
