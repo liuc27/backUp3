@@ -359,15 +359,17 @@ ul.rating li i {
 
 .orangered{
     color:orangered;
-
 }
 
+.menuItemBox{
+    float:left;
+    width: 25%;
+    height:20vw;
+    text-align:center;
+    vertical-align: middle;
+}
 .menuFont{
-    font-size: 3.6vw;
-    margin-left:9.2vw;
-    margin-top:0;
-    padding-top:0;
-
+    font-size: 3.60vw;
 }
 
 .menuButton{
@@ -376,10 +378,10 @@ ul.rating li i {
     border-radius: 12vw;
     border:0;
     overflow:hidden;
-    padding: 0em;
+    padding: 0;
     box-shadow: 0 0 2vw gray;
     color:white;
-    margin: 1vw 0 1vw 7vw;
+
 }
 
 .menuItem{
@@ -389,8 +391,8 @@ ul.rating li i {
 .menu{
     height: 48vw;
     width: 100%;
-    margin: 1vw 0 4vw 0;
-    padding: 1vw 0 0 0;
+    margin: 1.5vw 0 1.5vw 0;
+    padding: 4vw 0 0 0;
     border-width:0;
 }
 
@@ -398,7 +400,6 @@ ul.rating li i {
     width: 14vw;
     height:14vw;
     border-radius: 14vw;
-    margin: 0 0 0 5.8vw;
 }
 
 .popover{

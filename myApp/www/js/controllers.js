@@ -59,9 +59,9 @@ angular.module('starter.controllers', ['naif.base64'])
     "value": "all"
   }
   //$scope.shops = resolvedShops.data
-  $scope.cate = {"value":"全部"};
-  $scope.location = {"value":"全部"};
-  $scope.order = {"value":"全部"};
+  $scope.cate = {"value":"すべて"};
+  $scope.location = {"value":"すべて"};
+  $scope.order = {"value":"すべて"};
 
       $scope.shopRate = {
         value: null
@@ -183,7 +183,7 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.coupon = types.fetch($stateParams.couponId)
   console.log($scope.coupon)
   $scope.favorites = "button icon-left ion-plus button-positive";
-  $scope.favoritesText = "点击领取";
+  $scope.favoritesText = "獲得➕";
       $scope.commentNumbers = function(item){
         return types.caculateItemCommentNumbers(item);
       }
@@ -237,20 +237,20 @@ angular.module('starter.controllers', ['naif.base64'])
         console.log(data)
         if (data == "Rate limit exceeded") {
           $ionicPopup.alert({
-              title: "为防止刷分,用户无法频繁评论,请见谅!"
+              title: "頻繁的な評価ができません!"
             }
 
           )
         } else {
           $ionicPopup.alert({
-            title: "当前IP暂时禁止评论"
+            title: "このIPが暫く評価できません！"
           })
         }
       })
 
     } else {
       $ionicPopup.alert({
-        title: '请先注册或登陆'
+        title: 'ログインしてください！'
       })
       $scope.disableClick.value = true
     }
@@ -265,7 +265,7 @@ angular.module('starter.controllers', ['naif.base64'])
     console.log($scope.disableClick.value)
     if ($scope.username) {
       var _id = $scope.coupon._id
-      if ($scope.favoritesText === "点击领取") {
+      if ($scope.favoritesText === "獲得➕") {
         console.log(resolvedPossession)
         console.log($scope.username)
         console.log(_id)
@@ -277,19 +277,19 @@ angular.module('starter.controllers', ['naif.base64'])
         }).success(function (data) {
           if (data === "couldn't find") {
             $ionicPopup.alert({
-              title: '非常抱歉,库存不足'
+              title: '在庫切れのため、獲得できません。'
             })
-            $scope.favoritesText = "无法领取"
+            $scope.favoritesText = "在庫切れ"
           } else {
             $ionicPopup.alert({
-              title: '恭喜,成功领取!'
+              title: '獲得成功しました!'
             });
             console.log(resolvedPossession)
             console.log($rootScope.possession)
 
             $rootScope.possession.push(_id);
 
-            $scope.favoritesText = "已经领取"
+            $scope.favoritesText = "獲得済み"
             $scope.favorites = "button icon-left ion-heart button-positive"
             $scope.coupon.numbers = data
             //console.log(data)
@@ -298,7 +298,7 @@ angular.module('starter.controllers', ['naif.base64'])
       }
     } else {
       $ionicPopup.alert({
-        title: '请先注册或登陆'
+        title: 'ログインしてください！'
       })
       $scope.disableClick.value = false
 
@@ -314,7 +314,7 @@ angular.module('starter.controllers', ['naif.base64'])
     })
     if (exist) {
       $scope.favorites = "button icon-left ion-heart button-positive";
-      $scope.favoritesText = "已经领取";
+      $scope.favoritesText = "獲得済み";
       $scope.disableClick.value = true
     }
   };
@@ -334,14 +334,14 @@ angular.module('starter.controllers', ['naif.base64'])
     $scope.username = resolvedAccount
       if (typeof $scope.username === "undefined" || $scope.username === null) {
         $ionicPopup.alert({
-          title: '请注册或登陆'
+          title: 'ログインしてください'
         });
         setTimeout(function() {
           $state.go('tab.register');
         }, 150)
       } else {
         $ionicPopup.alert({
-          title: '已登录帐号: ' + $scope.username
+          title: 'アカウント: ' + $scope.username
         });
         console.log($scope.username)
         setTimeout(function() {
@@ -378,7 +378,7 @@ angular.module('starter.controllers', ['naif.base64'])
     $scope.register = function (username, password) {
       if (username == null || password == null) {
         $ionicPopup.alert({
-          title: '请输入正确的用户名和密码！'
+          title: '正しいユーザ名とパスワードを入力してください！'
         });
       } else {
         $http.post("http://120.24.168.7/api/register", {
@@ -387,21 +387,21 @@ angular.module('starter.controllers', ['naif.base64'])
         }).success(function (data) {
           if (data === "already registered") {
             $ionicPopup.alert({
-              title: '用户名已经注册，请换用户名！'
+              title: 'ユーザ名も使用されました、他のユーザ名を使用してください！'
             });
           } else if(data === "passed") {
             $rootScope.username = username
             $scope.username = username
             $scope.usernameExist = true
             $ionicPopup.alert({
-              title: '成功登陆！'
+              title: 'ログイン成功しました！'
             });
             var promise = $q(function (resolve, reject) {
               setTimeout(function () {
                 if (localStorageService.set("usernameData", username)) {
-                  resolve('开始抢折扣卷吧!');
+                  resolve('クーポンの獲得をはじめてください!');
                 } else {
-                  reject('出错咯,开始抢折扣卷吧!');
+                  reject('エラー!');
                 }
               }, 10);
             });
@@ -421,15 +421,15 @@ angular.module('starter.controllers', ['naif.base64'])
             $scope.username = username
             $scope.usernameExist = true
             $ionicPopup.alert({
-              title: '注册成功！已自动登录!'
+              title: '登録成功しました！自動ログイン成功しました!'
             });
 
             var promise = $q(function (resolve, reject) {
               setTimeout(function () {
                 if (localStorageService.set("usernameData", username)) {
-                  resolve('开始抢折扣卷吧!');
+                  resolve('クーポンの獲得をはじめてください!');
                 } else {
-                  reject('出错咯,开始抢折扣卷吧!');
+                  reject('エラー!');
                 }
               }, 10);
             });
@@ -471,10 +471,10 @@ angular.module('starter.controllers', ['naif.base64'])
       $http.post("http://120.24.168.7/api/posts", $scope.product).success(function (data) {
         console.log(data)
         if (data == "already exists") {
-          alert("商品名已经存在，推送失败")
+          alert("商品も既に存在したため、更新失敗")
 
         } else {
-          alert("成功推送")
+          alert("更新成功")
 
         }
       })
@@ -494,7 +494,7 @@ angular.module('starter.controllers', ['naif.base64'])
       $scope.shop.username = $scope.username;
       if ($scope.shop.shopName == null || $scope.shop.shopAddress == null || $scope.shop.userCertificate == null|| $scope.shop.shopContactWay == null || $scope.image.shopCertificate.base64 == null) {
         $ionicPopup.alert({
-          title: '请输入必须填写的项目！'
+          title: '項目を全部入力してください！'
         });
       } else {
         console.log($scope.shop);
@@ -502,7 +502,7 @@ angular.module('starter.controllers', ['naif.base64'])
           console.log(data)
           if (data == "OK") {
             $scope.registeredShop.done = true;
-            alert("成功推送")
+            alert("更新成功")
 
           }
         })

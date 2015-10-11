@@ -1,23 +1,26 @@
-<ion-view title="优惠卷" hide-nav-bar="false">
+<ion-view title="クーポン" hide-nav-bar="false">
 
     <ion-content class="padding">
         <div class="bar bar-header item-input-inset">
             <label class="item-input-wrapper">
                 <i class="icon ion-ios-search placeholder-icon"></i>
-                <input type="search" placeholder="请输入关键词" ng-model="searchbar.value">
+                <input type="search" placeholder="" ng-model="searchbar.value">
             </label>
             <button class="button button-clear" ng-click="searchbar.value = null" >
-                取消
+                キャンセル
             </button>
 
         </div>
-        <ion-refresher pulling-text="刷新中" on-refresh="doRefresh()">
+        <ion-refresher pulling-text="更新中" on-refresh="doRefresh()">
         </ion-refresher>
 
         <div class="list  borderRadius menu">
-            <div ng-repeat="menu in menus | orderBy :'id'" class = "floatLeft">
-                <div class="col ">
-                    <button ng-click = "chooseMenuItem(menu,$index)" class=" menuItem {{menu.icon}} menuButton " ng-class="{ 'selected-class-name': $index == selectedIndex }" style="background:{{menu.color}};"></button></br><div class="menuFont">{{menu.name}}</div>
+            <div ng-repeat="menu in menus | orderBy :'id'" class = "menuItemBox">
+                <div class="col" >
+                    <button ng-click = "chooseMenuItem(menu,$index)"
+                            class=" menuItem {{menu.icon}} menuButton "
+                            ng-class="{ 'selected-class-name': $index == selectedIndex }"
+                            style="background:{{menu.color}}; "></button></br><div class="menuFont">{{menu.name}}</div>
                 </div>
             </div>
         </div>
@@ -27,9 +30,9 @@
             <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left cardSize">
                 <img class="product_image" src="{{ item.image }}">
                 <div style="float:right;margin-top: 2vw">
-                <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
-                <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
-                <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">已领</div><br>
+                <div lang="zh-cn" class="category" ng-if="item.numbers>0">残り{{item.numbers}}</div>
+                <div lang="zh-cn" class="category" ng-if="item.numbers<=0">在庫切れ</div>
+                <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">獲得済み</div><br>
                 <div class="category">{{averageRate(item)}}{{commentNumbers(item)}}</div>
                 </div>
                 <ul>
@@ -39,7 +42,7 @@
                     <li  lang="zh-cn">
                         <div class = "discountPrice floatLeft">{{item.discountPrice}}</div>
                         <div class="fullPrice  strike-center floatLeft">{{item.fullPrice}}</div>
-                        <div class="productDate floatRight">{{item.timeLimit|date:'至yy年MM月dd日'}}</div>
+                        <div class="productDate floatRight">{{item.timeLimit|date:'yy年MM月dd日まで'}}</div>
                     </li>
                 </ul>
             </a>

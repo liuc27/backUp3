@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<ion-view title="{{shop.shopName}}">
-  <ion-content has-header="true" padding="true">
+    <ion-view title="{{shop.shopName}}">
+      <ion-content has-header="true" padding="true">
     <div class="list card pink">
 
       <div class="item item-avatar">
         <div class="productName">
           <div class=" floatLeft">{{shop.shopAddress}}</div>
         </div>
-        <div class="productDate dateLocation">{{shop.timeLimit|date:'至yy年MM月dd日'}}</div>
+        <div class="productDate dateLocation">{{shop.timeLimit|date:'yy年MM月dd日まで'}}</div>
         <div class="addToCart">
           <button ng-class="favorites" ng-if="shop.numbers>0" ng-init="favoriteClass()" ng-click="changeClass()" ng-disabled="disableClick.value">{{favoritesText}}</button>
           <button ng-class="favorites" ng-if="shop.numbers<=0">没有剩余</button>
@@ -35,9 +35,9 @@
 
 
       <div style="float:right;margin-top: 2vw">
-        <div lang="zh-cn" class="category" ng-if="item.numbers>0">剩{{item.numbers}}</div>
-        <div lang="zh-cn" class="category" ng-if="item.numbers<=0">没有剩余</div>
-        <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">已领</div><br>
+        <div lang="zh-cn" class="category" ng-if="item.numbers>0">残り{{item.numbers}}</div>
+        <div lang="zh-cn" class="category" ng-if="item.numbers<=0">在庫切れ</div>
+        <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">獲得済み</div><br>
         <div class="category">{{averageRate(item)}}{{commentNumbers(item)}}</div>
       </div>
 
@@ -47,7 +47,7 @@
         <li  lang="zh-cn">
           <div class = "discountPrice floatLeft">{{item.discountPrice}}</div>
           <div class="fullPrice  strike-center floatLeft">{{item.fullPrice}}</div>
-          <div class="productDate floatRight">{{item.timeLimit|date:'至yy年MM月dd日'}}</div>
+          <div class="productDate floatRight">{{item.timeLimit|date:'yy年MM月dd日まで'}}</div>
         </li>
       </ul>
     </a>

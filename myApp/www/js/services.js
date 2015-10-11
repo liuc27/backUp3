@@ -13,13 +13,13 @@ angular.module('starter.services', [])
 
     var menuList = [{
         id: 0,
-        name: '美食',
+        name: '食べる',
         icon: 'ion-wineglass',
         color: 'red',
         type: 'food'
     }, {
         id: 1,
-        name: '购物',
+        name: 'ショピング',
         icon: 'ion-bag',
         color: '#5383FF',
         type: 'shopping'
@@ -32,31 +32,31 @@ angular.module('starter.services', [])
         type: 'beauty'
     }, {
         id: 3,
-        name: '旅馆',
+        name: '泊まる',
         icon: 'ion-ios-moon',
         color: '#5383FF',
         type: 'hotel'
     }, {
         id: 4,
-        name: '电影',
+        name: '映画',
         icon: 'ion-ios-film',
         color: 'silver',
         type: 'movie'
     }, {
         id: 5,
-        name: '车房',
+        name: '車・不動産',
         icon: 'ion-model-s',
         color: 'gold',
         type: 'car'
     }, {
         id: 6,
-        name: '招聘',
+        name: 'カラオケ',
         icon: 'ion-speakerphone',
         color: 'lightgreen',
         type: 'job'
     }, {
         id: 7,
-        name: '全部',
+        name: '全て',
         icon: 'ion-pinpoint',
         color: 'orange',
         type: 'all'
@@ -64,29 +64,29 @@ angular.module('starter.services', [])
 
     var orderList = [{
         id: 0,
-        name: '距离',
+        name: '距離が近い',
         color: '#5383FF',
         type: 'distance'
     }, {
         id: 1,
-        name: '评价',
+        name: '評価が高い',
         color: '#5383FF',
         type: 'rating'
 
     }, {
         id: 2,
-        name: '评价数',
+        name: '評価数が多い',
         color: '#5383FF',
         type: 'ratingNumber'
 
     }, {
         id: 3,
-        name: '销量',
+        name: '販売数が多い',
         color: '#5383FF',
         type: 'salesNumber'
     }, {
         id: 4,
-        name: '全部',
+        name: '標準',
         icon: 'ion-speakerphone',
         color: 'lightgreen',
         type: 'all'
@@ -95,7 +95,7 @@ angular.module('starter.services', [])
 
     var locationList = [{
         id: 0,
-        name: '湖北',
+        name: '東京',
         color: '#5383FF',
         type: 'hubei'
     }, {
@@ -106,18 +106,18 @@ angular.module('starter.services', [])
 
     }, {
         id: 2,
-        name: '北京',
+        name: '香港',
         color: '#5383FF',
         type: 'beijing'
 
     }, {
         id: 3,
-        name: '香港',
+        name: '台湾',
         color: '#5383FF',
         type: 'xianggang'
     }, {
         id: 4,
-        name: '全部',
+        name: '全て',
         icon: 'ion-speakerphone',
         color: 'lightgreen',
         type: 'all'

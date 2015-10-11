@@ -11,10 +11,10 @@
             <div class = "discountPrice floatLeft">{{coupon.discountPrice}}</div>
             <div class="fullPrice  strike-center floatLeft">{{coupon.fullPrice}}</div>
         </div>
-        <div class="productDate dateLocation">{{coupon.timeLimit|date:'至yy年MM月dd日'}}</div>
+        <div class="productDate dateLocation">{{coupon.timeLimit|date:'yy年MM月dd日まで'}}</div>
         <div class="addToCart">
           <button ng-class="favorites" ng-if="coupon.numbers>0" ng-init="favoriteClass()" ng-click="changeClass()" ng-disabled="disableClick.value">{{favoritesText}}</button>
-          <button ng-class="favorites" ng-if="coupon.numbers<=0">没有剩余</button>
+          <button ng-class="favorites" ng-if="coupon.numbers<=0">在庫切れ</button>
         </div>
 
       </div>
@@ -23,8 +23,8 @@
         <img class="full-image" src="{{coupon.image}}">
         <p font>
           <div  class="subdued font" style = "font-size: 4.8vw">{{commentNumbers(coupon)}}　{{averageRate(coupon)}}</div>
-          <div>优惠详情:{{coupon.productDetail}}</div>
-          <div>登录店家:{{coupon.shopName}}</div>
+          <div>クーポンの詳細:{{coupon.productDetail}}</div>
+          <div>クーポン所有店舗:{{coupon.shopName}}</div>
 
           </p>
         <p>
@@ -36,16 +36,16 @@
       <div class="item tabs tabs-secondary tabs-icon-left" ng-click="changeShowComment()">
          <a class="tab-item" style = "font-size: 4.0vw" >
            <i class="icon ion-chatbox"></i>
-           评价
+           評価
          </a>
        </div>
          <div ng-if="showComment">
              <rating data-ng-model="rate.value" max="max"></rating>
              <input class="comment" type="text" ng-model="comment.comment">
-             <button ng-click="submitComment(coupon._id)">提交</button>
+             <button ng-click="submitComment(coupon._id)">確認</button>
          </div>
         <div ng-repeat = "xxx in comment | orderBy : '-date'">
-            <div>{{xxx.title}}  评分:{{xxx.rate.value}}</div>
+            <div>{{xxx.title}}  評価:{{xxx.rate.value}}</div>
             <div>{{xxx.username}}  {{xxx.date|date:'yyyy年MM月dd日HH时mm分'}}</div>
         </div>
 
