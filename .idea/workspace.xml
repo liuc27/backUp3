@@ -2,42 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab2ef816-7e89-42c7-bcad-fb0825019b00" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-568h@2x~iphone.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-568h@2x~iphone.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-667h.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-667h.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Landscape@2x~ipad.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Landscape@2x~ipad.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Landscape~ipad.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Landscape~ipad.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Portrait@2x~ipad.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Portrait@2x~ipad.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Portrait~ipad.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default-Portrait~ipad.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default@2x~iphone.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default@2x~iphone.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/splash/Default~iphone.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/splash/Default~iphone.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-40.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-40.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-40@2x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-40@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-50.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-50.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-50@2x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-50@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-60.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-60.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-60@2x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-60@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-60@3x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-60@3x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-72.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-72.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-72@2x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-72@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-76.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-76.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-76@2x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-76@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-small.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-small.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-small@2x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon-small@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/resources/ios/icon/icon@2x.png" afterPath="$PROJECT_DIR$/myApp/resources/ios/icon/icon@2x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/config.xml" afterPath="$PROJECT_DIR$/myApp/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/js/controllers.js" afterPath="$PROJECT_DIR$/myApp/www/js/controllers.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/index.html" afterPath="$PROJECT_DIR$/myApp/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/js/services.js" afterPath="$PROJECT_DIR$/myApp/www/js/services.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/css/style.css" afterPath="$PROJECT_DIR$/myApp/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/templates/tab-coupon-detail.html" afterPath="$PROJECT_DIR$/myApp/www/templates/tab-coupon-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/templates/tab-coupon.html" afterPath="$PROJECT_DIR$/myApp/www/templates/tab-coupon.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/templates/tab-favoriteList.html" afterPath="$PROJECT_DIR$/myApp/www/templates/tab-favoriteList.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/templates/tab-register.html" afterPath="$PROJECT_DIR$/myApp/www/templates/tab-register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/templates/tab-shop-detail.html" afterPath="$PROJECT_DIR$/myApp/www/templates/tab-shop-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/templates/tab-shops.html" afterPath="$PROJECT_DIR$/myApp/www/templates/tab-shops.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myApp/www/templates/tabs.html" afterPath="$PROJECT_DIR$/myApp/www/templates/tabs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="backUp2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -61,8 +26,18 @@
       <file leaf-file-name="tabs.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myApp/www/templates/tabs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334">
+            <state vertical-scroll-proportion="-13.571428">
               <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/myApp/www/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6681223">
+              <caret line="44" column="94" selection-start-line="44" selection-start-column="94" selection-end-line="44" selection-end-column="94" />
               <folding />
             </state>
           </provider>
@@ -110,11 +85,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tab-favoriteList.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tab-favoriteList.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myApp/www/templates/tab-favoriteList.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5600437">
-              <caret line="27" column="94" selection-start-line="27" selection-start-column="94" selection-end-line="27" selection-end-column="94" />
+            <state vertical-scroll-proportion="-5.428571">
+              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -153,16 +128,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mean-sample-ch4/server.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="575" column="39" selection-start-line="575" selection-start-column="39" selection-end-line="575" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
@@ -191,7 +156,6 @@
         <option value="$PROJECT_DIR$/myApp/www/js/filters.js" />
         <option value="$PROJECT_DIR$/myApp/www/js/app.js" />
         <option value="$PROJECT_DIR$/mean-sample-ch4/server.js" />
-        <option value="$PROJECT_DIR$/myApp/www/index.html" />
         <option value="$PROJECT_DIR$/myApp/www/css/style.css" />
         <option value="$PROJECT_DIR$/myApp/www/templates/tab-coupon.html" />
         <option value="$PROJECT_DIR$/myApp/www/js/services.js" />
@@ -202,6 +166,7 @@
         <option value="$PROJECT_DIR$/myApp/www/js/controllers.js" />
         <option value="$PROJECT_DIR$/myApp/www/templates/tab-register.html" />
         <option value="$PROJECT_DIR$/myApp/www/templates/tab-favoriteList.html" />
+        <option value="$PROJECT_DIR$/myApp/www/index.html" />
       </list>
     </option>
   </component>
@@ -748,13 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myApp/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myApp/www/lib/angular-sanitize/angular-sanitize.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -791,14 +749,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="575" column="39" selection-start-line="575" selection-start-column="39" selection-end-line="575" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myApp/www/templates/tabs.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding />
         </state>
       </provider>
@@ -866,8 +816,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myApp/www/templates/tab-favoriteList.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5600437">
-          <caret line="27" column="94" selection-start-line="27" selection-start-column="94" selection-end-line="27" selection-end-column="94" />
+        <state vertical-scroll-proportion="-5.428571">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myApp/www/templates/tabs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.571428">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myApp/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6681223">
+          <caret line="44" column="94" selection-start-line="44" selection-start-column="94" selection-end-line="44" selection-end-column="94" />
           <folding />
         </state>
       </provider>
