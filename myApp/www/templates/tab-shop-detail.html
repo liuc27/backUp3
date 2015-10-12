@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-    <ion-view title="{{shop.shopName}}">
-      <ion-content has-header="true" padding="true">
+<ion-view title="{{shop.shopName}}">
+  <ion-content has-header="true" padding="true" overflow-scroll="true">
     <div class="list card pink">
 
       <div class="item item-avatar">
@@ -25,33 +25,33 @@
         <div>登录店家:{{shop.shopName}}</div>
 
         </p>
-    </div>
-    </div>
-
-
-  <div class=" bordLine  " collection-repeat="item in items | orderBy :'-id'">
-    <a href="#/tab/shop-detail-item/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
-      <img class="product_image" ng-src="{{ item.image }}">
-
-
-      <div style="float:right;margin-top: 2vw">
-        <div lang="zh-cn" class="category" ng-if="item.numbers>0">残り{{item.numbers}}</div>
-        <div lang="zh-cn" class="category" ng-if="item.numbers<=0">在庫切れ</div>
-        <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">獲得済み</div><br>
-        <div class="category">{{averageRate(item)}}{{commentNumbers(item)}}</div>
       </div>
+    </div>
 
-      <ul>
-        <li  lang="zh-cn" class="productName">{{item.name}}</li>
-        <li  lang="zh-cn" class="productIntroduction">{{item.productIntroduction}}</li>
-        <li  lang="zh-cn">
-          <div class = "discountPrice floatLeft">{{item.discountPrice}}</div>
-          <div class="fullPrice  strike-center floatLeft">{{item.fullPrice}}</div>
-          <div class="productDate floatRight">{{item.timeLimit|date:'yy年MM月dd日まで'}}</div>
-        </li>
-      </ul>
-    </a>
-  </div>
+
+    <div class=" bordLine  " collection-repeat="item in items | orderBy :'-id'">
+      <a href="#/tab/shop-detail-item/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
+        <img class="product_image" ng-src="{{ item.image }}">
+
+
+        <div style="float:right;margin-top: 2vw">
+          <div lang="zh-cn" class="category" ng-if="item.numbers>0">残り{{item.numbers}}</div>
+          <div lang="zh-cn" class="category" ng-if="item.numbers<=0">在庫切れ</div>
+          <div lang="zh-cn" class="category ion-heart" ng-if="find(item) ">獲得済み</div><br>
+          <div class="category">{{averageRate(item)}}{{commentNumbers(item)}}</div>
+        </div>
+
+        <ul>
+          <li  lang="zh-cn" class="productName">{{item.name}}</li>
+          <li  lang="zh-cn" class="productIntroduction">{{item.productIntroduction}}</li>
+          <li  lang="zh-cn">
+            <div class = "discountPrice floatLeft">{{item.discountPrice}}</div>
+            <div class="fullPrice  strike-center floatLeft">{{item.fullPrice}}</div>
+            <div class="productDate floatRight">{{item.timeLimit|date:'yy年MM月dd日まで'}}</div>
+          </li>
+        </ul>
+      </a>
+    </div>
 
   </ion-content>
 </ion-view>

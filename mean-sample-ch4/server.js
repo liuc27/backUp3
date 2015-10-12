@@ -58,6 +58,9 @@ app.use(logger('dev'))
 app.use('/images/', express.static(__dirname + '/images/'))
 app.use('/www/', express.static(__dirname + '/www/'))
 app.use('/shopImages/', express.static(__dirname + '/shopImages/'))
+app.use('/shopCertificates/', express.static(__dirname + '/shopCertificates/'))
+app.use('/userCertificates/', express.static(__dirname + '/userCertificates/'))
+
 app.use(function(req, res, next) {
     var ip_info = get_ip(req);
     console.log(ip_info);
@@ -335,16 +338,29 @@ app.post('/api/registerShop', limiterPost.middleware({
         });
     }
 
-    shopCertificateURL = "http://120.24.168.7/shopCertificates/" + req.body.shopName +".jpg";
+    var shopCertificateURL = "http://120.24.168.7/shopCertificates/" + req.body.shopName +"Certificate.jpg";
     data = req.body.shopCertificate;
     if (data) {
         base64Data = data.replace(/^data:image\/jpeg;base64,/, "").replace(/^data:image\/png;base64,/, "");
         base64Data += base64Data.replace('+', ' ');
         binaryData = new Buffer(base64Data, 'base64').toString('binary');
-        fs.writeFile("shopCertificates/" + req.body.shopName + ".jpg", binaryData, "binary", function(err) {
+        fs.writeFile("shopCertificates/" + req.body.shopName + "Certificate.jpg", binaryData, "binary", function(err) {
             console.log(err); // writes out file without error, but it's not a valid image
         });
     }
+
+
+    var shopImageURL = "http://120.24.168.7/shopImages/" + req.body.shopName +".jpg";
+    data = req.body.shopImage;
+    if (data) {
+        base64Data = data.replace(/^data:image\/jpeg;base64,/, "").replace(/^data:image\/png;base64,/, "");
+        base64Data += base64Data.replace('+', ' ');
+        binaryData = new Buffer(base64Data, 'base64').toString('binary');
+        fs.writeFile("shopImages/" + req.body.shopName + ".jpg", binaryData, "binary", function(err) {
+            console.log(err); // writes out file without error, but it's not a valid image
+        });
+    }
+
 
     Shop.update({
         "shopName": req.body.shopName
@@ -355,7 +371,8 @@ app.post('/api/registerShop', limiterPost.middleware({
         shopAddress: req.body.shopAddress,
         shopContactWay: req.body.shopContactWay,
         shopCertificate:shopCertificateURL,
-        userCertificate: userCertificateURL
+        userCertificate: userCertificateURL,
+        shopImage: shopImageURL
     }, {
         upsert: true
     }, function(err, data) {
@@ -370,8 +387,14 @@ app.post('/api/registerShop', limiterPost.middleware({
             },  function(err, data) {
                 if (err) {
                     res.send("error")
-                }else{
-                    res.send("OK")
+                }
+            })
+            Shop.find({}, function(err, data) {
+                if (err) {
+                    return next(err)
+                } else {
+                    res.send(data)
+
                 }
             })
         }

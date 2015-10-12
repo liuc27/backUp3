@@ -149,7 +149,8 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.shop = types.fetchShop($stateParams.shopId);
   console.log($stateParams.shopId);
 
-
+      $scope.items = $rootScope.items;
+      console.log($scope.items );
 
 
   $scope.find = function (item) {
