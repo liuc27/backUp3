@@ -1,60 +1,60 @@
-
 <ion-view title="<b>帐号">
-    <ion-content has-header="true" class="padding" ng-show = "usernameExist == false" scroll="true">
-        <div class="list">
-            <button class="button ">登録・ログイン</button>
+  <ion-content has-header="true" class="padding" ng-show="usernameExist == false" scroll="true">
+    <div class="list">
+      <button class="button ">登録・ログイン</button>
 
-            <label class="item item-input">
-                <span class="input-label">ユーザ名</span>
-                <input type="text" ng-model="username">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">パスワード</span>
-                <input type="password" ng-model="password">
-            </label>
-        </div>
-        <button class="button button-full button-positive" ng-click="register(username,password)">ログイン・登録</button>
-    </ion-content>
+      <label class="item item-input">
+        <span class="input-label">ユーザ名</span>
+        <input type="text" ng-model="username">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">パスワード</span>
+        <input type="password" ng-model="password">
+      </label>
+    </div>
+    <button class="button button-full button-positive" ng-click="register(username,password)">ログイン・登録</button>
+  </ion-content>
 
-    <ion-content has-header="true" class="padding" ng-hide = "usernameExist == false">
-        <button class="button button-full button-positive">{{username}}ログイン完了！</button>
-        <button class="button button-full button-positive" ng-click="logout()">ログアウト</button>
-        <a href="#/tab/favoriteList">
-             <button class="button button-full button-positive">獲得済みクーポン</button>
-        </a>
+  <ion-content has-header="true" class="padding" ng-hide="usernameExist == false">
+    <button class="button button-full button-positive">{{username}}ログイン完了！</button>
+    <button class="button button-full button-positive" ng-click="logout()">ログアウト</button>
+    <a href="#/tab/favoriteList">
+      <button class="button button-full button-positive">獲得済みクーポン</button>
+    </a>
 
-        <button class="button button-full button-positive" ng-click="toggleRegisterShop()">店舗を登録↓</button>
+    <button class="button button-full button-positive" ng-click="toggleRegisterShop()">店舗を登録↓</button>
 
-        <div ng-show = "registeredShop.done">
-        <label class="item item-input">
-            <span class="input-label">会社名</span>
-            <input type="text" ng-model="shop.shopName">
-        </label>
-        <label class="item item-input">
-            <span class="input-label">会社カテゴリー</span>
-            <input type="text" ng-model="shop.shopCategory">
-        </label>
-        <label class="item item-input">
-            <span class="input-label">会社アドレス</span>
-            <input type="text" ng-model="shop.shopAddress">
-        </label>
-        <label class="item item-input">
-            <span class="input-label">聯絡方式</span>
-            <input type="text" ng-model="shop.shopContactWay">
-        </label>
-        <label class="item item-input">
-                <span class="input-label">会社営業許可証</span>
-                <input ng-change="createShopCertificate()" type="file" ng-model="image.shopCertificate" base-sixty-four-input>
-        </label>
-        <label class="item item-input">
-                <span class="input-label">会社法人身分証</span>
-                <form>
-                <input ng-change="createUserCertificate()" type="file" ng-model="image.userCertificate" base-sixty-four-input>
-                </form>
-        </label>
-        <button class="button button-full button-positive" ng-click="registerShop()">確認</button>
-        <div>
+    <div ng-show="registeredShop.done">
+      <label class="item item-input">
+        <span class="input-label">会社名</span>
+        <input type="text" ng-model="shop.shopName">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社カテゴリー</span>
+        <input type="text" ng-model="shop.shopCategory">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社アドレス</span>
+        <input type="text" ng-model="shop.shopAddress">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">聯絡方式</span>
+        <input type="text" ng-model="shop.shopContactWay">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社営業許可証</span>
+        <input ng-change="createShopCertificate()" type="file" ng-model="image.shopCertificate" base-sixty-four-input>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社法人身分証</span>
+
+        <form>
+          <input ng-change="createUserCertificate()" type="file" ng-model="image.userCertificate" base-sixty-four-input>
+        </form>
+      </label>
+      <button class="button button-full button-positive" ng-click="registerShop()">確認</button>
+      <div>
         <div>{{shop}}</div>
-    </ion-content>
+  </ion-content>
 
 </ion-view>

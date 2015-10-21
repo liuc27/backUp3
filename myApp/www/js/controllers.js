@@ -1,326 +1,322 @@
 angular.module('starter.controllers', ['naif.base64'])
 
-.controller('CouponCtrl', function ($scope, $http, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
+  .controller('CouponCtrl', function ($scope, $http, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
 
-  console.log(resolvedItems)
-  $rootScope.items = resolvedItems.data
-      $rootScope.shops = resolvedShops.data
-      $rootScope.possession = resolvedPossession.data
-  $scope.chosenItem = {
-    "value": "all"
-  }
-
-  $scope.chooseMenuItem = function (menu, $index) {
-    $scope.chosenItem.value = menu.type
-    $scope.selectedIndex = $index
-    console.log($index)
-  }
-
-  console.log($scope.chosenItem.value)
-  console.log(resolvedPossession.data)
-
-
-
-      $rootScope.averageRate = function(item){
-        return types.caculateItemAverageRate(item);
-      }
-
-
-      $rootScope.commentNumbers = function(item){
-        return types.caculateItemCommentNumbers(item);
-      }
-
-  $scope.find = function (item) {
-    var exist = false;
-    angular.forEach($rootScope.possession, function (value) {
-      if (value == item._id) {
-        exist = true;
-      }
-    });
-    return exist;
-  }
-  $scope.menus = types.getMenu()
-  $scope.doRefresh = types.doRefresh()
-})
-
-.controller('shopsCtrl', function ($rootScope,$scope, types, resolvedShops, $ionicPopover) {
-  $scope.typeList = types.typeList();
-  $scope.orderList = types.getOrderList();
-  $scope.locationList = types.getLocationList();
-      $scope.doRefresh = types.doRefresh();
-
-  $scope.chosenCategory = {
-    "value": "all"
-  }
-  $scope.chosenLocation = {
-    "value": "all"
-  }
-  $scope.chosenOrder = {
-    "value": "all"
-  }
-  //$scope.shops = resolvedShops.data
-  $scope.cate = {"value":"すべて"};
-  $scope.location = {"value":"すべて"};
-  $scope.order = {"value":"すべて"};
-
-      $scope.shopRate = {
-        value: null
-      };
-
-
-
-      $rootScope.shopAverageRate = function(shop){
-        return types.caculateShopAverageRate(shop);
-      }
-
-      $rootScope.shopCommentNumbers = function(shop){
-        return types.caculateShopCommentNumbers(shop);
-      }
-
-
-      $scope.chooseCategoryItem = function (type) {
-    $scope.chosenCategory.value = type.type;
-    console.log(type.type)
-    $scope.popoverCategory.hide();
-    $scope.cate.value = type.name
-  }
-
-  $scope.chooseLocationItem = function (type) {
-    $scope.chosenLocation.value = type.type;
-    console.log(type.type)
-    $scope.popoverLocation.hide();
-    $scope.location.value = type.name
-  }
-
-  $scope.chooseOrderItem = function (type) {
-    $scope.chosenOrder.value = type.type;
-    console.log(type)
-    console.log(type.type)
-    $scope.popoverOrder.hide();
-    $scope.order.value = type.name
-  }
-  // .fromTemplate() method
-  $ionicPopover.fromTemplateUrl('templates/popover/popoverCategory.html', {
-    scope: $scope
-  }).then(function (popover) {
-    $scope.popoverCategory = popover;
-  });
-  $ionicPopover.fromTemplateUrl('templates/popover/popoverLocation.html', {
-    scope: $scope
-  }).then(function (popover) {
-    $scope.popoverLocation = popover;
-  });
-  $ionicPopover.fromTemplateUrl('templates/popover/popoverOrder.html', {
-    scope: $scope
-  }).then(function (popover) {
-    $scope.popoverOrder = popover;
-  });
-
-
-  $scope.openPopoverCategory = function ($event) {
-    $scope.popoverCategory.show($event);
-  };
-  $scope.openPopoverLocation = function ($event) {
-    $scope.popoverLocation.show($event);
-  };
-  $scope.openPopoverOrder = function ($event) {
-    $scope.popoverOrder.show($event);
-  };
-
-  $scope.closePopoverCategory = function () {
-    $scope.popoverCategory.hide();
-  };
-  //Cleanup the popover when we're done with it!
-  $scope.$on('$destroy', function () {
-    $scope.popoverCategory.remove();
-  });
-  // Execute action on hide popover
-  $scope.$on('popover.hidden', function () {
-    // Execute action
-  });
-  // Execute action on remove popover
-  $scope.$on('popover.removed', function () {
-    // Execute action
-  });
-})
-
-.controller('ShopDetailCtrl', function ($scope, $http, $rootScope, $stateParams ,types, resolvedShops, resolvedItems, resolvedPossession) {
-  //$scope.shops = resolvedShops.data;
-  $scope.shop = types.fetchShop($stateParams.shopId);
-  console.log($stateParams.shopId);
-
-      $scope.items = $rootScope.items;
-      console.log($scope.items );
-
-
-  $scope.find = function (item) {
-    var exist = false;
-    angular.forEach($rootScope.possession, function (value) {
-      if (value == item._id) {
-        exist = true;
-      }
-    });
-    return exist;
-  }
-
-})
-
-
-.controller('CouponDetailCtrl', function ($scope, $stateParams,$rootScope, localStorageService, $ionicPopup, $ionicScrollDelegate, types, $http, resolvedItems, resolvedAccount, resolvedPossession) {
-
-  //$scope.items = $rootScope.items;
-  console.log($rootScope.items);
-  $scope.possession = resolvedPossession.date
-
-  $scope.username = resolvedAccount ? resolvedAccount : $scope.username
-  $scope.rate = {
-    value: 3
-  };
-
-  $scope.max = 5;
-  console.log("stateParams are");
-  console.log($stateParams);
-  console.log($rootScope.possession)
-  $scope.coupon = types.fetch($stateParams.couponId)
-  console.log($scope.coupon)
-  $scope.favorites = "button icon-left ion-plus button-positive";
-  $scope.favoritesText = "獲得➕";
-      $scope.commentNumbers = function(item){
-        return types.caculateItemCommentNumbers(item);
-      }
-
-      $scope.disableClick = {
-    value: false
-  }
-
-  $scope.clicked = false;
-  $scope.comment = types.comment($stateParams.couponId);
-
-
-
-      $scope.showComment = false;
-  console.log($scope.comment)
-  var theNewCoupon = angular.copy($scope.coupon);
-  //$scope.comment.push({"text":theNewCoupon.productName})
-  $scope.changeShowComment = function () {
-    $scope.showComment = !$scope.showComment
-    //$ionicScrollDelegate.scrollBy(0, 100);
-  }
-  $scope.submitComment = function (couponId) {
-    $scope.disableClick.value = true
-
-    if ($scope.username) {
-
-      $http.post("http://120.24.168.7/api/comment", {
-        "name": $scope.coupon.name,
-        "username": $scope.username,
-        "comment": $scope.comment.comment,
-        "rate": $scope.rate
-      }).success(function (data) {
-        console.log(data)
-        console.log($scope.showComment)
-        $scope.showComment = !$scope.showComment
-
-        $scope.comment = data
-
-        $scope.commentLength++;
-
-        angular.forEach($rootScope.items, function (itemValue) {
-          if (itemValue._id == couponId) {
-            console.log(itemValue.comment)
-            itemValue.comment = data;
-            console.log(itemValue.comment)
-          }
-        });
-
-
-      }).error(function (data) {
-        console.log(data)
-        if (data == "Rate limit exceeded") {
-          $ionicPopup.alert({
-              title: "頻繁的な評価ができません!"
-            }
-
-          )
-        } else {
-          $ionicPopup.alert({
-            title: "このIPが暫く評価できません！"
-          })
-        }
-      })
-
-    } else {
-      $ionicPopup.alert({
-        title: 'ログインしてください！'
-      })
-      $scope.disableClick.value = true
+    console.log(resolvedItems)
+    $rootScope.items = resolvedItems.data
+    $rootScope.shops = resolvedShops.data
+    $rootScope.possession = resolvedPossession.data
+    $scope.chosenItem = {
+      "value": "all"
     }
-  };
 
-  $scope.changeClass = function () {
-    var couponName = $scope.coupon.name
-    $scope.disableClick.value = true
-    console.log($scope.isDisabled)
-    console.log($scope.isDisabled)
+    $scope.chooseMenuItem = function (menu, $index) {
+      $scope.chosenItem.value = menu.type
+      $scope.selectedIndex = $index
+      console.log($index)
+    }
 
-    console.log($scope.disableClick.value)
-    if ($scope.username) {
-      var _id = $scope.coupon._id
-      if ($scope.favoritesText === "獲得➕") {
-        console.log(resolvedPossession)
-        console.log($scope.username)
-        console.log(_id)
-        $http.post("http://120.24.168.7/api/add", {
-          "name": couponName,
+    console.log($scope.chosenItem.value)
+    console.log(resolvedPossession.data)
+
+
+    $rootScope.averageRate = function (item) {
+      return types.caculateItemAverageRate(item);
+    }
+
+
+    $rootScope.commentNumbers = function (item) {
+      return types.caculateItemCommentNumbers(item);
+    }
+
+    $scope.find = function (item) {
+      var exist = false;
+      angular.forEach($rootScope.possession, function (value) {
+        if (value == item._id) {
+          exist = true;
+        }
+      });
+      return exist;
+    }
+    $scope.menus = types.getMenu()
+    $scope.doRefresh = types.doRefresh()
+  })
+
+  .controller('shopsCtrl', function ($rootScope, $scope, types, resolvedShops, $ionicPopover) {
+    $scope.typeList = types.typeList();
+    $scope.orderList = types.getOrderList();
+    $scope.locationList = types.getLocationList();
+    $scope.doRefresh = types.doRefresh();
+
+    $scope.chosenCategory = {
+      "value": "all"
+    }
+    $scope.chosenLocation = {
+      "value": "all"
+    }
+    $scope.chosenOrder = {
+      "value": "all"
+    }
+    //$scope.shops = resolvedShops.data
+    $scope.cate = {"value": "すべて"};
+    $scope.location = {"value": "すべて"};
+    $scope.order = {"value": "すべて"};
+
+    $scope.shopRate = {
+      value: null
+    };
+
+
+    $rootScope.shopAverageRate = function (shop) {
+      return types.caculateShopAverageRate(shop);
+    }
+
+    $rootScope.shopCommentNumbers = function (shop) {
+      return types.caculateShopCommentNumbers(shop);
+    }
+
+
+    $scope.chooseCategoryItem = function (type) {
+      $scope.chosenCategory.value = type.type;
+      console.log(type.type)
+      $scope.popoverCategory.hide();
+      $scope.cate.value = type.name
+    }
+
+    $scope.chooseLocationItem = function (type) {
+      $scope.chosenLocation.value = type.type;
+      console.log(type.type)
+      $scope.popoverLocation.hide();
+      $scope.location.value = type.name
+    }
+
+    $scope.chooseOrderItem = function (type) {
+      $scope.chosenOrder.value = type.type;
+      console.log(type)
+      console.log(type.type)
+      $scope.popoverOrder.hide();
+      $scope.order.value = type.name
+    }
+    // .fromTemplate() method
+    $ionicPopover.fromTemplateUrl('templates/popover/popoverCategory.html', {
+      scope: $scope
+    }).then(function (popover) {
+      $scope.popoverCategory = popover;
+    });
+    $ionicPopover.fromTemplateUrl('templates/popover/popoverLocation.html', {
+      scope: $scope
+    }).then(function (popover) {
+      $scope.popoverLocation = popover;
+    });
+    $ionicPopover.fromTemplateUrl('templates/popover/popoverOrder.html', {
+      scope: $scope
+    }).then(function (popover) {
+      $scope.popoverOrder = popover;
+    });
+
+
+    $scope.openPopoverCategory = function ($event) {
+      $scope.popoverCategory.show($event);
+    };
+    $scope.openPopoverLocation = function ($event) {
+      $scope.popoverLocation.show($event);
+    };
+    $scope.openPopoverOrder = function ($event) {
+      $scope.popoverOrder.show($event);
+    };
+
+    $scope.closePopoverCategory = function () {
+      $scope.popoverCategory.hide();
+    };
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function () {
+      $scope.popoverCategory.remove();
+    });
+    // Execute action on hide popover
+    $scope.$on('popover.hidden', function () {
+      // Execute action
+    });
+    // Execute action on remove popover
+    $scope.$on('popover.removed', function () {
+      // Execute action
+    });
+  })
+
+  .controller('ShopDetailCtrl', function ($scope, $http, $rootScope, $stateParams, types, resolvedShops, resolvedItems, resolvedPossession) {
+    //$scope.shops = resolvedShops.data;
+    $scope.shop = types.fetchShop($stateParams.shopId);
+    console.log($stateParams.shopId);
+
+    $scope.items = $rootScope.items;
+    console.log($scope.items);
+
+
+    $scope.find = function (item) {
+      var exist = false;
+      angular.forEach($rootScope.possession, function (value) {
+        if (value == item._id) {
+          exist = true;
+        }
+      });
+      return exist;
+    }
+
+  })
+
+
+  .controller('CouponDetailCtrl', function ($scope, $stateParams, $rootScope, localStorageService, $ionicPopup, $ionicScrollDelegate, types, $http, resolvedItems, resolvedAccount, resolvedPossession) {
+
+    //$scope.items = $rootScope.items;
+    console.log($rootScope.items);
+    $scope.possession = resolvedPossession.date
+
+    $scope.username = resolvedAccount ? resolvedAccount : $scope.username
+    $scope.rate = {
+      value: 3
+    };
+
+    $scope.max = 5;
+    console.log("stateParams are");
+    console.log($stateParams);
+    console.log($rootScope.possession)
+    $scope.coupon = types.fetch($stateParams.couponId)
+    console.log($scope.coupon)
+    $scope.favorites = "button icon-left ion-plus button-positive";
+    $scope.favoritesText = "獲得　";
+    $scope.commentNumbers = function (item) {
+      return types.caculateItemCommentNumbers(item);
+    }
+
+    $scope.disableClick = {
+      value: false
+    }
+
+    $scope.clicked = false;
+    $scope.comment = types.comment($stateParams.couponId);
+
+
+    $scope.showComment = false;
+    console.log($scope.comment)
+    var theNewCoupon = angular.copy($scope.coupon);
+    //$scope.comment.push({"text":theNewCoupon.productName})
+    $scope.changeShowComment = function () {
+      $scope.showComment = !$scope.showComment
+      //$ionicScrollDelegate.scrollBy(0, 100);
+    }
+    $scope.submitComment = function (couponId) {
+      $scope.disableClick.value = true
+
+      if ($scope.username) {
+
+        $http.post("http://120.24.168.7/api/comment", {
+          "name": $scope.coupon.name,
           "username": $scope.username,
-          "_id": _id
-
+          "comment": $scope.comment.comment,
+          "rate": $scope.rate
         }).success(function (data) {
-          if (data === "couldn't find") {
+          console.log(data)
+          console.log($scope.showComment)
+          $scope.showComment = !$scope.showComment
+
+          $scope.comment = data
+
+          $scope.commentLength++;
+
+          angular.forEach($rootScope.items, function (itemValue) {
+            if (itemValue._id == couponId) {
+              console.log(itemValue.comment)
+              itemValue.comment = data;
+              console.log(itemValue.comment)
+            }
+          });
+
+
+        }).error(function (data) {
+          console.log(data)
+          if (data == "Rate limit exceeded") {
             $ionicPopup.alert({
-              title: '在庫切れのため、獲得できません。'
-            })
-            $scope.favoritesText = "在庫切れ"
+                title: "頻繁的な評価ができません!"
+              }
+            )
           } else {
             $ionicPopup.alert({
-              title: '獲得成功しました!'
-            });
-            console.log(resolvedPossession)
-            console.log($rootScope.possession)
-
-            $rootScope.possession.push(_id);
-
-            $scope.favoritesText = "獲得済み"
-            $scope.favorites = "button icon-left ion-heart button-positive"
-            $scope.coupon.numbers = data
-            //console.log(data)
+              title: "このIPが暫く評価できません！"
+            })
           }
         })
-      }
-    } else {
-      $ionicPopup.alert({
-        title: 'ログインしてください！'
-      })
-      $scope.disableClick.value = false
 
-    }
-  }
-
-  $scope.favoriteClass = function () {
-    var exist = false
-    angular.forEach($rootScope.possession, function (value) {
-      if (value == $scope.coupon._id) {
-        exist = true;
+      } else {
+        $ionicPopup.alert({
+          title: 'ログインしてください！'
+        })
+        $scope.disableClick.value = true
       }
-    })
-    if (exist) {
-      $scope.favorites = "button icon-left ion-heart button-positive";
-      $scope.favoritesText = "獲得済み";
+    };
+
+    $scope.changeClass = function () {
+      var couponName = $scope.coupon.name
       $scope.disableClick.value = true
+      console.log($scope.isDisabled)
+      console.log($scope.isDisabled)
+
+      console.log($scope.disableClick.value)
+      if ($scope.username) {
+        var _id = $scope.coupon._id
+        if ($scope.favoritesText === "獲得　") {
+          console.log(resolvedPossession)
+          console.log($scope.username)
+          console.log(_id)
+          $http.post("http://120.24.168.7/api/add", {
+            "name": couponName,
+            "username": $scope.username,
+            "_id": _id
+
+          }).success(function (data) {
+            if (data === "couldn't find") {
+              $ionicPopup.alert({
+                title: '在庫切れのため、獲得　できません。'
+              })
+              $scope.favoritesText = "在庫切れ"
+            } else {
+              $ionicPopup.alert({
+                title: '獲得　成功しました!'
+              });
+              console.log(resolvedPossession)
+              console.log($rootScope.possession)
+
+              $rootScope.possession.push(_id);
+
+              $scope.favoritesText = "獲得　済み"
+              $scope.favorites = "button icon-left ion-heart button-positive"
+              $scope.coupon.numbers = data
+              //console.log(data)
+            }
+          })
+        }
+      } else {
+        $ionicPopup.alert({
+          title: 'ログインしてください！'
+        })
+        $scope.disableClick.value = false
+
+      }
     }
-  };
-})
-  .controller('favoriteListCtrl', function ($scope,$rootScope, $stateParams, localStorageService, types, resolvedItems, resolvedPossession) {
+
+    $scope.favoriteClass = function () {
+      var exist = false
+      angular.forEach($rootScope.possession, function (value) {
+        if (value == $scope.coupon._id) {
+          exist = true;
+        }
+      })
+      if (exist) {
+        $scope.favorites = "button icon-left ion-heart button-positive";
+        $scope.favoritesText = "獲得　済み";
+        $scope.disableClick.value = true
+      }
+    };
+  })
+  .controller('favoriteListCtrl', function ($scope, $rootScope, $stateParams, localStorageService, types, resolvedItems, resolvedPossession) {
     //localStorageService.clearAll()
     //$rootScope.items = resolvedItems.data;
     //$scope.possession = resolvedPossession.data;
@@ -333,48 +329,48 @@ angular.module('starter.controllers', ['naif.base64'])
     $scope.image = {};
 
     $scope.username = resolvedAccount
-      if (typeof $scope.username === "undefined" || $scope.username === null) {
-        $ionicPopup.alert({
-          title: 'ログインしてください'
-        });
-        setTimeout(function() {
-          $state.go('tab.register');
-        }, 150)
-      } else {
-        $ionicPopup.alert({
-          title: 'アカウント: ' + $scope.username
-        });
-        console.log($scope.username)
-        setTimeout(function() {
-          $state.go('tab.coupon');
-        }, 150)
+    if (typeof $scope.username === "undefined" || $scope.username === null) {
+      $ionicPopup.alert({
+        title: 'ログインしてください'
+      });
+      setTimeout(function () {
+        $state.go('tab.register');
+      }, 150)
+    } else {
+      $ionicPopup.alert({
+        title: 'アカウント: ' + $scope.username
+      });
+      console.log($scope.username)
+      setTimeout(function () {
+        $state.go('tab.coupon');
+      }, 150)
 
-      }
+    }
     $scope.registeredShop = {};
-      if($scope.username) {
-        $scope.usernameExist = true
+    if ($scope.username) {
+      $scope.usernameExist = true
 
-        if ($scope.username.shop) {
-          $scope.registeredShop.done = true;
-        } else {
-          $scope.registeredShop.done = false;
-        }
-      }else{
-        $scope.usernameExist = false
+      if ($scope.username.shop) {
+        $scope.registeredShop.done = true;
+      } else {
+        $scope.registeredShop.done = false;
       }
+    } else {
+      $scope.usernameExist = false
+    }
 
-      $scope.logout = function(){
-        localStorageService.clearAll();
-        console.log($scope.username)
+    $scope.logout = function () {
+      localStorageService.clearAll();
+      console.log($scope.username)
 
-        setTimeout(function() {
-          $state.go('tab.register');
-        }, 300)
-      }
+      setTimeout(function () {
+        $state.go('tab.register');
+      }, 300)
+    }
 
-      $scope.toggleRegisterShop = function(){
-        $scope.registeredShop.done = !($scope.registeredShop.done);
-      }
+    $scope.toggleRegisterShop = function () {
+      $scope.registeredShop.done = !($scope.registeredShop.done);
+    }
 
     $scope.register = function (username, password) {
       if (username == null || password == null) {
@@ -390,7 +386,7 @@ angular.module('starter.controllers', ['naif.base64'])
             $ionicPopup.alert({
               title: 'ユーザ名も使用されました、他のユーザ名を使用してください！'
             });
-          } else if(data === "passed") {
+          } else if (data === "passed") {
             $rootScope.username = username
             $scope.username = username
             $scope.usernameExist = true
@@ -400,7 +396,7 @@ angular.module('starter.controllers', ['naif.base64'])
             var promise = $q(function (resolve, reject) {
               setTimeout(function () {
                 if (localStorageService.set("usernameData", username)) {
-                  resolve('クーポンの獲得をはじめてください!');
+                  resolve('クーポンの獲得　をはじめてください!');
                 } else {
                   reject('エラー!');
                 }
@@ -428,7 +424,7 @@ angular.module('starter.controllers', ['naif.base64'])
             var promise = $q(function (resolve, reject) {
               setTimeout(function () {
                 if (localStorageService.set("usernameData", username)) {
-                  resolve('クーポンの獲得をはじめてください!');
+                  resolve('クーポンの獲得　をはじめてください!');
                 } else {
                   reject('エラー!');
                 }
@@ -456,15 +452,15 @@ angular.module('starter.controllers', ['naif.base64'])
     }
 
     $scope.createShopCertificate = function () {
-      if($scope.image.shopCertificate) {
-          $scope.shop.shopCertificate = "data:" + $scope.image.shopCertificate.filetype + ";base64," + $scope.image.shopCertificate.base64;
+      if ($scope.image.shopCertificate) {
+        $scope.shop.shopCertificate = "data:" + $scope.image.shopCertificate.filetype + ";base64," + $scope.image.shopCertificate.base64;
       }
     }
 
     $scope.createUserCertificate = function () {
-        if($scope.image.userCertificate) {
-            $scope.shop.userCertificate = "data:" + $scope.image.userCertificate.filetype + ";base64," + $scope.image.userCertificate.base64;
-        }
+      if ($scope.image.userCertificate) {
+        $scope.shop.userCertificate = "data:" + $scope.image.userCertificate.filetype + ";base64," + $scope.image.userCertificate.base64;
+      }
     }
 
     $scope.sendJson = function () {
@@ -493,7 +489,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $scope.registerShop = function () {
       $scope.shop.username = $scope.username;
-      if ($scope.shop.shopName == null || $scope.shop.shopAddress == null || $scope.shop.userCertificate == null|| $scope.shop.shopContactWay == null || $scope.image.shopCertificate.base64 == null) {
+      if ($scope.shop.shopName == null || $scope.shop.shopAddress == null || $scope.shop.userCertificate == null || $scope.shop.shopContactWay == null || $scope.image.shopCertificate.base64 == null) {
         $ionicPopup.alert({
           title: '項目を全部入力してください！'
         });
@@ -509,8 +505,6 @@ angular.module('starter.controllers', ['naif.base64'])
         })
       }
     };
-
-
 
 
     $scope.showTab = function () {
