@@ -386,9 +386,10 @@ ul.rating li i {
 }
 
 .selected-class-name {
-    width: 14vw;
-    height: 14vw;
-    border-radius: 14vw;
+    width: 13vw;
+    height: 13vw;
+    border-radius: 13vw;
+    box-shadow: 0 0 2vw blue;
 }
 
 .popover {
