@@ -196,10 +196,60 @@ angular.module('starter.controllers', ['naif.base64'])
   $scope.clicked = false;
   $scope.comment = types.comment($stateParams.couponId);
 
-
-
-      $scope.showComment = false;
+  $scope.showComment = false;
   console.log($scope.comment)
+
+  var mapOptions = {
+    disableDefaultUI: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    scaleControl: true,
+    zoom: 16,
+    zoomControl: true,
+  };
+
+  $scope.map = {
+      center: {
+        latitude: 35.6813818,
+        longitude: 139.7638951
+      },
+      zoom: 14,
+      options: mapOptions
+  };
+  data = types.allShops();
+  //$http.get("http://120.24.168.7/api/shops").success(function(data) {
+  console.log(data);
+  if(data.length){
+    var icon = {
+      // path: "M24,0 C13,0 6,6 6,15 6,28.038405 18,33 24,48 30,33 42,28 42,15 42,6 35,0 24,0z m0,3 C31.455843,3 37.5,9.0441554 37.5,16.5 37.5,23.955845 31.455843,30 24,30 16.544156,30 10.5,23.955845 10.5,16.5 10.5,9.0441554 16.544156,3 24,3z",
+      // path: "M24,0 C13,0 6,6 6,15 6,28.038405 18,33 24,48 30,33 42,28 42,15 42,6 35,0 24,0z m0,3 C31.455843,3 37.5,9.0441554 37.5,16.5 37.5,23.955845 31.455843,30 24,30 16.544156,30 10.5,23.955845 10.5,16.5 10.5,9.0441554 16.544156,3 24,3z m6.75,6.75 -1.5,3.75 -16.5,0 3.75,9 3,0 9,0 2.25,0 2.25,-9 -1.5,0 0.75,-2.25 3,0 0,-1.5 -4.5,0z M28.5,22.5 c-1.242633,0 -2.25,1.007354 -2.25,2.25 0,1.242633 1.007367,2.25 2.25,2.25 1.242647,0 2.25,-1.007367 2.25,-2.25 0,-1.242646 -1.007353,-2.25 -2.25,-2.25z m-9,0 c-1.242633,0 -2.25,1.007354 -2.25,2.25 0,1.242633 1.007367,2.25 2.25,2.25 1.242647,0 2.25,-1.007367 2.25,-2.25 0,-1.242646 -1.007353,-2.25 -2.25,-2.25z",
+      path: "M24,0 C13,0 6,6 6,15 6,28.038405 18,33 24,48 30,33 42,28 42,15 42,6 35,0 24,0z m0,9 11.25,7 -4.5,0 0,11 -13.5,0 0,-11 -4.5,0z m-2.25,11.25 0,5.75 4.5,0 0,-5.75z",
+      scale: 0.875,
+      fillColor: "#4641D9",
+      fillOpacity: 1,
+      strokeColor: "#002266",
+      strokeOpacity: 1,
+      strokeWeight: 0,
+      anchor: new google.maps.Point(24, 48)
+    };  
+    $scope.marker = {
+      id: data[0]._id,
+      coords: {
+        latitude: data[0].shopLatitude,
+        longitude: data[0].shopLongitude
+      },
+      options: {
+        title: "shop",
+        icon: icon,
+        optimized: true,
+        draggable: false,
+        visible: true,
+      }
+    };
+    console.log($scope.marker);
+    $scope.map.center = {latitude: data[0].shopLatitude, longitude: data[0].shopLongitude};
+  }
+  //});
+
   var theNewCoupon = angular.copy($scope.coupon);
   //$scope.comment.push({"text":theNewCoupon.productName})
   $scope.changeShowComment = function () {

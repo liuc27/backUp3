@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.rating','LocalStorageModule'])
+angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.rating','LocalStorageModule','uiGmapgoogle-maps'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -23,6 +23,11 @@ angular.module('starter', ['ionic','naif.base64', 'starter.controllers', 'starte
     .config(function($ionicConfigProvider) {
         $ionicConfigProvider.tabs.position('bottom');
     })
+    .config(['uiGmapGoogleMapApiProvider', function(GoogleMapApiProviders) {
+        GoogleMapApiProviders.configure({
+            china: true
+        });
+    }])
     .config(function (localStorageServiceProvider) {
         localStorageServiceProvider
             .setPrefix('myApp')

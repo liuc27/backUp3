@@ -406,3 +406,7 @@ ul.rating li i {
 .popover{
   height: auto;
 }
+
+.angular-google-map-container {
+  height: 400px;
+}
