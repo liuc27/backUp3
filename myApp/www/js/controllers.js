@@ -361,8 +361,13 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $scope.logout = function () {
       localStorageService.clearAll();
-      console.log($scope.username)
-
+      $rootScope.usernameExist = false
+      $rootScope.username = null
+      $scope.usernameExist = false
+      $scope.username = null
+      $ionicPopup.alert({
+        title: 'ログアウトしました！'
+      });
       setTimeout(function () {
         $state.go('tab.register');
       }, 300)
