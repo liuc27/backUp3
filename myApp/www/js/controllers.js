@@ -1,7 +1,10 @@
 angular.module('starter.controllers', ['naif.base64'])
 
-  .controller('CouponCtrl', function ($scope, $http, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
+  .controller('CouponCtrl', function ($scope, $http, $ionicSlideBoxDelegate, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
 
+      $scope.nextSlide = function() {
+        $ionicSlideBoxDelegate.next();
+      }
     console.log(resolvedItems)
     $rootScope.items = resolvedItems.data
     $rootScope.shops = resolvedShops.data
