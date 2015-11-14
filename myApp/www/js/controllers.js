@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['naif.base64'])
 
-  .controller('CouponCtrl', function ($scope, $http, $ionicSlideBoxDelegate, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
+  .controller('CouponCtrl', function ($scope, $http,$ionicScrollDelegate, $ionicSlideBoxDelegate, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
 
       $scope.nextSlide = function() {
         $ionicSlideBoxDelegate.next();
@@ -145,7 +145,7 @@ angular.module('starter.controllers', ['naif.base64'])
     });
   })
 
-  .controller('ShopDetailCtrl', function ($scope, $http, $rootScope, $stateParams, types, resolvedShops, resolvedItems, resolvedPossession) {
+  .controller('ShopDetailCtrl', function ($scope, $http,$ionicScrollDelegate, $rootScope, $stateParams, types, resolvedShops, resolvedItems, resolvedPossession) {
     //$scope.shops = resolvedShops.data;
     $scope.shop = types.fetchShop($stateParams.shopId);
     console.log($stateParams.shopId);
@@ -319,14 +319,14 @@ angular.module('starter.controllers', ['naif.base64'])
       }
     };
   })
-  .controller('favoriteListCtrl', function ($scope, $rootScope, $stateParams, localStorageService, types, resolvedItems, resolvedPossession) {
+  .controller('favoriteListCtrl', function ($scope, $ionicScrollDelegate,$rootScope, $stateParams, localStorageService, types, resolvedItems, resolvedPossession) {
     //localStorageService.clearAll()
     //$rootScope.items = resolvedItems.data;
     //$scope.possession = resolvedPossession.data;
 
   })
 
-  .controller('registerCtrl', function ($scope, $rootScope, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, resolvedAccount) {
+  .controller('registerCtrl', function ($scope, $rootScope,$ionicScrollDelegate, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, resolvedAccount) {
     $scope.product = {};
     $scope.shop = {};
     $scope.image = {};

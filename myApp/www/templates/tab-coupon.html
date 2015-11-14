@@ -47,7 +47,7 @@
     </ion-slide-box>
 
     <div></div>
-    <div collection-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
+    <div ng-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
       <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left cardSize">
         <img class="product_image" src="{{ item.image }}">
 

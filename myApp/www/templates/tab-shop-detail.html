@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 
 <ion-view title="{{shop.shopName}}">
-  <ion-content has-header="true" padding="true"  scroll="true" has-bouncing="true">
-    <div class="list card pink">
-
+  <ion-content has-header="true" padding="true" scroll="true" has-bouncing="true">
+    <div class="list shopDetailBox">
       <div class="item item-avatar">
         <div class="productName">
           <div class=" floatLeft">{{shop.shopAddress}}</div>
@@ -33,7 +32,7 @@
     </div>
 
 
-    <div class=" bordLine  " collection-repeat="item in items | orderBy :'-id'">
+    <div class=" bordLine  " scroll="true" ng-repeat="item in items | orderBy :'-id'">
       <a href="#/tab/shop-detail-item/{{item._id}}" class=" item item-thumbnail-left borderRadius5">
         <img class="product_image" ng-src="{{ item.image }}">
 
