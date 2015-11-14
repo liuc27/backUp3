@@ -13,23 +13,7 @@
     </div>
     <ion-refresher pulling-text="更新中" on-refresh="doRefresh()">
     </ion-refresher>
-    <ion-slide-box>
-      <ion-slide>
-    <div class="box list  borderRadius menu">
-      <div ng-repeat="menu in menus | orderBy :'id'" class="menuItemBox">
-        <div class="col">
-          <button ng-click="chooseMenuItem(menu,$index)"
-                  class=" menuItem {{menu.icon}} menuButton "
-                  ng-class="{ 'selected-class-name': $index == selectedIndex }"
-                  style="background:{{menu.color}}; "></button>
-          </br>
-          <div class="menuFont">{{menu.name}}</div>
-        </div>
-      </div>
-    </div>
-      </ion-slide>
-      <!--
-      <ion-slide>
+
         <div class="box list  borderRadius menu">
           <div ng-repeat="menu in menus | orderBy :'id'" class="menuItemBox">
             <div class="col">
@@ -42,9 +26,27 @@
             </div>
           </div>
         </div>
-      </ion-slide>
-      -->
+    <!--
+<ion-slide-box>
+<ion-slide>
+</ion-slide>
+
+<ion-slide>
+  <div class="box list  borderRadius menu">
+    <div ng-repeat="menu in menus | orderBy :'id'" class="menuItemBox">
+      <div class="col">
+        <button ng-click="chooseMenuItem(menu,$index)"
+                class=" menuItem {{menu.icon}} menuButton "
+                ng-class="{ 'selected-class-name': $index == selectedIndex }"
+                style="background:{{menu.color}}; "></button>
+        </br>
+        <div class="menuFont">{{menu.name}}</div>
+      </div>
+    </div>
+  </div>
+</ion-slide>
     </ion-slide-box>
+-->
 
     <div></div>
     <div ng-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">

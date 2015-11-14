@@ -22,7 +22,7 @@
     </ion-refresher>
 
     <div class=" bordLine"
-         collection-repeat="shop in shops | shopFilter : chosenCategory.value | shopFilter : chosenOrder.value| shopFilter : chosenLocation.value| orderBy :'-id'">
+         ng-repeat="shop in shops | shopFilter : chosenCategory.value | shopFilter : chosenOrder.value| shopFilter : chosenLocation.value| orderBy :'-id'">
       <a href="#/tab/shop-detail/{{shop._id}}" class=" item item-thumbnail-left borderRadius5">
         <img class="product_image" ng-src="{{ shop.shopImage }}">
 
