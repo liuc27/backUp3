@@ -1,0 +1,14 @@
+<ion-view title="Profile" ng-init="init()">
+    <ion-content>
+        <div>
+            <p>您将以如下身份使用本软件</p>
+            <div>
+              <img ng-src="{{profileData.picture.data.url}}">
+              <h2>{{profileData.name}}</h2>
+              <p>{{profileData.id}}</p>
+            </div>
+            <button class="button button-full button-positive" ng-click="complte()">OK</button>
+            <button class="button button-full button-positive" ng-click="goBack()">Cancel</button>
+        </div>
+    </ion-content>
+</ion-view>

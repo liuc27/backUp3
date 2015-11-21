@@ -18,7 +18,8 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-keyboard",
     "cordova-plugin-statusbar",
-    "org.apache.cordova.inappbrowser"
+    "cordova-plugin-console",
+    "cordova-plugin-inappbrowser"
   ],
   "cordovaPlatforms": [
     "ios"

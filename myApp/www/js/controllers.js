@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['naif.base64'])
+angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
   .controller('CouponCtrl', function ($scope, $http, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
 
@@ -208,7 +208,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
       if ($scope.username) {
 
-        $http.post("http://120.24.168.7/api/comment", {
+        $http.post("http://127.0.0.1:3000/api/comment", {
           "name": $scope.coupon.name,
           "username": $scope.username,
           "comment": $scope.comment.comment,
@@ -266,7 +266,7 @@ angular.module('starter.controllers', ['naif.base64'])
           console.log(resolvedPossession)
           console.log($scope.username)
           console.log(_id)
-          $http.post("http://120.24.168.7/api/add", {
+          $http.post("http://127.0.0.1:3000/api/add", {
             "name": couponName,
             "username": $scope.username,
             "_id": _id
@@ -323,12 +323,70 @@ angular.module('starter.controllers', ['naif.base64'])
 
   })
 
-  .controller('registerCtrl', function ($scope, $rootScope, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, resolvedAccount) {
+  .controller('profileCtrl',  function($scope, $rootScope, $http, localStorageService, $state) {
+    $scope.id = null;
+    $scope.init = function() {
+          //console.log("3");
+          $scope.token = localStorageService.get("accessToken")
+
+            //console.log("4");
+              $http.get("https://graph.facebook.com/v2.4/me", { params: { access_token: $scope.token, fields: "id,name,gender,location,website,picture,relationship_status,email,age_range", format: "json" }}).then(function(result) {
+                  //console.log("5");
+                  $scope.profileData = result.data;
+                  $scope.id = result.data.id;
+                  //localStorageService.set("usernameData", result.data.id)
+                  //$rootScope.username = result.data.id
+                  //$state.go('tab.register');
+                  //console.log("6");
+              }, function(error) {
+                  alert(error);
+                  //alert("There was a problem getting your profile.  Check the logs for details.");
+                  console.log(error);
+              });
+
+    }
+
+//    $scope.init2 = function(){}
+
+    $scope.complte = function(){
+      //$rootScope.usernameExist = true
+      //$scope.usernameExist = true
+      //$rootScope.username = "111";
+      //$scope.username = "111";
+      //console.log($scope.id);
+      //localStorageService.set("usernameData", $scope.id)
+      //$rootScope.username = $scope.id
+      localStorageService.set("usernameData", "12345")
+      $rootScope.username = "12345"
+      $rootScope.usernameExist = true
+      $state.go('tab.register');
+    }
+
+
+    $scope.goBack = function() {
+      //$scope.usernameExist = false
+      $state.go('tab.register');
+    }
+
+
+  })
+
+  .controller('registerCtrl', function ($scope, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $cordovaOauth, localStorageService, types, $http, $state, $q, resolvedAccount, $location) {
     $scope.product = {};
     $scope.shop = {};
     $scope.image = {};
-
     $scope.username = resolvedAccount
+    //$scope.usernameExist ＝ $rootScope.usernameExist
+    //$scope.username = resolvedAccount ? resolvedAccount : $scope.username
+    //$scope.username = localStorageService.get("usernameData")
+    //$scope.username = $rootScope.username
+/*
+    $scope.oauthflag = localStorageService.get("accessToken")
+
+    if($scope.oauthflag){
+        $state.go('tab.profile');
+    }
+*/
     if (typeof $scope.username === "undefined" || $scope.username === null) {
       $ionicPopup.alert({
         title: 'ログインしてください'
@@ -358,11 +416,34 @@ angular.module('starter.controllers', ['naif.base64'])
     } else {
       $scope.usernameExist = false
     }
+/*
+    $scope.initR = function(){
+      $scope.username = localStorageService.get("usernameData")
+      //console.log("1");
+      //console.log($scope.username);
+      if ($scope.username) {
+        $scope.usernameExist = true
 
+        if ($scope.username.shop) {
+          $scope.registeredShop.done = true;
+        } else {
+          $scope.registeredShop.done = false;
+        }
+      } else {
+        $scope.usernameExist = false
+      }
+    }
+*/
     $scope.logout = function () {
       localStorageService.clearAll();
       console.log($scope.username)
-
+      $rootScope.usernameExist = false
+      $rootScope.username = null
+      $scope.usernameExist = false
+      $scope.username = null
+      $ionicPopup.alert({
+      title: 'ログアウトしました！'
+      });
       setTimeout(function () {
         $state.go('tab.register');
       }, 300)
@@ -372,13 +453,60 @@ angular.module('starter.controllers', ['naif.base64'])
       $scope.registeredShop.done = !($scope.registeredShop.done);
     }
 
+    $scope.loginFacebook = function() {
+      //console.log("1");
+    $cordovaOauth.facebook("149120325435621", ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
+        localStorageService.set("accessToken", result.access_token)
+        //console.log("2");
+        //$scope.accessToken = localStorageService.get("accessToken")
+        //$rootScope.usernameExist = true
+        //$scope.usernameExist = true
+        //$rootScope.username = localStorageService.get("accessToken")
+        //$scope.username = localStorageService.get("accessToken")
+        console.log(result);
+        //$location.path("/coupon");
+        //$location.path("/profile");
+        //$scope.usernameExist = true
+        $state.go('tab.profile');
+
+        //$state.go('tab.coupon');
+        //$scope.oauthflag = "1";
+    }, function(error) {
+//		alert("There was a problem signing in!  See the console for logs");
+      alert(error);
+      console.log(error);
+      });
+    }
+
+
+
+    /*
+      if(accessToken == null) {
+        alert("Not signed in");
+        $state.go('tab.register');
+      }else{
+        //console.log("4");
+          $http.get("https://graph.facebook.com/v2.4/me", { params: { access_token: accessToken, fields: "id,name,gender,location,website,picture,relationship_status,email,age_range", format: "json" }}).then(function(result) {
+              //console.log("5");
+              $rootScope.username = result.data.id
+              $scope.username = result.data.id
+              $scope.usernameExist = true
+              $state.go('tab.coupon');
+              //console.log("6");
+          }, function(error) {
+              console.log(error);
+          });
+      }
+      */
+    //};
+
     $scope.register = function (username, password) {
       if (username == null || password == null) {
         $ionicPopup.alert({
           title: '正しいユーザ名とパスワードを入力してください！'
         });
       } else {
-        $http.post("http://120.24.168.7/api/register", {
+        $http.post("http://127.0.0.1:3000/api/register", {
           "username": username,
           "password": password
         }).success(function (data) {
@@ -465,7 +593,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $scope.sendJson = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://120.24.168.7/api/posts", $scope.product).success(function (data) {
+      $http.post("http://127.0.0.1:3000/api/posts", $scope.product).success(function (data) {
         console.log(data)
         if (data == "already exists") {
           alert("商品も既に存在したため、更新失敗")
@@ -479,7 +607,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $scope.replace = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://120.24.168.7/api/replace", $scope.product).success(function (data) {
+      $http.post("http://127.0.0.1:3000/api/replace", $scope.product).success(function (data) {
         console.log(data)
         if (data = "OK")
           alert("successfully replaced")
@@ -495,7 +623,7 @@ angular.module('starter.controllers', ['naif.base64'])
         });
       } else {
         console.log($scope.shop);
-        $http.post("http://120.24.168.7/api/registerShop", $scope.shop).success(function (data) {
+        $http.post("http://127.0.0.1:3000/api/registerShop", $scope.shop).success(function (data) {
           console.log(data)
           if (data == "OK") {
             $scope.registeredShop.done = true;

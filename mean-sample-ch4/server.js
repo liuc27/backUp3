@@ -594,6 +594,7 @@ app.post('/api/register', limiterRegister.middleware({
     outerLimit: 60,
     headers: false
 }), function(req, res, next) {
+    console.log(req.body);
     var name = req.body.username
     var password = req.body.password
     User.find({}, function(err, data) {
@@ -663,6 +664,6 @@ function validUser(user, password) {
  })
  */
 
-app.listen(80, function() {
-    console.log('server listening on', 80)
+app.listen(3000, function() {
+    console.log('server listening on', 3000)
 })
