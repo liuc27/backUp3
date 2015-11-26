@@ -51,19 +51,11 @@ angular.module('starter.controllers', ['naif.base64'])
     $scope.locationList = types.getLocationList();
     $scope.doRefresh = types.doRefresh();
 
-    $scope.chosenCategory = {
-      "value": "all"
-    }
-    $scope.chosenLocation = {
-      "value": "all"
-    }
-    $scope.chosenOrder = {
-      "value": "all"
-    }
+    $scope.selectedType = $scope.typeList[7];
+    $scope.selectedLocation = $scope.locationList[4];
+    $scope.selectedOrder = $scope.orderList[4];
+
     //$scope.shops = resolvedShops.data
-    $scope.cate = {"value": "すべて"};
-    $scope.location = {"value": "すべて"};
-    $scope.order = {"value": "すべて"};
 
     $scope.shopRate = {
       value: null
@@ -72,77 +64,11 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $rootScope.shopAverageRate = function (shop) {
       return types.caculateShopAverageRate(shop);
-    }
+    };
 
     $rootScope.shopCommentNumbers = function (shop) {
       return types.caculateShopCommentNumbers(shop);
-    }
-
-
-    $scope.chooseCategoryItem = function (type) {
-      $scope.chosenCategory.value = type.type;
-      console.log(type.type)
-      $scope.popoverCategory.hide();
-      $scope.cate.value = type.name
-    }
-
-    $scope.chooseLocationItem = function (type) {
-      $scope.chosenLocation.value = type.type;
-      console.log(type.type)
-      $scope.popoverLocation.hide();
-      $scope.location.value = type.name
-    }
-
-    $scope.chooseOrderItem = function (type) {
-      $scope.chosenOrder.value = type.type;
-      console.log(type)
-      console.log(type.type)
-      $scope.popoverOrder.hide();
-      $scope.order.value = type.name
-    }
-    // .fromTemplate() method
-    $ionicPopover.fromTemplateUrl('templates/popover/popoverCategory.html', {
-      scope: $scope
-    }).then(function (popover) {
-      $scope.popoverCategory = popover;
-    });
-    $ionicPopover.fromTemplateUrl('templates/popover/popoverLocation.html', {
-      scope: $scope
-    }).then(function (popover) {
-      $scope.popoverLocation = popover;
-    });
-    $ionicPopover.fromTemplateUrl('templates/popover/popoverOrder.html', {
-      scope: $scope
-    }).then(function (popover) {
-      $scope.popoverOrder = popover;
-    });
-
-
-    $scope.openPopoverCategory = function ($event) {
-      $scope.popoverCategory.show($event);
     };
-    $scope.openPopoverLocation = function ($event) {
-      $scope.popoverLocation.show($event);
-    };
-    $scope.openPopoverOrder = function ($event) {
-      $scope.popoverOrder.show($event);
-    };
-
-    $scope.closePopoverCategory = function () {
-      $scope.popoverCategory.hide();
-    };
-    //Cleanup the popover when we're done with it!
-    $scope.$on('$destroy', function () {
-      $scope.popoverCategory.remove();
-    });
-    // Execute action on hide popover
-    $scope.$on('popover.hidden', function () {
-      // Execute action
-    });
-    // Execute action on remove popover
-    $scope.$on('popover.removed', function () {
-      // Execute action
-    });
   })
 
   .controller('ShopDetailCtrl', function ($scope, $http,$ionicScrollDelegate, $rootScope, $stateParams, types, resolvedShops, resolvedItems, resolvedPossession) {

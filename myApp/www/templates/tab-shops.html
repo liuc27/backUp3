@@ -6,23 +6,16 @@
   </ion-nav-buttons>
   -->
   <ion-content class="padding"  scroll="true" has-bouncing="true">
-    <div class="button-bar">
-      <a class="button buttonSpace button-block button-calm " ng-click="openPopoverCategory($event)">{{cate.value}}
-        <div style="float: right" class="ion-chevron-down"></div>
-      </a>
-      <a class="button buttonSpace button-block button-calm" ng-click="openPopoverLocation($event)">{{location.value}}
-        <div style="float: right" class="ion-chevron-down"></div>
-      </a>
-      <a class="button buttonSpace button-block button-calm" ng-click="openPopoverOrder($event)">{{order.value}}
-        <div style="float: right" class="ion-chevron-down"></div>
-      </a>
-    </div>
-
+      <div>
+          <select class="selectorStyle" ng-model="selectedType" ng-options="item as item.name for item in typeList"></select>
+          <select class="selectorStyle" ng-model="selectedLocation" ng-options="item as item.name for item in locationList"></select>
+          <select class="selectorStyle" ng-model="selectedOrder" ng-options="item as item.name for item in orderList"></select>
+      </div>
     <ion-refresher pulling-text="更新中" on-refresh="doRefresh()">
     </ion-refresher>
 
-    <div class=" bordLine"
-         ng-repeat="shop in shops | shopFilter : chosenCategory.value | shopFilter : chosenOrder.value| shopFilter : chosenLocation.value| orderBy :'-id'">
+    <div class=" bordLine" style="margin-top: 2vw"
+         ng-repeat="shop in shops | shopFilter : selectedType.type | shopFilter : selectedLocation.type| shopFilter : selectedOrder.type| orderBy :'-id'">
       <a href="#/tab/shop-detail/{{shop._id}}" class=" item item-thumbnail-left borderRadius5">
         <img class="product_image" ng-src="{{ shop.shopImage }}">
 
