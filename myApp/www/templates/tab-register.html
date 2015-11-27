@@ -1,18 +1,20 @@
 <ion-view title="<b>帐号">
   <ion-content has-header="true" class="padding" ng-show="usernameExist == false" scroll="true" has-bouncing="true">
-    <div class="list">
-      <button class="button ">登録・ログイン</button>
-
+    <form class="list">
       <label class="item item-input">
         <span class="input-label">ユーザ名</span>
-        <input type="text" ng-model="username">
+        <input type="text" placeholder="" ng-model="username">
       </label>
       <label class="item item-input">
         <span class="input-label">パスワード</span>
-        <input type="password" ng-model="password">
+        <input type="password" placeholder="" ng-model="password">
       </label>
-    </div>
-    <button class="button button-full button-positive" ng-click="register(username,password)">ログイン・登録</button>
+    </form>
+    <button class="button button-stable button-block" ng-click="register(username,password)">登録</button>
+    <button class="button button-stable button-block " ng-click="register(username,password)">ログイン</button>
+    <a menu-close="" class="button button-positive button-clear button-block ">Or login with facebook</a>
+    <a menu-close="" class="button button-positive button-clear button-block ">Or login with Twitter</a>
+    <a menu-close="" class="button button-positive button-clear button-block ">Or create an account</a>
   </ion-content>
 
   <ion-content has-header="true" class="padding" ng-hide="usernameExist == false">
