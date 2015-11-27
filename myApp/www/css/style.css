@@ -1,5 +1,5 @@
 .bar.bar-positive .title {
-    font-size: 22px;
+    font-size: 6.8vw;
     font-weight: bolder;
     text-align: center;
     font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
@@ -218,9 +218,10 @@ ion-content {
 
 }
 
-.pink {
+.shopDetailBox {
 
     background-color: #FAEDF0;
+    padding-bottom: 1vw;
 
 }
 
@@ -394,4 +395,20 @@ ul.rating li i {
 
 .popover {
     height: auto;
+}
+
+.selectorStyle{
+     width: 30vw;
+     background: #FFF none repeat scroll 0% 0%;
+     color: #333;
+     font-size: 3.5vw;
+     cursor: pointer;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+}
+
+.button-bar{
+    top:30px;
+    height:30px;
 }
