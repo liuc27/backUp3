@@ -1,6 +1,6 @@
 <ion-view title="クーポン" hide-nav-bar="false">
 
-  <ion-content class="padding" scroll="true">
+  <ion-content class="padding" scroll="true" has-bouncing="true">
     <div class="bar bar-header item-input-inset">
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
@@ -14,21 +14,25 @@
     <ion-refresher pulling-text="更新中" on-refresh="doRefresh()">
     </ion-refresher>
 
-    <div class="list  borderRadius menu">
-      <div ng-repeat="menu in menus | orderBy :'id'" class="menuItemBox">
-        <div class="col">
-          <button ng-click="chooseMenuItem(menu,$index)"
-                  class=" menuItem {{menu.icon}} menuButton "
-                  ng-class="{ 'selected-class-name': $index == selectedIndex }"
-                  style="background:{{menu.color}}; "></button>
-          </br>
-          <div class="menuFont">{{menu.name}}</div>
-        </div>
+
+<ion-slide-box on-slide-changed="slideHasChanged($index)">
+<ion-slide class="box list  borderRadius menu">
+    <div ng-repeat="menu in menus | orderBy :'id'" class="menuItemBox">
+      <div class="col">
+        <button ng-click="chooseMenuItem(menu,$index)"
+                class=" menuItem {{menu.icon}} menuButton "
+                ng-class="{ 'selected-class-name': $index == selectedIndex }"
+                style="background:{{menu.color}}; "></button>
+        </br>
+        <div class="menuFont">{{menu.name}}</div>
       </div>
     </div>
+</ion-slide>
+    </ion-slide-box>
+
 
     <div></div>
-    <div collection-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
+    <div ng-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
       <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left cardSize">
         <img class="product_image" src="{{ item.image }}">
 
