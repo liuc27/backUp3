@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.rating', 'LocalStorageModule'])
+angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.rating', 'LocalStorageModule', 'ngCordova'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -56,6 +56,25 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
         }
       })
 
+      .state('tab.login', {
+        url: '/login',
+        views: {
+          'tab-account': {
+            templateUrl: 'templates/tab-login.html',
+            controller: 'loginCtrl'
+
+          }
+        }
+      })
+      .state('tab.registerNew', {
+        url: '/registerNew',
+        views: {
+          'tab-account': {
+            templateUrl: 'templates/tab-registerNew.html',
+            controller: 'registerNewCtrl'
+          }
+        }
+      })
       .state('tab.register', {
         url: '/register',
         views: {
@@ -137,6 +156,6 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/register');
+    $urlRouterProvider.otherwise('/tab/login');
 
   });

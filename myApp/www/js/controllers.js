@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['naif.base64'])
+angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
   .controller('CouponCtrl', function ($scope, $http,$ionicScrollDelegate, $ionicSlideBoxDelegate, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
 
@@ -137,7 +137,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
       if ($scope.username) {
 
-        $http.post("http://120.24.168.7/api/comment", {
+        $http.post("http://127.0.0.1:3000/api/comment", {
           "name": $scope.coupon.name,
           "username": $scope.username,
           "comment": $scope.comment.comment,
@@ -195,7 +195,7 @@ angular.module('starter.controllers', ['naif.base64'])
           console.log(resolvedPossession)
           console.log($scope.username)
           console.log(_id)
-          $http.post("http://120.24.168.7/api/add", {
+          $http.post("http://127.0.0.1:3000/api/add", {
             "name": couponName,
             "username": $scope.username,
             "_id": _id
@@ -251,6 +251,210 @@ angular.module('starter.controllers', ['naif.base64'])
     //$scope.possession = resolvedPossession.data;
 
   })
+
+
+
+
+  .controller('registerNewCtrl', function ($scope, $rootScope, localStorageService, $state, $http, $ionicPopup) {
+    $scope.backLogin = function(){
+      $state.go('tab.login');
+    }
+
+    $scope.registerNew = function(username,password,email,nickname){
+      $http.post("http://127.0.0.1:3000/api/registerNew",{
+        "username": username,
+        "password": password,
+        "email": email,
+        "nickname": nickname
+      }).success(function (data) {
+        console.log(data)
+        if(data === "success"){
+          $ionicPopup.alert({
+            title: 'Register Success!'
+          });
+          //$scope.usernameExist = true;
+          $rootScope.username = username;
+          localStorageService.set("usernameData", username)
+          $state.go('tab.coupon');
+
+        }else if(data === "exist"){
+          $ionicPopup.alert({
+            title: 'Username exist. Please try another one'
+          });
+
+        }else{
+          $ionicPopup.alert({
+            title: 'Unknown error occured'
+          });
+          $state.go('tab.login');
+        }
+
+      })
+
+    }
+
+  })
+
+  .controller('loginCtrl',  function($scope, $rootScope, $ionicPopup, $cordovaOauth, localStorageService, $http, $state, $q, resolvedAccount) {
+        $scope.username = resolvedAccount
+        if (typeof $scope.username === "undefined" || $scope.username === null) {
+          $ionicPopup.alert({
+            title: 'ログインしてください'
+          });
+          setTimeout(function () {
+            $state.go('tab.login');
+          }, 150)
+        } else {
+          $ionicPopup.alert({
+            title: 'アカウント: ' + $scope.username
+          });
+          console.log($scope.username)
+          setTimeout(function () {
+            $state.go('tab.coupon');
+          }, 150)
+
+        }
+        if ($scope.username) {
+          $scope.usernameExist = true
+        } else {
+          $scope.usernameExist = false
+        }
+
+        $scope.logout = function () {
+          localStorageService.clearAll();
+          console.log($scope.username)
+          $rootScope.usernameExist = false
+          $rootScope.username = null
+          $scope.usernameExist = false
+          $scope.username = null
+          $ionicPopup.alert({
+          title: 'ログアウトしました！'
+          });
+          setTimeout(function () {
+            $state.go('tab.login');
+          }, 300)
+        }
+
+        $scope.loginFacebook = function() {
+          //console.log("1");
+          //console.log("facebook button clicked")
+          $cordovaOauth.facebook("149120325435621", ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
+            localStorageService.set("accessToken", result.access_token)
+            //console.log(result.access_token)
+            $http.post("http://127.0.0.1:3000/api/oauth",{
+              "accessToken": result.access_token
+            }).success(function (data) {
+              console.log(data)
+              if (data.type === "newUser") {
+                /*
+                $ionicPopup.alert({
+                  title: '欢迎您使用本软件。建议您在用户信息界面尽快完善个人信息。'
+                });
+                $scope.username = data.id;
+                $scope.usernameExist = true;
+                $rootScope.username = data.id;
+                localStorageService.set("usernameData", data.id)
+                $state.go('tab.coupon');
+                */
+
+                $rootScope.username = data.id
+                $scope.username = data.id
+                $scope.usernameExist = true
+                $ionicPopup.alert({
+//                  title: 'ログイン成功しました！'
+                title: data.id
+                });
+                var promise = $q(function (resolve, reject) {
+                  setTimeout(function () {
+                    if (localStorageService.set("usernameData", data.id)) {
+                      resolve('クーポンの獲得　をはじめてください!');
+                    } else {
+                      reject('エラー!');
+                    }
+                  }, 10);
+                });
+
+                promise.then(function (greeting) {
+                  //console.log(localStorageService.get("usernameData"));
+                  //alert('Success: ' + greeting);
+                  $state.go('tab.coupon');
+                }, function (reason) {
+                  //alert('Failed: ' + reason);
+                  $state.go('tab.coupon');
+                });
+
+
+
+
+              }else if (data.type === "oldUser") {
+                $ionicPopup.alert({
+                  title: '欢迎您再次使用～赶紧的去挑选吧！'
+                });
+                $scope.username = data.id;
+                $scope.usernameExist = true;
+                $rootScope.username = data.id;
+                localStorageService.set("usernameData", data.id)
+                $state.go('tab.coupon');
+              }else{
+                $ionicPopup.alert({
+                  title: 'something went wrong.'
+                });
+                  $state.go('tab.login');
+              }
+            })
+        }, function(error) {
+          alert(error);
+          console.log(error);
+          });
+        }
+
+        $scope.goRegister = function(){
+          $state.go('tab.registerNew');
+        }
+
+          $scope.login = function(username,password){
+            if (username == null || password == null) {
+              $ionicPopup.alert({
+                title: '正しいユーザ名とパスワードを入力してください！'
+              });
+            } else{
+              $http.post("http://127.0.0.1:3000/api/login",{
+                "username": username,
+                "password": password
+              }).success(function (data) {
+                console.log(data)
+                if(data === "success"){
+                  $ionicPopup.alert({
+                    title: 'Login Success!'
+                  });
+                  $scope.username = username;
+                  $scope.usernameExist = true;
+                  $rootScope.username = username;
+                  localStorageService.set("usernameData", username)
+                  $state.go('tab.coupon');
+
+                }else if(data === "failed"){
+                  $ionicPopup.alert({
+                    title: 'Wrong ID/Password. Please try again'
+                  });
+                  $state.go('tab.login');
+
+                }else{
+                  $ionicPopup.alert({
+                    title: 'Unknown error occured'
+                  });
+                  $state.go('tab.login');
+                }
+
+              })
+
+            }
+
+          }
+
+
+
+      })
 
   .controller('registerCtrl', function ($scope, $rootScope,$ionicScrollDelegate, $ionicPopup, $ionicSideMenuDelegate, localStorageService, types, $http, $state, $q, resolvedAccount) {
     $scope.product = {};
@@ -312,7 +516,7 @@ angular.module('starter.controllers', ['naif.base64'])
           title: '正しいユーザ名とパスワードを入力してください！'
         });
       } else {
-        $http.post("http://120.24.168.7/api/register", {
+        $http.post("http://127.0.0.1:3000/api/register", {
           "username": username,
           "password": password
         }).success(function (data) {
@@ -399,7 +603,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $scope.sendJson = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://120.24.168.7/api/posts", $scope.product).success(function (data) {
+      $http.post("http://127.0.0.1:3000/api/posts", $scope.product).success(function (data) {
         console.log(data)
         if (data == "already exists") {
           alert("商品も既に存在したため、更新失敗")
@@ -413,7 +617,7 @@ angular.module('starter.controllers', ['naif.base64'])
 
     $scope.replace = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://120.24.168.7/api/replace", $scope.product).success(function (data) {
+      $http.post("http://127.0.0.1:3000/api/replace", $scope.product).success(function (data) {
         console.log(data)
         if (data = "OK")
           alert("successfully replaced")
@@ -429,7 +633,7 @@ angular.module('starter.controllers', ['naif.base64'])
         });
       } else {
         console.log($scope.shop);
-        $http.post("http://120.24.168.7/api/registerShop", $scope.shop).success(function (data) {
+        $http.post("http://127.0.0.1:3000/api/registerShop", $scope.shop).success(function (data) {
           console.log(data)
           if (data == "OK") {
             $scope.registeredShop.done = true;

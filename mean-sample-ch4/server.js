@@ -646,6 +646,61 @@ app.post('/api/exist', limiterRegister.middleware({
 
 })
 
+app.post('/api/oauth', limiterRegister.middleware({
+    innerLimit: 10,
+    outerLimit: 60,
+    headers: false
+}), function(req, res, next) {
+    console.log(req.body)
+    var token = req.body.accessToken
+    var http = require('http');
+    var url = 'https://graph.facebook.com/v2.4/me?access_token=' + token;
+
+    var https = require('https');
+
+    https.get(url, function(res2) {
+      //console.log(res2.data)
+      console.log("statusCode: ", res2.statusCode);
+      console.log("headers: ", res2.headers);
+
+      res2.on('data', function(data) {
+        //facebookRes = data.name
+        //process.stdout.write(data);
+        console.log(JSON.parse(data));
+        var resName = JSON.parse(data).name
+        var jsonRes = {
+          "type": "newUser",
+          "id": resName
+        }
+
+        console.log(jsonRes)
+
+        res.send(jsonRes)
+      });
+    }).on('error', function(e) {
+      console.error(e);
+    });
+
+
+
+})
+
+app.post('/api/login', limiterRegister.middleware({
+    innerLimit: 10,
+    outerLimit: 60,
+    headers: false
+}), function(req, res, next) {
+    console.log(req.body)
+})
+
+app.post('/api/registerNew', limiterRegister.middleware({
+    innerLimit: 10,
+    outerLimit: 60,
+    headers: false
+}), function(req, res, next) {
+    console.log(req.body)
+})
+
 function findUsername(users, user) {
     return _.find(users, {
         "username": user
@@ -663,6 +718,6 @@ function validUser(user, password) {
  })
  */
 
-app.listen(80, function() {
-    console.log('server listening on', 80)
+app.listen(3000, function() {
+    console.log('server listening on', 3000)
 })
