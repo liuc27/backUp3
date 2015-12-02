@@ -686,19 +686,65 @@ app.post('/api/oauth', limiterRegister.middleware({
 })
 
 app.post('/api/login', limiterRegister.middleware({
-    innerLimit: 10,
-    outerLimit: 60,
-    headers: false
+  innerLimit: 10,
+  outerLimit: 60,
+  headers: false
 }), function(req, res, next) {
-    console.log(req.body)
+  var name = req.body.username
+  var password = req.body.password
+  User.find({}, function(err, data) {
+      if (err) {
+          return next(err)
+      }
+      var userdata = findUsername(data, name)
+      if (!userdata) {
+          console.log("account not exist: " + name)
+          res.send("account not exist")
+      } else if(userdata.password === req.body.password){
+        res.send("success")
+      } else if(userdata.password !== req.body.password){
+        res.send("wrong password")
+      }
+  })
 })
 
 app.post('/api/registerNew', limiterRegister.middleware({
-    innerLimit: 10,
-    outerLimit: 60,
-    headers: false
+  innerLimit: 10,
+  outerLimit: 60,
+  headers: false
 }), function(req, res, next) {
-    console.log(req.body)
+  var name = req.body.username
+  var password = req.body.password
+  var email = req.body.email
+  var nickname = req.body.nickname
+
+  User.find({}, function(err, data) {
+      if (err) {
+          return next(err)
+      }
+      var userdata = findUsername(data, name)
+      if (!userdata) {
+          console.log("user name not exist, you can use it: " + name)
+          var token = jwt.encode({
+              username: name
+          }, secretKey)
+
+          var user = new User({
+              username: req.body.username,
+              password: req.body.password,
+              phoneNumber: req.body.phoneNumber
+          })
+          user.save(function(err, data) {
+              if (err) {
+                  return next(err)
+              }
+              console.log(data)
+              res.send("success")
+          })
+      } else res.send("exist")
+  })
+
+
 })
 
 function findUsername(users, user) {
