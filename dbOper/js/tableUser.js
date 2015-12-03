@@ -11,7 +11,7 @@ if (config.idontknow == undefined) {
 }
 
 var myCon = my.createConnection(config);
-myCon.connect();
+//myCon.connect();
 
 module.exports = User;
 
@@ -79,14 +79,17 @@ User.prototype.insertUser = function(userInfo) {
 		}
 		sql += " (" + columns + ") VALUES(" + values + ");";
 		console.log("sql is:" + sql);
-		myCon.query(sql, function(err, results){
-		        if(err) {
-                		console.log("hava error!");
-                		console.log(err);
-        		} else {
-                		console.log("insert user successfully!")
-                		console.log(results);
-        		}
+		myCon.connect(function(err,callback){
+			myCon.query(sql, function(err, results){
+		        	if(err) {
+                			console.log("hava error!");
+                			console.log(err);
+        			} else {
+                			console.log("insert user successfully!")
+                			console.log(results);
+        			}
+				myCon.end();
+			});
 		});
 	
 		// "birthday", "adminFlg", "certificatedFlg", "deliverAddress","currentDeliverAddr", "intro", "image"
@@ -96,4 +99,4 @@ User.prototype.insertUser = function(userInfo) {
 };
 
 
-myCon.end();
+//myCon.end();
