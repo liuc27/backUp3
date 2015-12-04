@@ -161,7 +161,7 @@ angular.module('starter.services', [])
         return checked[couponId];
       },
       allItems: function () {
-        return $http.get("http://127.0.0.1:3000/api/posts").success(function (data) {
+        return $http.get("http://120.24.168.7/api/posts").success(function (data) {
           console.log(data.length)
           console.log(data)
           items = data
@@ -169,7 +169,7 @@ angular.module('starter.services', [])
         })
       },
       allShops: function () {
-        return $http.get("http://127.0.0.1:3000/api/shops").success(function (data) {
+        return $http.get("http://120.24.168.7/api/shops").success(function (data) {
           console.log(data.length)
           console.log(data)
           shops = data
@@ -178,14 +178,14 @@ angular.module('starter.services', [])
       },
       doRefresh: function () {
         return function () {
-          $http.get("http://127.0.0.1:3000/api/posts").success(function (data) {
+          $http.get("http://120.24.168.7/api/posts").success(function (data) {
             $rootScope.items = data
             //$scope.items = data
             //resolvedItems.data = data
             console.log(data)
           }).finally(function () {
             // Stop the ion-refresher from spinning
-            $http.get("http://127.0.0.1:3000/api/shops").success(function (data) {
+            $http.get("http://120.24.168.7/api/shops").success(function (data) {
               $rootScope.shops = data
               console.log(data)
             }).finally(function () {
@@ -255,7 +255,7 @@ angular.module('starter.services', [])
         return x;
       },
       checkPossession: function () {
-        return $http.post("http://127.0.0.1:3000/api/user", {
+        return $http.post("http://120.24.168.7/api/user", {
           "username": localStorageService.get("usernameData")
         }).success(function (data) {
           console.log(data);

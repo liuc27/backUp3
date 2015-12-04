@@ -14,6 +14,7 @@ var jwt = require('jwt-simple')
 var _ = require('lodash')
 var Limiter = require('express-rate-limiter');
 var MemoryStore = require('express-rate-limiter/lib/memoryStore');
+
 var limiterGet = new Limiter({
     db: new MemoryStore()
 });
@@ -764,6 +765,6 @@ function validUser(user, password) {
  })
  */
 
-app.listen(3000, function() {
-    console.log('server listening on', 3000)
+app.listen(80, function() {
+    console.log('server listening on', 80)
 })
