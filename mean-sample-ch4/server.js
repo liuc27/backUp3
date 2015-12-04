@@ -14,6 +14,7 @@ var jwt = require('jwt-simple')
 var _ = require('lodash')
 var Limiter = require('express-rate-limiter');
 var MemoryStore = require('express-rate-limiter/lib/memoryStore');
+
 var limiterGet = new Limiter({
     db: new MemoryStore()
 });
@@ -643,6 +644,107 @@ app.post('/api/exist', limiterRegister.middleware({
 
         }
     })
+
+})
+
+app.post('/api/oauth', limiterRegister.middleware({
+    innerLimit: 10,
+    outerLimit: 60,
+    headers: false
+}), function(req, res, next) {
+    console.log(req.body)
+    var token = req.body.accessToken
+    var http = require('http');
+    var url = 'https://graph.facebook.com/v2.4/me?access_token=' + token;
+
+    var https = require('https');
+
+    https.get(url, function(res2) {
+      //console.log(res2.data)
+      console.log("statusCode: ", res2.statusCode);
+      console.log("headers: ", res2.headers);
+
+      res2.on('data', function(data) {
+        //facebookRes = data.name
+        //process.stdout.write(data);
+        console.log(JSON.parse(data));
+        var resName = JSON.parse(data).name
+        var jsonRes = {
+          "type": "newUser",
+          "id": resName
+        }
+
+        console.log(jsonRes)
+
+        res.send(jsonRes)
+      });
+    }).on('error', function(e) {
+      console.error(e);
+    });
+
+
+
+})
+
+app.post('/api/login', limiterRegister.middleware({
+  innerLimit: 10,
+  outerLimit: 60,
+  headers: false
+}), function(req, res, next) {
+  var name = req.body.username
+  var password = req.body.password
+  User.find({}, function(err, data) {
+      if (err) {
+          return next(err)
+      }
+      var userdata = findUsername(data, name)
+      if (!userdata) {
+          console.log("account not exist: " + name)
+          res.send("account not exist")
+      } else if(userdata.password === req.body.password){
+        res.send("success")
+      } else if(userdata.password !== req.body.password){
+        res.send("wrong password")
+      }
+  })
+})
+
+app.post('/api/registerNew', limiterRegister.middleware({
+  innerLimit: 10,
+  outerLimit: 60,
+  headers: false
+}), function(req, res, next) {
+  var name = req.body.username
+  var password = req.body.password
+  var email = req.body.email
+  var nickname = req.body.nickname
+
+  User.find({}, function(err, data) {
+      if (err) {
+          return next(err)
+      }
+      var userdata = findUsername(data, name)
+      if (!userdata) {
+          console.log("user name not exist, you can use it: " + name)
+          var token = jwt.encode({
+              username: name
+          }, secretKey)
+
+          var user = new User({
+              username: req.body.username,
+              password: req.body.password,
+              phoneNumber: req.body.phoneNumber
+          })
+          user.save(function(err, data) {
+              if (err) {
+                  return next(err)
+              }
+              console.log(data)
+              res.send("success")
+          })
+      } else res.send("exist")
+  })
+
 
 })
 
