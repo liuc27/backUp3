@@ -1,60 +1,62 @@
-
 <ion-view title="<b>帐号">
-    <ion-content has-header="true" class="padding" ng-show = "usernameExist == false" scroll="true">
-        <div class="list">
-            <button class="button ">用户注册・登陆</button>
+  <ion-content has-header="true" class="padding" ng-show="usernameExist == false" scroll="true" has-bouncing="true">
+    <form class="list">
+      <label class="item item-input">
+        <span class="input-label">ユーザ名</span>
+        <input type="text" placeholder="" ng-model="username">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">パスワード</span>
+        <input type="password" placeholder="" ng-model="password">
+      </label>
+    </form>
+    <button class="button button-stable button-block" ng-click="register(username,password)">登録</button>
+    <button class="button button-stable button-block " ng-click="register(username,password)">ログイン</button>
+    <a menu-close="" class="button button-positive button-clear button-block ">Or login with facebook</a>
+    <a menu-close="" class="button button-positive button-clear button-block ">Or login with Twitter</a>
+    <a menu-close="" class="button button-positive button-clear button-block ">Or create an account</a>
+  </ion-content>
 
-            <label class="item item-input">
-                <span class="input-label">用户名</span>
-                <input type="text" ng-model="username">
-            </label>
-            <label class="item item-input">
-                <span class="input-label">密码</span>
-                <input type="password" ng-model="password">
-            </label>
-        </div>
-        <button class="button button-full button-positive" ng-click="register(username,password)">注册・登陆</button>
-    </ion-content>
+  <ion-content has-header="true" class="padding" ng-hide="usernameExist == false">
+    <button class="button button-full button-positive">{{username}}ログイン完了！</button>
+    <button class="button button-full button-positive" ng-click="logout()">ログアウト</button>
+    <a href="#/tab/favoriteList">
+      <button class="button button-full button-positive">獲得済みクーポン</button>
+    </a>
 
-    <ion-content has-header="true" class="padding" ng-hide = "usernameExist == false">
-        <button class="button button-full button-positive">{{username}}已经登录！</button>
-        <button class="button button-full button-positive" ng-click="logout()">退出登陆</button>
-        <a href="#/tab/favoriteList">
-             <button class="button button-full button-positive">我的收藏</button>
-        </a>
+    <button class="button button-full button-positive" ng-click="toggleRegisterShop()">店舗を登録↓</button>
 
-        <button class="button button-full button-positive" ng-click="toggleRegisterShop()">注册店铺↓</button>
+    <div ng-show="registeredShop.done">
+      <label class="item item-input">
+        <span class="input-label">会社名</span>
+        <input type="text" ng-model="shop.shopName">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社カテゴリー</span>
+        <input type="text" ng-model="shop.shopCategory">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社アドレス</span>
+        <input type="text" ng-model="shop.shopAddress">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">聯絡方式</span>
+        <input type="text" ng-model="shop.shopContactWay">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社営業許可証</span>
+        <input ng-change="createShopCertificate()" type="file" ng-model="image.shopCertificate" base-sixty-four-input>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">会社法人身分証</span>
 
-        <div ng-show = "registeredShop.done">
-        <label class="item item-input">
-            <span class="input-label">公司名</span>
-            <input type="text" ng-model="shop.shopName">
-        </label>
-        <label class="item item-input">
-            <span class="input-label">公司分类</span>
-            <input type="text" ng-model="shop.shopCategory">
-        </label>
-        <label class="item item-input">
-            <span class="input-label">公司地址</span>
-            <input type="text" ng-model="shop.shopAddress">
-        </label>
-        <label class="item item-input">
-            <span class="input-label">联系方式</span>
-            <input type="text" ng-model="shop.shopContactWay">
-        </label>
-        <label class="item item-input">
-                <span class="input-label">营业执照</span>
-                <input ng-change="createShopCertificate()" type="file" ng-model="image.shopCertificate" base-sixty-four-input>
-        </label>
-        <label class="item item-input">
-                <span class="input-label">法人身份证</span>
-                <form>
-                <input ng-change="createUserCertificate()" type="file" ng-model="image.userCertificate" base-sixty-four-input>
-                </form>
-        </label>
-        <button class="button button-full button-positive" ng-click="registerShop()">确认注册</button>
-        <div>
+        <form>
+          <input ng-change="createUserCertificate()" type="file" ng-model="image.userCertificate" base-sixty-four-input>
+        </form>
+      </label>
+      <button class="button button-full button-positive" ng-click="registerShop()">確認</button>
+      <div>
         <div>{{shop}}</div>
-    </ion-content>
+  </ion-content>
 
 </ion-view>

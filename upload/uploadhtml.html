@@ -136,13 +136,11 @@
 
 
                 $scope.sendJsonShop = function () {
-                    $http.post("http://120.24.168.7/api/shops", $scope.shop).success(function (data) {
+                    $http.post("http://120.24.168.7/api/registerShop", $scope.shop).success(function (data) {
                         console.log(data)
-                        if (data == "OK") {
 
                             alert("成功推送")
 
-                        }
                     })
                 }
 /*

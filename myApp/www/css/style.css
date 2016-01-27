@@ -1,19 +1,19 @@
-.bar.bar-positive .title{
-    font-size: 22px;
+.bar.bar-positive .title {
+    font-size: 6.8vw;
     font-weight: bolder;
     text-align: center;
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 }
 
-.buttonSpace{
-  padding: 1vw
+.buttonSpace {
+    padding: 1vw
 }
 
 body {
     background-color: #FAEDF0;
 }
 
-.pane, .view{
+.pane, .view {
     background-color: #FAEDF0;
 }
 
@@ -21,8 +21,9 @@ body {
     border-style: solid;
     border-width: 0;
     border-color: #FAEDF0;
-    padding: 0;
-    margin: 0;
+    padding-top: 0;
+    padding-right: 0;
+    border-radius: 2vw;
 }
 
 .item {
@@ -50,7 +51,7 @@ body {
     font-weight: bold;
 
     color: #FF69B4;
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
 }
 
@@ -70,7 +71,7 @@ body {
 
     font-weight: bold;
 
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
     display: inline-block;
 }
@@ -93,18 +94,18 @@ body {
 
     font-weight: bold;
 
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 }
 
-.floatLeft{
-    float:left;
+.floatLeft {
+    float: left;
 }
 
-.floatRight{
-    float:right;
+.floatRight {
+    float: right;
 }
 
-.dateLocation{
+.dateLocation {
 
     position: absolute;
 
@@ -123,7 +124,7 @@ body {
 
     color: #ff1642;
 
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
 }
 
@@ -132,7 +133,7 @@ body {
     font-weight: bold;
     color: #ff010f;
     padding-left: 1vw;
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
 }
 
@@ -148,7 +149,7 @@ body {
 
     color: #ff5a5f;
 
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
 }
 
@@ -162,7 +163,7 @@ body {
     position: absolute;
     content: "";
     right: 0;
-    top:50%;
+    top: 50%;
     left: 0;
 }
 
@@ -172,7 +173,7 @@ body {
 
 }
 
-.cardSize{
+.cardSize {
     padding-bottom: 0;
     padding-top: 0;
 
@@ -188,10 +189,6 @@ ion-content {
 
 }
 
-
-
-
-
 .borderRadius {
 
     border-radius: 2vw;
@@ -202,8 +199,6 @@ ion-content {
 
     z-index: 100000;
 
-
-
     top: 0;
 
     left: 0;
@@ -213,21 +208,20 @@ ion-content {
 }
 
 .bar-stable .button,
-
 .bar.bar-stable .title {
 
     color: #FF69B4;
 
     font-weight: bolder;
 
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
-
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
 }
 
-.pink {
+.shopDetailBox {
 
     background-color: #FAEDF0;
+    padding-bottom: 1vw;
 
 }
 
@@ -245,8 +239,7 @@ div.item.item-avatar {
 
     padding-top: 2vw;
 
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
-
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 
 }
 
@@ -256,22 +249,16 @@ div.item.item-body {
 
 }
 
-.padding{
+.padding {
     padding: 3.5vw;
 }
 
 .item-body h1,
-
 .item-body h2,
-
 .item-body h3,
-
 .item-body h4,
-
 .item-body h5,
-
 .item-body h6,
-
 .item-body p {
 
     padding: 1vw;
@@ -279,7 +266,6 @@ div.item.item-body {
     margin: 0;
 
 }
-
 
 .addToCart {
 
@@ -306,14 +292,14 @@ div.item.item-body {
     font-weight: 100;
     padding: 1.2vw 0;
     margin: 0;
-    height:8vw;
+    height: 8vw;
     vertical-align: middle;
 }
 
 .tabs-positive .tabs,
 .tabs-positives,
 .bar.bar-positive,
-.tabs-icon-top > .tabs .tab-item, .tabs-icon-top.tabs .tab-item, .tabs-icon-bottom > .tabs .tab-item, .tabs-icon-bottom.tabs .tab-item{
+.tabs-icon-top > .tabs .tab-item, .tabs-icon-top.tabs .tab-item, .tabs-icon-bottom > .tabs .tab-item, .tabs-icon-bottom.tabs .tab-item {
 
     background-color: #6DA6FC;
 
@@ -325,82 +311,104 @@ div.item.item-body {
 
 }
 
-.item p{
+.item p {
 
     color: #FF69B4;
     font-size: 3.8vw;
     font-weight: bolder;
 }
 
-.alignLeft{
+.alignLeft {
     text-align: left
 }
 
-.font{
-    font-family: "Hiragino Sans GB","Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
+.font {
+    font-family: "Hiragino Sans GB", "Helvetica Neue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif, 微软雅黑, 宋体, 楷体_GB2312, 隶书;
 }
 
-.comment{
+.comment {
     width: 100%;
     height: auto;
 }
-ul.rating{
+
+ul.rating {
     text-align: center;
 }
+
 ul.rating li {
     display: inline;
     border: 0px;
     background: none;
     margin: 0vw 1.1vw;
 }
+
 ul.rating li i {
     font-size: 7.6vw;
 }
 
-.orangered{
-    color:orangered;
-
+.orangered {
+    color: orangered;
 }
 
-.menuFont{
-    font-size: 3.6vw;
-    margin-left:9.2vw;
-    margin-top:0;
-    padding-top:0;
-
+.menuItemBox {
+    float: left;
+    width: 25%;
+    height: 20vw;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.menuButton{
+.menuFont {
+    font-size: 3.60vw;
+}
+
+.menuButton {
     width: 12vw;
-    height:12vw;
+    height: 12vw;
     border-radius: 12vw;
-    border:0;
-    overflow:hidden;
-    padding: 0em;
+    border: 0;
+    overflow: hidden;
+    padding: 0;
     box-shadow: 0 0 2vw gray;
-    color:white;
-    margin: 1vw 0 1vw 7vw;
+    color: white;
+
 }
 
-.menuItem{
+.menuItem {
     font-size: 8vw;
 }
 
-.menu{
+.menu {
     height: 48vw;
     width: 100%;
-    margin: 1vw 0 4vw 0;
-    padding: 1vw 0 0 0;
-    border-width:0;
+    margin: 1.5vw 0 1.5vw 0;
+    padding: 4vw 0 0 0;
+    border-width: 0;
 }
 
-.selected-class-name{
-    width: 14vw;
-    height:14vw;
-    border-radius: 14vw;
-    margin: 0 0 0 5.8vw;
+.selected-class-name {
+    width: 13vw;
+    height: 13vw;
+    border-radius: 13vw;
+    box-shadow: 0 0 2vw blue;
 }
 
-.popover{
-  height: auto;
+.popover {
+    height: auto;
+}
+
+.selectorStyle{
+     width: 30vw;
+     background: #FFF none repeat scroll 0% 0%;
+     color: #333;
+     font-size: 3.5vw;
+     cursor: pointer;
+    -moz-appearance:none;
+    -ms-appearance:none;
+    appearance:none;
+}
+
+.button-bar{
+    top:30px;
+    height:30px;
 }

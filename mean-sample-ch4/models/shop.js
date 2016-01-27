@@ -27,6 +27,14 @@ var Shop = db.model('Shop', {
     userCertificate:{
         type: String,
         required: true
+    },
+    shopCertificate:{
+        type: String,
+        required: true
+    },
+    shopImage:{
+        type: String,
+        required: true
     }
 })
 

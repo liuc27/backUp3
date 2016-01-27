@@ -1,0 +1,28 @@
+<ion-view title="Register">
+    <ion-content>
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">ユーザ名</span>
+          <input type="text" ng-model="username">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">パスワード</span>
+          <input type="password" ng-model="password">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">パスワード再入力</span>
+          <input type="password" ng-model="password2">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="password" ng-model="email">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">ニックネーム</span>
+          <input type="password" ng-model="nickname">
+        </label>
+      </div>
+      <button class="button button-full button-positive" ng-click="registerNew(username,password,email,nickname)">Submit</button>
+      <button class="button button-full button-positive" ng-click="backLogin()">Cancel</button>
+    </ion-content>
+</ion-view>
