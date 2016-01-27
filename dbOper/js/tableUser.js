@@ -4,12 +4,6 @@ var my = require('mysql');
 var config = require('./dbConfig');
 var tableName = "USER";
 
-console.log(config.host);
-console.log(config.idontknow);
-if (config.idontknow == undefined) {
-	console.log("undefine");
-}
-
 var myCon = my.createConnection(config);
 //myCon.connect();
 
@@ -29,9 +23,10 @@ function User () {
 */
 User.prototype.insertUser = function(userInfo) {
 	try {
+		var connected = false;
+
 		console.log(userInfo);
 		var objUser = JSON.parse(userInfo);
-		console.log("after parse json");
 		if (objUser.account == undefined || objUser.password == undefined || 
 		    objUser.name == undefined || objUser.email == undefined) {
 			console.log("account, password, name, email are neccessary");
@@ -80,6 +75,7 @@ User.prototype.insertUser = function(userInfo) {
 		sql += " (" + columns + ") VALUES(" + values + ");";
 		console.log("sql is:" + sql);
 		myCon.connect(function(err,callback){
+			connected = true;
 			myCon.query(sql, function(err, results){
 		        	if(err) {
                 			console.log("hava error!");
@@ -94,9 +90,21 @@ User.prototype.insertUser = function(userInfo) {
 	
 		// "birthday", "adminFlg", "certificatedFlg", "deliverAddress","currentDeliverAddr", "intro", "image"
 	} catch (e) {
+		if (connected == true) {
+			console.log("catch exception, database connected, close it");
+			myCon.end();
+		} else {
+			console.log("catch exception, database dose not connet");
+		}
 		console.log("catch exception:" + e.name + "; msg:" + e.message);
+		throw e;
 	}
 };
 
+User.prototype.updateUser = function(userInfo) {
+};
+
+User.prototype.findUser = function(userInfo) {
+};
 
 //myCon.end();
