@@ -1,6 +1,7 @@
 Promise = require("q").Promise
 v = require("../lib/validator")
-# mysql = require("")
+dbOper = require("../../dbOper")
+userOper = dbOper.getUserInstance()
 
 getData = (query, field) ->
   return Promise (resolve, reject) ->
@@ -29,12 +30,26 @@ exports.create = (req, res) ->
 
   input = req.body
 
-  # Validation
-  v.checkParam input, () ->
+  # Test inputデータ
+  input =
+    "account":"limh"
+    "password":"mengqiao"
+    "name":"liminhui"
+    "nickName":"hogehoge"
+    "email":"mengmengqiaoqiao@gmail.com"
 
-    # mySQL側のメソッドCALL予定
-    res.status 200
-      .send output
+  # Validation
+  v.checkParam input, (err) ->
+    if err
+      res.status err.code
+        .send err.msg
+    else
+      # MySQL処理
+      userOper.insertUser input, (results) ->
+        output = results
+        res.status 200
+          .send output
+        return
     return
   return
 
