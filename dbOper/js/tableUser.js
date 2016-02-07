@@ -48,7 +48,7 @@ User.prototype.insertUser = function(userInfo, callback) {
 			values +=  ',"' + objUser.nickName + '"';
 		}
 		if (objUser.phone != undefined) {
-			columns += ",nickName";
+			columns += ",phone";
 			values += ',"' + objUser.phone + '"';
 		}
 		if (objUser.address != undefined) {
