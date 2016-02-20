@@ -148,14 +148,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 
 		var updateSql = "UPDATE USER SET id = ?";
 		var data = new Array();
-		var whereSql = " WHERE 1 = 1";
-		if (objUser.id != undefined) {
-			whereSql = " AND id = ?";
-			data.push(objUser.id);
-		} else {
-			whereSql = " AND account = ?";
-			data.push(objUser.account);
-		}
+		data.push(objUser.id);
 
 		if (objUser.password != undefined) {
 			updateSql += ", password = ?";
@@ -171,7 +164,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 		}
 		if (objUser.nickName != undefined) {
 			updateSql += ", nickName = ?";
-			data.push(objUser.nickname);
+			data.push(objUser.nickName);
 		}
 		if (objUser.phone != undefined) {
 			updateSql += ", phone = ?";
@@ -205,8 +198,12 @@ User.prototype.updateUser = function(userInfo, callback) {
 		var updateDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
 		updateSql += ", updateDate = ?";
 		data.push(updateDate);
-		if (updateSql != undefined) {
-			var sql = updateSql + whereSql + ";";
+
+		var whereSql = " WHERE id = ?";
+		data.push(objUser.id);
+
+		var sql = updateSql + whereSql + ";";
+		if (sql != undefined) {
 			console.log("update sql is:" + sql);
 			myCon.connect(function(err,callback2){
 				connected = true;
