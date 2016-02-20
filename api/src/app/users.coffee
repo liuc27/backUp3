@@ -61,8 +61,36 @@ exports.create = (req, res) ->
 # User 更新
 exports.update = (req, res) ->
   console.log "update"
-  res.status 404
-    .send "Not Found"
+
+  input = req.body
+  input.id = req.params.id
+  # Test inputデータ
+  input =
+    "id": req.params.id
+    "account":"limh"
+    "password":"mengqiao"
+    "name":"liminhui2"
+    "nickName":"hogehoge"
+    "email":"mengmengqiaoqiao@gmail.com"
+
+  # Validation
+  v.checkParam input, (err) ->
+    if err
+      res.status err.code
+        .send err.msg
+    else
+      # MySQL処理
+      userOper.updateUser input, (results) ->
+        console.log results
+        output = results
+        if results.code
+          outCode = 200
+        else
+          outCode = 400
+        res.status outCode
+          .send output
+        return
+    return
  
   return
 
