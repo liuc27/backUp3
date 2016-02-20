@@ -46,8 +46,13 @@ exports.create = (req, res) ->
     else
       # MySQL処理
       userOper.insertUser input, (results) ->
+        console.log results
         output = results
-        res.status 200
+        if results.code
+          outCode = 200
+        else
+          outCode = 400
+        res.status outCode
           .send output
         return
     return
