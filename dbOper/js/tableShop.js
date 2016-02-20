@@ -2,6 +2,7 @@ var MD5 = require('crypto-js/md5');
 
 var my = require('mysql');
 var config = require('./dbConfig');
+var moment = require('moment');
 var tableName = "SHOP";
 
 var myCon = my.createConnection(config);
@@ -26,7 +27,7 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 		var connected = false;
 
 		//console.log(shopInfo);
-		var objShop = JSON.parse(shopInfo);
+		var objShop = shopInfo;
 		if (objShop.name == undefined || objShop.address == undefined ||
 			objShop.owner == undefined || objShop.administrator == undefined || objShop.intro == undefined) {
 			console.log("name, address, owner, administrator and intro are neccessary");
@@ -47,14 +48,6 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 			columns += ",category";
 			values +=  ',"' + objShop.category + '"';
 		}
-		if (objShop.insertDate != undefined) {
-			columns += ",insertDate";
-			values += ',"' + objShop.insertDate + '"';
-		}
-		if (objShop.updateDate != undefined) {
-			columns += ",updateDate";
-			values += ',"' + objShop.updateDate + '"';
-		}
 		if (objShop.delFlg != undefined) {
 			columns += ",delFlg";
 			values += ',"' + objShop.delFlg + '"';
@@ -66,6 +59,14 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 			columns += ",logo";
 			values += ',"' + objShop.logo + '"';
 		}
+
+		var insertDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
+		columns += ",insertDate";
+		values += ',"' + insertDate + '"';
+
+		var updateDate = insertDate;
+		columns += ",updateDate";
+		values += ',"' + updateDate + '"';
 		sql += " (" + columns + ") VALUES(" + values + ");";
 		//console.log("sql is:" + sql);
 		myCon.connect(function(err,callback2){
@@ -116,7 +117,7 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 		var connected = false;
 
 		//console.log(shopInfo);
-		var objShop = JSON.parse(shopInfo);
+		var objShop = shopInfo;
 		if (objShop.id == undefined && objShop.name == undefined) {
 			console.log("id/name is neccessary");
 			var result = {
@@ -206,6 +207,9 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 				keyValue += ',logo="' + objShop.logo + '"';
 			}
 		}
+
+		var updateDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
+		keyValue += ' updateDate="' + updateDate + '"';
 		if (keyValue != undefined) {
 			var sql = updateSql + keyValue + whereSql + ";";
 			console.log("update sql is:" + sql);
@@ -249,7 +253,7 @@ Shop.prototype.findShop = function(shopInfo, callback) {
 		var connected = false;
 
 		//console.log(shopInfo);
-		var objShop = JSON.parse(shopInfo);
+		var objShop = shopInfo;
 		if (objShop.id == undefined && objShop.name == undefined && objShop.owner == undefined) {
 			console.log("id/name/owner is neccessary");
 			var result = {
