@@ -38,79 +38,78 @@ User.prototype.insertUser = function(userInfo, callback) {
 			callback(result);
 			return;
 		}
-		var id = MD5(objUser.account).toString();
 
-		var sql = "INSERT INTO USER";
-		var columns = "id,account,password,name,email";
-		var values = '"' + id +  '"' + ',"' + objUser.account + '","' + objUser.password + '","'
-			+ objUser.name + '","' + objUser.email + '"';
+		var insertSql = "INSERT USER SET id = ?";
+		var data = new Array();
+		data.push(objUser.id);
+
 		if (objUser.nickName != undefined) {
-			columns += ",nickName";
-			values +=  ',"' + objUser.nickName + '"';
+			insertSql += ", nickName = ?";
+			data.push(objUser.nickName);
 		}
 		if (objUser.phone != undefined) {
-			columns += ",phone";
-			values += ',"' + objUser.phone + '"';
+			insertSql += ", phone = ?";
+			data.push(objUser.phone);
 		}
 		if (objUser.address != undefined) {
-			columns += ",address";
-			values += ',"' + objUser.address + '"';
+			insertSql += ", address = ?";
+			data.push(objUser.address);
 		}
 		if (objUser.postNum != undefined) {
-			columns += ",postNum";
-			values += ',"' + objUser.postNum + '"';
+			insertSql += ", postNum = ?";
+			data.push(objUser.postNum);
 		}
 		if (objUser.birthday != undefined) {
-			columns += ",birthday";
-			values += ',"' + objUser.birthday + '"';
+			insertSql += ", birthday = ?";
+			data.push(objUser.birthday);
 		}
 		if (objUser.deliverAddress != undefined) {
-			columns += ",deliverAddress";
-			values += ',"' + objUser.deliverAddress + '"';
-		} else {
-			//columns += ",deliverAddress";
+			insertSql += ", deliverAddress = ?";
+			data.push(objUser.deliverAddress);
 		}
 		if (objUser.intro != undefined) {
-			columns += ",intro";
-			values += ',"' + objUser.intro + '"';
+			insertSql += ", intro = ?";
+			data.push(objUser.intro);
 		}
 		if (objUser.image != undefined) {
-			columns += ",image";
-			values += ',"' + objUser.image + '"';
+			insertSql += ", image = ?";
+			data.push(objUser.image);
 		}
-		var insertDate = moment(new Date()).format("YYYY/MM/DD HH:mm:ss");
-		columns += ",insertDate";
-		values += ',"' + insertDate + '"';
+
+
+		var insertDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
+		insertSql += ", insertDate = ?";
+		data.push(insertDate);
 
 		var updateDate = insertDate;
-		columns += ",updateDate";
-		values += ',"' + updateDate + '"';
-		sql += " (" + columns + ") VALUES(" + values + ");";
-		//console.log("sql is:" + sql);
-		myCon.connect(function(err,callback2){
-			//console.log(callback2);
-			connected = true;
-			myCon.query(sql, function(err, results){
-				myCon.end();
-				if(err) {
-					var result = {
-						"code":1,
-						"msg":err
-					}
-					callback(result);
-					return;
-				} else {
-					var result = {
-						"code":0,
-						"id":id
-					}
-					callback(result);
-					return;
-				}
-				console.log("aaaaaaa");
-			});
-		});
+		insertSql += ", updateDate = ?";
+		data.push(updateDate);
 
+		var sql = insertSql  + ";";
+		if (sql != undefined) {
+			console.log("insert sql is:" + sql);
+			myCon.connect(function(err,callback2){
+				connected = true;
+				myCon.query(sql, data, function(err, results){
+					myCon.end();
+					if(err) {
+						var result = {
+							"code":1,
+							"msg":err
+						}
+						callback(result);
+						return;
+					} else {
+						var result = {
+							"code":0,
+							"msg":"Success"
+						}
+						callback(result);
+						return;
+					}
+				});
+			});
+		}
 		// "birthday", "adminFlg", "certificatedFlg", "deliverAddress","currentDeliverAddr", "intro", "image"
 	} catch (e) {
 		if (connected == true) {
@@ -148,14 +147,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 
 		var updateSql = "UPDATE USER SET id = ?";
 		var data = new Array();
-		var whereSql = " WHERE 1 = 1";
-		if (objUser.id != undefined) {
-			whereSql = " AND id = ?";
-			data.push(objUser.id);
-		} else {
-			whereSql = " AND account = ?";
-			data.push(objUser.account);
-		}
+		data.push(objUser.id);
 
 		if (objUser.password != undefined) {
 			updateSql += ", password = ?";
@@ -171,7 +163,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 		}
 		if (objUser.nickName != undefined) {
 			updateSql += ", nickName = ?";
-			data.push(objUser.nickname);
+			data.push(objUser.nickName);
 		}
 		if (objUser.phone != undefined) {
 			updateSql += ", phone = ?";
@@ -205,8 +197,12 @@ User.prototype.updateUser = function(userInfo, callback) {
 		var updateDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
 		updateSql += ", updateDate = ?";
 		data.push(updateDate);
-		if (updateSql != undefined) {
-			var sql = updateSql + whereSql + ";";
+
+		var whereSql = " WHERE id = ?";
+		//data.push(objUser.id);
+
+		var sql = updateSql + whereSql + ";";
+		if (sql != undefined) {
 			console.log("update sql is:" + sql);
 			myCon.connect(function(err,callback2){
 				connected = true;
