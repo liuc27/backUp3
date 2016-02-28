@@ -12,15 +12,57 @@ getData = (query, field) ->
 exports.index = (req, res) ->
   console.log "index"
 
-  res.status 404
-    .send "Not Found"
+  input = req.query
+  
+  #console.log input
+  # Validation
+  v.checkParam input, (err) ->
+    if err
+      res.status err.code
+        .send err.msg
+    else
+      # MySQL処理
+      userOper.findUser input, (results) ->
+        #console.log results
+        output = results
+        if results.code
+          outCode = 200
+        else
+          outCode = 400
+        res.status outCode
+          .send output
+        return
+    return
+ 
   return
 
 # User 取得
 exports.show = (req, res) ->
   console.log "show"
-  res.status 404
-    .send "Not Found"
+
+  input = req.query
+  input.id = req.params.id
+
+  #console.log input
+  # Validation
+  v.checkParam input, (err) ->
+    if err
+      res.status err.code
+        .send err.msg
+    else
+      # MySQL処理
+      userOper.findUser input, (results) ->
+        #console.log results
+        if reulsts.length
+          output = results[0]
+        if results.code
+          outCode = 200
+        else
+          outCode = 400
+        res.status outCode
+          .send output
+        return
+    return
  
   return
 
@@ -31,12 +73,13 @@ exports.create = (req, res) ->
   input = req.body
 
   # Test inputデータ
-  input =
-    "account":"limh"
-    "password":"mengqiao"
-    "name":"liminhui"
-    "nickName":"hogehoge"
-    "email":"mengmengqiaoqiao@gmail.com"
+  #input =
+  #  "id": "a68548ee2c65aa442d2adffdf47fce43"
+  #  "account":"chaeh01"
+  #  "password":"poipoi"
+  #  "name":"chaehyungjun"
+  #  "nickName":"hj"
+  #  "email":"poipoi.chae@gmail.com"
 
   # Validation
   v.checkParam input, (err) ->
@@ -65,13 +108,13 @@ exports.update = (req, res) ->
   input = req.body
   input.id = req.params.id
   # Test inputデータ
-  input =
-    "id": req.params.id
-    "account":"limh"
-    "password":"mengqiao"
-    "name":"liminhui2"
-    "nickName":"hogehoge"
-    "email":"mengmengqiaoqiao@gmail.com"
+  #input =
+  #  "id": req.params.id
+  #  "account":"limh"
+  #  "password":"mengqiao"
+  #  "name":"liminhui2"
+  #  "nickName":"hogehoge"
+  #  "email":"mengmengqiaoqiao@gmail.com"
 
   # Validation
   v.checkParam input, (err) ->
