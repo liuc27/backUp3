@@ -252,6 +252,67 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
   })
 
+  .controller('oauthCtrl', function ($scope, $rootScope, $stateParams, localStorageService, $http, $state, $ionicPopup, $location, $q ) {
+        $scope.accessToken = JSON.parse(window.localStorage.getItem("token")).oauth.access_token;
+        $scope.provider = window.localStorage.getItem("provider");
+
+        $http.post("http://127.0.0.1:3000/api/oauth",{
+          "tokenType": $scope.provider,
+          "accessToken": $scope.accessToken
+        }).success(function (data) {
+          console.log(data)
+          if (data.type === "newUser") {
+            $rootScope.username = data.id
+            localStorageService.set("usernameData", data.id)
+
+
+            //$state.go('tab.login');
+            //window.location.href = "http://localhost:8100/#/tab/login";
+            //$scope.username = data.id
+            //$scope.usernameExist = true
+  //          $ionicPopup.alert({
+  //                  title: 'ログイン成功しました！'
+  //          title: data.id
+  //          });
+            var promise = $q(function (resolve, reject) {
+              setTimeout(function () {
+                if (localStorageService.set("usernameData", data.id)) {
+                  resolve('クーポンの獲得　をはじめてください!');
+                } else {
+                  reject('エラー!');
+                }
+              }, 10);
+            });
+
+            promise.then(function (greeting) {
+              //console.log(localStorageService.get("usernameData"));
+              //alert('Success: ' + greeting);
+              $state.go('tab.login');
+              //window.location.replace("http://localhost:8100/#/tab/login");
+            }, function (reason) {
+              //alert('Failed: ' + reason);
+              $state.go('tab.login');
+              //window.location.replace("http://localhost:8100/#/tab/login");
+            });
+
+          }else if (data.type === "oldUser") {
+            $ionicPopup.alert({
+              title: '欢迎您再次使用～赶紧的去挑选吧！'
+            });
+            //$scope.username = data.id;
+            //$scope.usernameExist = true;
+            $rootScope.username = data.id;
+            localStorageService.set("usernameData", data.id)
+            $state.go('tab.login');
+            }else{
+            $ionicPopup.alert({
+              title: 'something went wrong.'
+            });
+              $state.go('tab.login');
+          }
+        })
+
+    })
 
 
 
@@ -296,7 +357,8 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
   })
 
   .controller('loginCtrl',  function($scope, $rootScope, $ionicPopup, $cordovaOauth, localStorageService, $http, $state, $q, resolvedAccount) {
-        $scope.username = resolvedAccount
+        //$scope.username = resolvedAccount
+        $scope.username = $rootScope.username
         if (typeof $scope.username === "undefined" || $scope.username === null) {
           $ionicPopup.alert({
             title: 'ログインしてください'
@@ -335,6 +397,44 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
           }, 300)
         }
 
+
+        $scope.loginGoogle = function() {
+                    var client_id="664538543521-mk52iolffl800pke2m7dn05dntqh3o6g.apps.googleusercontent.com";
+                    var scope="email%20profile";
+                    var o="http://localhost:8100/oauth/google_cb.html";
+                    var response_type="token";
+                    var u="https://accounts.google.com/o/oauth2/auth?scope="+scope+"&client_id="+client_id+"&redirect_uri="+o+
+                    "&response_type="+response_type;
+                    window.location.replace(u);
+
+
+        };
+
+        $scope.loginFacebook = function() {
+                    var client_id="149120325435621";
+                    var o="http://localhost:8100/oauth/facebook_cb.html";
+                    var response_type="token";
+                    var u="https://www.facebook.com/v2.0/dialog/oauth?client_id="+client_id+"&redirect_uri="+o+
+                    "&response_type="+response_type;
+                    window.location.replace(u);
+
+
+        };
+
+        $scope.loginYahoo = function() {
+                    var client_id="dj0zaiZpPXVaU0pCNmFsdnNjaSZzPWNvbnN1bWVyc2VjcmV0Jng9MmE-";
+                    var o="http://localhost:8100/oauth/yahoo_cb.html";
+                    var response_type="token";
+                    var scope="openid profile"
+                    var u="https://auth.login.yahoo.co.jp/yconnect/v1/authorization?client_id="+client_id+"&redirect_uri="+o+
+                    "&response_type="+response_type+"&scope="+scope;
+                    window.location.replace(u);
+
+
+        };
+
+
+/*
         $scope.loginFacebook = function() {
           //console.log("1");
           //console.log("facebook button clicked")
@@ -355,7 +455,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
                 $rootScope.username = data.id;
                 localStorageService.set("usernameData", data.id)
                 $state.go('tab.coupon');
-                */
+
                 $rootScope.username = data.id
                 $scope.username = data.id
                 $scope.usernameExist = true
@@ -406,6 +506,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
           console.log(error);
           });
         }
+*/
 
         $scope.goRegister = function(){
           $state.go('tab.registerNew');

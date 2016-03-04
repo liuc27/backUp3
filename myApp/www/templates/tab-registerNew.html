@@ -1,28 +1,56 @@
 <ion-view title="Register">
     <ion-content>
+      <form name="myForm" novalidate>
       <div class="list">
+        <div>
         <label class="item item-input">
           <span class="input-label">ユーザ名</span>
-          <input type="text" ng-model="username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">パスワード</span>
-          <input type="password" ng-model="password">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">パスワード再入力</span>
-          <input type="password" ng-model="password2">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Email</span>
-          <input type="password" ng-model="email">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">ニックネーム</span>
-          <input type="password" ng-model="nickname">
+          <input type="text" ng-model="username" name="username" ng-minlength=5 ng-maxlength=20 required/>
         </label>
       </div>
-      <button class="button button-full button-positive" ng-click="registerNew(username,password,email,nickname)">Submit</button>
-      <button class="button button-full button-positive" ng-click="backLogin()">Cancel</button>
+        <div>
+        <label class="item item-input">
+          <span class="input-label">パスワード</span>
+          <input type="password" id="pw1" name="pw1" ng-minlength=5 ng-maxlength=12 ng-model="password" required/>
+        </label>
+        </div>
+        <div>
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" name="email" ng-model="email">
+        </label>
+        </div>
+        <div>
+        <label class="item item-input">
+          <span class="input-label">ニックネーム</span>
+          <input type="text" name="nickname" ng-minlength=5 ng-maxlength=20 ng-model="nickname">
+        </label>
+        </div>
+      </div>
+      <div name="err" center>
+      <span ng-show="myForm.username.$error.required && myForm.username.$dirty">
+        (注:) ユーザ名は必須です。<br/></span>
+      <span ng-show="myForm.username.$error.minlength">
+        (注:) ユーザ名は5文字以上で入力してください。<br/></span>
+      <span ng-show="myForm.username.$error.maxlength">
+        (注:) ユーザ名は20文字以内で入力してください。<br/></span>
+      <span ng-show="myForm.pw1.$error.required && myForm.pw1.$dirty">
+        (注:) パスワードは必須です。<br/></span>
+      <span ng-show="myForm.pw1.$error.minlength">
+        (注:) パスワードは5文字以上で入力してください。<br/></span>
+      <span ng-show="myForm.pw1.$error.maxlength">
+        (注:) パスワードは12文字以内で入力してください。<br/></span>
+      <span ng-show="myForm.email.$error.email">
+        (注:) メーアドは正しい形式で入力してください。<br/></span>
+      <span ng-show="myForm.nickname.$error.minlength">
+        (注:) ニックネーム5文字以上で入力してください。<br/></span>
+      <span ng-show="myForm.nickname.$error.maxlength">
+        (注:) ニックネーム20文字以内で入力してください。<br/></span>
+      </div>
+      <button class="button button-full button-positive"
+      ng-click="registerNew(username,password,email,nickname)" ng-disabled="myForm.$invalid">Submit</button>
+      <button class="button button-full button-positive"
+      ng-click="backLogin()">Cancel</button>
+    </form>
     </ion-content>
 </ion-view>
