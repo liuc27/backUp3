@@ -26,74 +26,80 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 	try {
 		var connected = false;
 
-		//console.log(shopInfo);
 		var objShop = shopInfo;
-		if (objShop.name == undefined || objShop.address == undefined ||
-			objShop.owner == undefined || objShop.administrator == undefined || objShop.intro == undefined) {
-			console.log("name, address, owner, administrator and intro are neccessary");
+		if (objShop.name == undefined || objShop.owner == undefined) {
 			var result = {
 				"code":0,
-				"msg":"name, address, owner, administrator and intro are neccessary"
+				"msg":"name, owner  are neccessary"
 			}
 			callback(result);
 			return;
 		}
 		var id = MD5(objShop.name).toString();
 
-		var sql = "INSERT INTO SHOP";
-		var columns = "id,name,address,owner,administrator,intro";
-		var values = '"' + id +  '"' + ',"' + objShop.name + '","' + objShop.address + '","'
-			+ objShop.owner + '","'+ objShop.administrator + '","'  + objShop.intro + '"';
-		if (objShop.category != undefined) {
-			columns += ",category";
-			values +=  ',"' + objShop.category + '"';
+		var insertSql = "INSERT SHOP SET id = ?";
+		var data = new Array();
+		data.push(id);
+		
+		insertSql += ", name = ?, owner = ?";
+		data.push(objShop.name);
+		data.push(objShop.owner);
+
+		if (objShop.dispName != undefined) {
+			insertSql += ", dispName = ?";
+			data.push(objShop.dispName);
 		}
-		if (objShop.delFlg != undefined) {
-			columns += ",delFlg";
-			values += ',"' + objShop.delFlg + '"';
-		} else {
-			columns += ",delFlg";
-			values += ',"' + '1' + '"'; //default delFlg value
+		if (objShop.address != undefined) {
+			insertSql += ", address = ?";
+			data.push(objShop.address);
+		}
+		if (objShop.administrator != undefined) {
+			insertSql += ", administrator = ?";
+			data.push(objShop.administrator);
+		}
+		if (objShop.intro != undefined) {
+			insertSql += ", intro = ?";
+			data.push(objShop.intro);
+		}
+		if (objShop.category != undefined) {
+			insertSql += ", category = ?";
+			data.push(objShop.category);
 		}
 		if (objShop.logo != undefined) {
-			columns += ",logo";
-			values += ',"' + objShop.logo + '"';
+			insertSql += ", logo = ?";
+			data.push(objShop.logo);
 		}
 
 		var insertDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
-		columns += ",insertDate";
-		values += ',"' + insertDate + '"';
+		insertSql += ", insertDate = ?";
+		data.push(insertDate);
 
 		var updateDate = insertDate;
-		columns += ",updateDate";
-		values += ',"' + updateDate + '"';
-		sql += " (" + columns + ") VALUES(" + values + ");";
-		//console.log("sql is:" + sql);
+		insertSql += ", updateDate = ?";
+		data.push(updateDate);
+
 		myCon.connect(function(err,callback2){
-			//console.log(callback2);
 			connected = true;
-			myCon.query(sql, function(err, results){
+			myCon.query(insertSql, data, function(err, results){
 				myCon.end();
 				if(err) {
 					var result = {
-						"code":1,
+						"code":0,
 						"msg":err
 					}
 					callback(result);
 					return;
 				} else {
 					var result = {
-						"code":0,
+						"code":1,
 						"id":id
 					}
 					callback(result);
 					return;
 				}
-				console.log("aaaaaaa");
 			});
 		});
 
-		// "birthday", "adminFlg", "certificatedFlg", "deliverAddress","currentDeliverAddr", "intro", "image"
 	} catch (e) {
 		if (connected == true) {
 			console.log("catch exception, database connected, close it");
@@ -116,117 +122,96 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 	try {
 		var connected = false;
 
-		//console.log(shopInfo);
 		var objShop = shopInfo;
 		if (objShop.id == undefined && objShop.name == undefined) {
-			console.log("id/name is neccessary");
 			var result = {
-				"code":1,
+				"code":0,
 				"msg":"id/name is neccessary"
 			}
 			callback(result);
 			return;
 		}
 
-		var updateSql = "UPDATE SHOP SET";
+		var updateSql = undefined;;
+		var data = new Array();
 		var keyValue = undefined;
 		var whereSql = undefined;
-		if (objShop.id != undefined) {
-			whereSql = " WHERE id=" + '"' + objShop.id + '"';
-		} else {
-			whereSql = " WHERE name=" + '"' + objShop.name + '"';
-		}
 
-		if (objShop.address != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' address="' + objShop.address + '"';
+		if (objShop.dispName != undefined) {
+			if (updateSql == undefined) {
+				updateSql = "UPDATE SHOP SET dispName = ?";
 			} else {
-				keyValue += ',address="' + objShop.address + '"';
+				updateSql += ", dispName = ?";
 			}
+			data.push(objShop.dispName);
+		}
+		if (objShop.address != undefined) {
+			if (updateSql == undefined) {
+				updateSql = "UPDATE SHOP SET address = ?";
+			} else {
+				updateSql += ", address = ?";
+			}
+			data.push(objShop.address);
 		}
 		if (objShop.owner != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' owner="' + objShop.owner + '"';
+			if (updateSql == undefined) {
+				updateSql = "UPDATE SHOP SET owner = ?";
 			} else {
-				keyValue += ',owner="' + objShop.owner + '"';
+				updateSql += ", owner= ?";
 			}
-		}
-		if (objShop.email != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' email="' + objShop.email + '"';
-			} else {
-				keyValue += ',email="' + objShop.email + '"';
-			}
+			data.push(objShop.owner);
 		}
 		if (objShop.category != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' category="' + objShop.category + '"';
-			} else {
-				keyValue += ',category="' + objShop.category + '"';
-			}
-		}
+                        if (updateSql == undefined) {
+                                updateSql = "UPDATE SHOP SET category = ?";
+                        } else {
+                                updateSql += ", category = ?";
+                        }
+                        data.push(objShop.category);
+                }
 		if (objShop.administrator != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' administrator="' + objShop.administrator + '"';
-			} else {
-				keyValue += ',administrator="' + objShop.administrator + '"';
-			}
-		}
-		if (objShop.updateDate != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' updateDate="' + objShop.updateDate + '"';
-			} else {
-				keyValue += ',updateDate="' + objShop.updateDate + '"';
-			}
-		}
-		if (objShop.insertDate != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' insertDate="' + objShop.insertDate + '"';
-			} else {
-				keyValue += ',insertDate="' + objShop.insertDate + '"';
-			}
-		}
-		if (objShop.delFlg != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' delFlg="' + objShop.delFlg + '"';
-			} else {
-				keyValue += ',delFlg="' + objShop.delFlg + '"';
-			}
-		}
+                        if (updateSql == undefined) {
+                                updateSql = "UPDATE SHOP SET administrator = ?";
+                        } else {
+                                updateSql += ", administrator = ?";
+                        }
+                        data.push(objShop.administrator);
+                }
 		if (objShop.intro != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' intro="' + objShop.intro + '"';
-			} else {
-				keyValue += ',intro="' + objShop.intro + '"';
-			}
-		}
-		if (objShop.logo != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' logo="' + objShop.logo + '"';
-			} else {
-				keyValue += ',logo="' + objShop.logo + '"';
-			}
-		}
-
+                        if (updateSql == undefined) {
+                                updateSql = "UPDATE SHOP SET intro = ?";
+                        } else {
+                                updateSql += ", intro = ?";
+                        }
+                        data.push(objShop.intro);
+                }
 		var updateDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
-		keyValue += ' updateDate="' + updateDate + '"';
-		if (keyValue != undefined) {
-			var sql = updateSql + keyValue + whereSql + ";";
-			console.log("update sql is:" + sql);
+		if (updateSql != undefined) {
+			updateSql += ", updateDate = ?";
+			data.push(updateDate);
+			var whereSql = undefined
+                	if (objShop.id != undefined) {
+                        	whereSql = " WHERE id = ?";
+                        	data.push(objShop.id);
+                	} else {
+				whereSql = " WHERE name = ?";
+				data.push(objShop.name);
+			}
+			var sql = updateSql + whereSqle
 			myCon.connect(function(err,callback2){
 				connected = true;
-				myCon.query(sql, function(err, results){
+				myCon.query(sql, data, function(err, results){
 					myCon.end();
 					if(err) {
 						var result = {
-							"code":1,
+							"code":0,
 							"msg":err
 						}
 						callback(result);
 						return;
 					} else {
 						var result = {
-							"code":0,
+							"code":1,
 							"msg":"Success"
 						}
 						callback(result);
@@ -252,12 +237,10 @@ Shop.prototype.findShop = function(shopInfo, callback) {
 	try {
 		var connected = false;
 
-		//console.log(shopInfo);
 		var objShop = shopInfo;
 		if (objShop.id == undefined && objShop.name == undefined && objShop.owner == undefined) {
-			console.log("id/name/owner is neccessary");
 			var result = {
-				"code":1,
+				"code":0,
 				"msg":"id/name/owner is neccessary"
 			}
 			callback(result);
@@ -269,7 +252,7 @@ Shop.prototype.findShop = function(shopInfo, callback) {
 		if (objShop.id != undefined) {
 			whereSql = " WHERE id=" + '"' + objShop.id + '"';
 		} else if (objShop.name != undefined){
-			whereSql = " WHERE name=" + '"' + objShop.account + '"';
+			whereSql = " WHERE name=" + '"' + objShop.name + '"';
 		} else {
 			whereSql = " WHERE owner=" + '"' + objShop.owner + '"';
 		}
@@ -282,14 +265,14 @@ Shop.prototype.findShop = function(shopInfo, callback) {
 				myCon.end();
 				if(err) {
 					var result = {
-						"code":1,
+						"code":0,
 						"msg":err
 					}
 					callback(result);
 					return;
 				} else {
 					var result = {
-						"code":0,
+						"code":1,
 						"Shop":results
 					}
 					callback(result);

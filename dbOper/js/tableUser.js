@@ -40,7 +40,7 @@ User.prototype.insertUser = function(userInfo, callback) {
 		}
 		var id = MD5(objUser.account).toString();
 
-		var insertSql = "INSERT USER SET id = ?";
+		var insertSql = "INSERT INTO USER SET id = ?";
 		var data = new Array();
 		data.push(id);
 
