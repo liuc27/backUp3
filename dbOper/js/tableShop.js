@@ -13,8 +13,7 @@ module.exports = Shop;
 function Shop () {
 	this.tableColumns = new Array("name", "address",
 		"owner", "category", "administrator", "insertDate", "updateDate", "delFlg",
-		"intro", "log"
-	);
+		"intro", "logo");
 	this.neccessaryColumns = new Array("name", "address", "owner", "administrator", "intro");
 };
 
@@ -40,59 +39,80 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 		}
 		var id = MD5(objShop.name).toString();
 
-		var sql = "INSERT INTO SHOP";
-		var columns = "id,name,address,owner,administrator,intro";
-		var values = '"' + id +  '"' + ',"' + objShop.name + '","' + objShop.address + '","'
-			+ objShop.owner + '","'+ objShop.administrator + '","'  + objShop.intro + '"';
+		var sql = "INSERT SHOP SET id = ?";
+		var data = new Array();
+		data.push(id);
+
+		if (objShop.name != name) {
+			insertSql += ", category = ?";
+			data.push(objUser.name);
+		}
+		if (objShop.address != undefined) {
+			insertSql += ", address = ?";
+			data.push(objUser.address);
+		}
+		if (objShop.owner != undefined) {
+			insertSql += ", owner = ?";
+			data.push(objUser.owner);
+		}
 		if (objShop.category != undefined) {
-			columns += ",category";
-			values +=  ',"' + objShop.category + '"';
+			insertSql += ", category = ?";
+			data.push(objUser.category);
+		}
+		if (objShop.administrator != undefined) {
+			insertSql += ", administrator = ?";
+			data.push(objUser.administrator);
 		}
 		if (objShop.delFlg != undefined) {
-			columns += ",delFlg";
-			values += ',"' + objShop.delFlg + '"';
-		} else {
-			columns += ",delFlg";
-			values += ',"' + '1' + '"'; //default delFlg value
+			insertSql += ", delFlg = ?";
+			data.push(objUser.delFlg);
+		}else{
+			insertSql += ", delFlg = ?";
+			data.push('1');
+		}
+		if (objShop.intro != undefined) {
+			insertSql += ", intro = ?";
+			data.push(objUser.intro);
 		}
 		if (objShop.logo != undefined) {
-			columns += ",logo";
-			values += ',"' + objShop.logo + '"';
+			insertSql += ", logo = ?";
+			data.push(objUser.logo);
 		}
 
 		var insertDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
-		columns += ",insertDate";
-		values += ',"' + insertDate + '"';
+		insertSql += ", insertDate = ?";
+		data.push(insertDate);
 
 		var updateDate = insertDate;
-		columns += ",updateDate";
-		values += ',"' + updateDate + '"';
-		sql += " (" + columns + ") VALUES(" + values + ");";
-		//console.log("sql is:" + sql);
-		myCon.connect(function(err,callback2){
-			//console.log(callback2);
-			connected = true;
-			myCon.query(sql, function(err, results){
-				myCon.end();
-				if(err) {
-					var result = {
-						"code":1,
-						"msg":err
-					}
-					callback(result);
-					return;
-				} else {
-					var result = {
-						"code":0,
-						"id":id
-					}
-					callback(result);
-					return;
-				}
-				console.log("aaaaaaa");
-			});
-		});
+		insertSql += ", updateDate = ?";
+		data.push(updateDate);
 
+		var sql = insertSql  + ";";
+		if (sql != undefined) {
+			console.log("insert sql is:" + sql);
+			myCon.connect(function (err, callback2) {
+				//console.log(callback2);
+				connected = true;
+				myCon.query(sql, data, function (err, results) {
+					myCon.end();
+					if (err) {
+						var result = {
+							"code": 1,
+							"msg": err
+						}
+						callback(result);
+						return;
+					} else {
+						var result = {
+							"code": 0,
+							"id": id
+						}
+						callback(result);
+						return;
+					}
+				});
+			});
+		}
 		// "birthday", "adminFlg", "certificatedFlg", "deliverAddress","currentDeliverAddr", "intro", "image"
 	} catch (e) {
 		if (connected == true) {
@@ -118,104 +138,71 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 
 		//console.log(shopInfo);
 		var objShop = shopInfo;
-		if (objShop.id == undefined && objShop.name == undefined) {
-			console.log("id/name is neccessary");
+
+		if (objShop.id == undefined) {
+			console.log("id is neccessary");
 			var result = {
 				"code":1,
-				"msg":"id/name is neccessary"
+				"msg":"id is neccessary"
 			}
 			callback(result);
 			return;
 		}
 
-		var updateSql = "UPDATE SHOP SET";
-		var keyValue = undefined;
-		var whereSql = undefined;
-		if (objShop.id != undefined) {
-			whereSql = " WHERE id=" + '"' + objShop.id + '"';
-		} else {
-			whereSql = " WHERE name=" + '"' + objShop.name + '"';
-		}
+		var updateSql = "UPDATE SHOP SET id = ?";
+		var data = new Array();
 
+		data.push(objShop.id);
+
+		if (objShop.name != name) {
+			updateSql += ", category = ?";
+			data.push(objShop.name);
+		}
 		if (objShop.address != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' address="' + objShop.address + '"';
-			} else {
-				keyValue += ',address="' + objShop.address + '"';
-			}
+			updateSql += ", address = ?";
+			data.push(objShop.address);
 		}
 		if (objShop.owner != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' owner="' + objShop.owner + '"';
-			} else {
-				keyValue += ',owner="' + objShop.owner + '"';
-			}
-		}
-		if (objShop.email != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' email="' + objShop.email + '"';
-			} else {
-				keyValue += ',email="' + objShop.email + '"';
-			}
+			updateSql += ", owner = ?";
+			data.push(objShop.owner);
 		}
 		if (objShop.category != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' category="' + objShop.category + '"';
-			} else {
-				keyValue += ',category="' + objShop.category + '"';
-			}
+			updateSql += ", category = ?";
+			data.push(objShop.category);
 		}
 		if (objShop.administrator != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' administrator="' + objShop.administrator + '"';
-			} else {
-				keyValue += ',administrator="' + objShop.administrator + '"';
-			}
-		}
-		if (objShop.updateDate != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' updateDate="' + objShop.updateDate + '"';
-			} else {
-				keyValue += ',updateDate="' + objShop.updateDate + '"';
-			}
-		}
-		if (objShop.insertDate != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' insertDate="' + objShop.insertDate + '"';
-			} else {
-				keyValue += ',insertDate="' + objShop.insertDate + '"';
-			}
+			updateSql += ", administrator = ?";
+			data.push(objShop.administrator);
 		}
 		if (objShop.delFlg != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' delFlg="' + objShop.delFlg + '"';
-			} else {
-				keyValue += ',delFlg="' + objShop.delFlg + '"';
-			}
+			updateSql += ", delFlg = ?";
+			data.push(objShop.delFlg);
+		}else{
+			updateSql += ", delFlg = ?";
+			data.push('1');
 		}
 		if (objShop.intro != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' intro="' + objShop.intro + '"';
-			} else {
-				keyValue += ',intro="' + objShop.intro + '"';
-			}
+			updateSql += ", intro = ?";
+			data.push(objShop.intro);
 		}
 		if (objShop.logo != undefined) {
-			if (keyValue == undefined) {
-				keyValue = ' logo="' + objShop.logo + '"';
-			} else {
-				keyValue += ',logo="' + objShop.logo + '"';
-			}
+			updateSql += ", logo = ?";
+			data.push(objShop.logo);
 		}
 
 		var updateDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
-		keyValue += ' updateDate="' + updateDate + '"';
-		if (keyValue != undefined) {
-			var sql = updateSql + keyValue + whereSql + ";";
+		updateSql += ", updateDate = ?";
+		data.push(updateDate);
+
+		var whereSql = " WHERE id = ?";
+		data.push(objShop.id);
+
+		var sql = updateSql + whereSql + ";";
+		if (sql != undefined) {
 			console.log("update sql is:" + sql);
 			myCon.connect(function(err,callback2){
 				connected = true;
-				myCon.query(sql, function(err, results){
+				myCon.query(sql, data, function(err, results){
 					myCon.end();
 					if(err) {
 						var result = {
@@ -254,7 +241,7 @@ Shop.prototype.findShop = function(shopInfo, callback) {
 
 		//console.log(shopInfo);
 		var objShop = shopInfo;
-		if (objShop.id == undefined && objShop.name == undefined && objShop.owner == undefined) {
+		if (objShop.id == undefined || objShop.name == undefined || objShop.owner == undefined) {
 			console.log("id/name/owner is neccessary");
 			var result = {
 				"code":1,

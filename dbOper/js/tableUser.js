@@ -13,8 +13,7 @@ module.exports = User;
 function User () {
 	this.tableColumns = new Array("account", "password", "name", "nickName", "phone", "address",
 		"postNum", "email", "birthday", "adminFlg", "certificatedFlg", "deliverAddress",
-		"currentDeliverAddr", "intro", "image"
-	);
+		"currentDeliverAddr", "intro", "image");
 	this.neccessaryColumns = new Array("account", "password", "name", "email");
 };
 
@@ -41,8 +40,30 @@ User.prototype.insertUser = function(userInfo, callback) {
 
 		var insertSql = "INSERT USER SET id = ?";
 		var data = new Array();
-		data.push(objUser.id);
+		var id;
 
+		myCon.connect(function(err,callback2) {
+			connected = true;
+			myCon.query('SELECT MAX(id) FROM USER', function (err, result) {
+				if (err) {
+					throw err;
+					id = 0;
+				} else {
+					id = result + 1;
+					console.log(id);
+				}
+			});
+		}
+		data.push(id);
+
+		if (objUser.account != undefined) {
+			insertSql += ", account = ?";
+			data.push(objUser.account);
+		}
+		if (objUser.password != undefined) {
+			insertSql += ", password = ?";
+			data.push(objUser.password);
+		}
 		if (objUser.nickName != undefined) {
 			insertSql += ", nickName = ?";
 			data.push(objUser.nickName);
@@ -199,7 +220,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 		data.push(updateDate);
 
 		var whereSql = " WHERE id = ?";
-		//data.push(objUser.id);
+		data.push(objUser.id);
 
 		var sql = updateSql + whereSql + ";";
 		if (sql != undefined) {
