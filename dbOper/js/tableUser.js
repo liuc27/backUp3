@@ -15,7 +15,7 @@ function User () {
 		"postNum", "email", "birthday", "adminFlg", "certificatedFlg", "deliverAddress",
 		"currentDeliverAddr", "intro", "image"
 	);
-	this.neccessaryColumns = new Array("account", "password", "name", "email");
+	this.neccessaryColumns = new Array("account");
 };
 
 /*
@@ -26,35 +26,40 @@ User.prototype.insertUser = function(userInfo, callback) {
 	try {
 		var connected = false;
 
-		//console.log(userInfo);
 		var objUser = userInfo;
-		if (objUser.account == undefined || objUser.password == undefined ||
-			objUser.name == undefined || objUser.email == undefined) {
-			console.log("account, password, name, nickName, email are necessary");
+		if (objUser.account == undefined) {
 			var result = {
 				"code":0,
-				"msg":"account, password, name, email are necessary"
+				"msg":"account"
 			}
 			callback(result);
 			return;
 		}
-		var id = MD5(objUser.account).toString();
+		var userID = MD5(objUser.account).toString();
 
-		var insertSql = "INSERT INTO USER SET id = ?";
+		var insertSql = "INSERT INTO USER SET userID = ?";
 		var data = new Array();
-		data.push(id);
+		data.push(userID);
 
-                insertSql += ", account = ?, password = ?, name = ?, email = ?";
+                insertSql += ", account = ?";
 		data.push(objUser.account);
-		data.push(objUser.password);
-		data.push(objUser.name);
-		data.push(objUser.email);
 		
+		if (objUser.password != undefined) {
+			insertSql += ", password = ?";
+			data.push(objUser.password);
+		}
+		if (objUser.name != undefined) {
+                        insertSql += ", name = ?";
+                        data.push(objUser.name);
+                }
 		if (objUser.nickName != undefined) {
 			insertSql += ", nickName = ?";
 			data.push(objUser.nickName);
 		}
-
+		if (objUser.email != undefined) {
+                        insertSql += ", email = ?";
+                        data.push(objUser.email);
+                }
 		if (objUser.phone != undefined) {
 			insertSql += ", phone = ?";
 			data.push(objUser.phone);
@@ -66,6 +71,10 @@ User.prototype.insertUser = function(userInfo, callback) {
 		if (objUser.postNum != undefined) {
 			insertSql += ", postNum = ?";
 			data.push(objUser.postNum);
+		}
+		if (objUser.oauthSource != undefined) {
+			insertSql += ", oauthSource = ?";
+			data.push(oauthSource);
 		}
 		if (objUser.birthday != undefined) {
 			insertSql += ", birthday = ?";
@@ -143,20 +152,18 @@ User.prototype.updateUser = function(userInfo, callback) {
 
 		//console.log(userInfo);
 		var objUser = userInfo;
-		if (objUser.id == undefined && objUser.account == undefined) {
-			console.log("id/account is neccessary");
+		if (objUser.userID == undefined && objUser.account == undefined) {
+			console.log("userID/account is neccessary");
 			var result = {
 				"code":0,
-				"msg":"id/account is neccessary"
+				"msg":"userID/account is neccessary"
 			}
 			callback(result);
 			return;
 		}
 
-		//var updateSql = "UPDATE USER SET id = ?";
 		var updateSql = undefined;
 		var data = new Array();
-		//data.push(objUser.id);
 
 		if (objUser.password != undefined) {
 			if (updateSql == undefined) {
@@ -214,6 +221,14 @@ User.prototype.updateUser = function(userInfo, callback) {
 			}
 			data.push(objUser.postNum);
 		}
+		if (objUser.oauthSource != undefined) {
+                        if (updateSql == undefined) {
+                                updateSql = "UPDATE USER SET oauthSource = ?";
+                        } else {
+                                updateSql += ", oauthSource = ?";
+                        }
+                        data.push(objUser.oauthSource);
+                }
 		if (objUser.birthday != undefined) {
 			if (updateSql == undefined) {
 				updateSql = "UPDATE USER SET birthday = ?";
@@ -261,9 +276,9 @@ User.prototype.updateUser = function(userInfo, callback) {
 		data.push(updateDate);
 
 		var whereSql = undefined;
-		if (objUser.id != undefined) {
-			whereSql = " WHERE id = ?";
-			data.push(objUser.id);
+		if (objUser.userID != undefined) {
+			whereSql = " WHERE userID = ?";
+			data.push(objUser.useID);
 		} else {
 			whereSql = " WHERE account = ?";
 			data.push(objUser.account);
@@ -308,17 +323,16 @@ User.prototype.updateUser = function(userInfo, callback) {
 	}
 };
 
-User.prototype.findUser = function(userInfo, callback) {
+User.prototype.getUser = function(userInfo, callback) {
 	try {
 		var connected = false;
 
-		//console.log(userInfo);
 		var objUser = userInfo;
-		if (objUser.id == undefined && objUser.account == undefined && objUser.email == undefined) {
-			console.log("id/account/email is neccessary");
+		if (objUser.userID == undefined && objUser.account == undefined && objUser.email == undefined) {
+			console.log("userID/account/email is neccessary");
 			var result = {
 				"code":0,
-				"msg":"id/account/email is neccessary"
+				"msg":"userID/account/email is neccessary"
 			}
 			callback(result);
 			return;
@@ -326,8 +340,8 @@ User.prototype.findUser = function(userInfo, callback) {
 
 		var selectSql = "SELECT * FROM USER";
 		var whereSql = undefined;
-		if (objUser.id != undefined) {
-			whereSql = " WHERE id=" + '"' + objUser.id + '"';
+		if (objUser.userID != undefined) {
+			whereSql = " WHERE userID=" + '"' + objUser.userID + '"';
 		} else if (objUser.account != undefined){
 			whereSql = " WHERE account=" + '"' + objUser.account + '"';
 		} else {
@@ -335,7 +349,6 @@ User.prototype.findUser = function(userInfo, callback) {
 		}
 
 		var sql = selectSql + whereSql + ";";
-		console.log("select sql is:" + sql);
 		myCon.connect(function(err,callback2){
 			connected = true;
 			myCon.query(sql, function(err, results){
@@ -386,7 +399,6 @@ User.prototype.login = function(userInfo, callback) {
 		}
 
 		var sql = 'SELECT count(*) as count FROM USER WHERE account="' + objUser.account + '" AND password="' + objUser.password + '";';
-		console.log("select sql is:" + sql);
 		myCon.connect(function(err,callback2){
 			connected = true;
 			myCon.query(sql, function(err, results){
@@ -431,4 +443,4 @@ User.prototype.login = function(userInfo, callback) {
 		callback(result);
 	}
 }
-//myCon.end();
+

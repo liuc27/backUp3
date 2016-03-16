@@ -35,11 +35,11 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 			callback(result);
 			return;
 		}
-		var id = MD5(objShop.name).toString();
+		var shopID = MD5(objShop.name).toString();
 
-		var insertSql = "INSERT SHOP SET id = ?";
+		var insertSql = "INSERT SHOP SET shopID = ?";
 		var data = new Array();
-		data.push(id);
+		data.push(shopID);
 		
 		insertSql += ", name = ?, owner = ?";
 		data.push(objShop.name);
@@ -92,7 +92,7 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 				} else {
 					var result = {
 						"code":1,
-						"id":id
+						"id":shopID
 					}
 					callback(result);
 					return;
@@ -123,10 +123,10 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 		var connected = false;
 
 		var objShop = shopInfo;
-		if (objShop.id == undefined && objShop.name == undefined) {
+		if (objShop.shopID == undefined && objShop.name == undefined) {
 			var result = {
 				"code":0,
-				"msg":"id/name is neccessary"
+				"msg":"shopID/name is neccessary"
 			}
 			callback(result);
 			return;
@@ -190,9 +190,9 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 			updateSql += ", updateDate = ?";
 			data.push(updateDate);
 			var whereSql = undefined
-                	if (objShop.id != undefined) {
-                        	whereSql = " WHERE id = ?";
-                        	data.push(objShop.id);
+                	if (objShop.shopID != undefined) {
+                        	whereSql = " WHERE  = ?";
+                        	data.push(objShop.shopID);
                 	} else {
 				whereSql = " WHERE name = ?";
 				data.push(objShop.name);
@@ -238,10 +238,10 @@ Shop.prototype.findShop = function(shopInfo, callback) {
 		var connected = false;
 
 		var objShop = shopInfo;
-		if (objShop.id == undefined && objShop.name == undefined && objShop.owner == undefined) {
+		if (objShop.shopID == undefined && objShop.name == undefined && objShop.owner == undefined) {
 			var result = {
 				"code":0,
-				"msg":"id/name/owner is neccessary"
+				"msg":"shopID/name/owner is neccessary"
 			}
 			callback(result);
 			return;
@@ -249,8 +249,8 @@ Shop.prototype.findShop = function(shopInfo, callback) {
 
 		var selectSql = "SELECT * FROM SHOP";
 		var whereSql = undefined;
-		if (objShop.id != undefined) {
-			whereSql = " WHERE id=" + '"' + objShop.id + '"';
+		if (objShop.shopID != undefined) {
+			whereSql = " WHERE shopID=" + '"' + objShop.shopID + '"';
 		} else if (objShop.name != undefined){
 			whereSql = " WHERE name=" + '"' + objShop.name + '"';
 		} else {
