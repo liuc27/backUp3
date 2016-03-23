@@ -75,6 +75,16 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
           }
         }
       })
+      .state('tab.oauth', {
+        //url: '/google/oauth/#:access_token&:token_type&:expires_in',
+        url: '/oauth',
+        views: {
+          'tab-account': {
+            templateUrl: '/templates/tab-oauth.html',
+            controller: 'oauthCtrl'
+          }
+        }
+      })
       .state('tab.register', {
         url: '/register',
         views: {

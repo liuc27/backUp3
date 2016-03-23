@@ -137,7 +137,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
       if ($scope.username) {
 
-        $http.post("http://127.0.0.1:3000/api/comment", {
+        $http.post("http://120.24.168.7/api/comment", {
           "name": $scope.coupon.name,
           "username": $scope.username,
           "comment": $scope.comment.comment,
@@ -195,7 +195,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
           console.log(resolvedPossession)
           console.log($scope.username)
           console.log(_id)
-          $http.post("http://127.0.0.1:3000/api/add", {
+          $http.post("http://120.24.168.7/api/add", {
             "name": couponName,
             "username": $scope.username,
             "_id": _id
@@ -261,7 +261,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
     }
 
     $scope.registerNew = function(username,password,email,nickname){
-      $http.post("http://127.0.0.1:3000/api/registerNew",{
+      $http.post("http://120.24.168.7/api/registerNew",{
         "username": username,
         "password": password,
         "email": email,
@@ -341,7 +341,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
           $cordovaOauth.facebook("149120325435621", ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
             localStorageService.set("accessToken", result.access_token)
             //console.log(result.access_token)
-            $http.post("http://127.0.0.1:3000/api/oauth",{
+            $http.post("http://120.24.168.7/api/oauth",{
               "accessToken": result.access_token
             }).success(function (data) {
               console.log(data)
@@ -417,7 +417,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
                 title: '正しいユーザ名とパスワードを入力してください！'
               });
             } else{
-              $http.post("http://127.0.0.1:3000/api/login",{
+              $http.post("http://120.24.168.7/api/login",{
                 "username": username,
                 "password": password
               }).success(function (data) {
@@ -521,7 +521,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
           title: '正しいユーザ名とパスワードを入力してください！'
         });
       } else {
-        $http.post("http://127.0.0.1:3000/api/register", {
+        $http.post("http://120.24.168.7/api/register", {
           "username": username,
           "password": password
         }).success(function (data) {
@@ -608,7 +608,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
     $scope.sendJson = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://127.0.0.1:3000/api/posts", $scope.product).success(function (data) {
+      $http.post("http://120.24.168.7/api/posts", $scope.product).success(function (data) {
         console.log(data)
         if (data == "already exists") {
           alert("商品も既に存在したため、更新失敗")
@@ -622,7 +622,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
     $scope.replace = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://127.0.0.1:3000/api/replace", $scope.product).success(function (data) {
+      $http.post("http://120.24.168.7/api/replace", $scope.product).success(function (data) {
         console.log(data)
         if (data = "OK")
           alert("successfully replaced")
@@ -638,7 +638,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
         });
       } else {
         console.log($scope.shop);
-        $http.post("http://127.0.0.1:3000/api/registerShop", $scope.shop).success(function (data) {
+        $http.post("http://120.24.168.7/api/registerShop", $scope.shop).success(function (data) {
           console.log(data)
           if (data == "OK") {
             $scope.registeredShop.done = true;

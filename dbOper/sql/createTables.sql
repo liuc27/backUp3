@@ -1,37 +1,43 @@
 CREATE TABLE IF NOT EXISTS USER
 (
-	id		VARCHAR(128) NOT NULL PRIMARY KEY,
-    account		VARCHAR(128) NOT NULL UNIQUE,
-    password	VARCHAR(1024) NOT NULL,
-	name		VARCHAR(128) NOT NULL,
-	nickName	VARCHAR(128) NOT NULL,
-	phone		VARCHAR(16) DEFAULT "",
-	address		VARCHAR(1024) DEFAULT "",
-	postNum		VARCHAR(16) DEFAULT "",
-	email		VARCHAR(128) NOT NULL,
+	userID		VARCHAR(128) NOT NULL PRIMARY KEY,
+    	account		VARCHAR(128) NOT NULL UNIQUE,
+    	password	VARCHAR(1024),
+	name		VARCHAR(128),
+	nickName	VARCHAR(128),
+	phone		VARCHAR(16),
+	address		VARCHAR(1024),
+	postNum		VARCHAR(16),
+	email		VARCHAR(128),
+	oauthSource	VARCHAR(128);
 	birthday	DATE,
 	adminFlg	TINYINT(2) DEFAULT 0,
 	certificatedFlg	TINYINT(2) DEFAULT 0,
-	deliverAddress	TEXT DEFAULT "",
-	currentDeliverAddr	TEXT DEFAULT "",
-	intro		TEXT DEFAULT "",
+	deliverAddress	TEXT,
+	currentDeliverAddr	TEXTT,
+	intro		TEXT,
 	image		MEDIUMBLOB,
 	point		BIGINT DEFAULT 0,
 	insertDate	DATETIME NOT NULL,
 	updateDate	DATETIME NOT NULL,
 	delFlg		TINYINT(2) DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=UTF8;
+
 CREATE TABLE IF NOT EXISTS SHOP
 (
-	id		VARCHAR(128) NOT NULL PRIMARY KEY,
-	name	VARCHAR(128) NOT NULL,
-    address	VARCHAR(128) NOT NULL,
-    owner	VARCHAR(128) NOT NULL,
-    category	VARCHAR(128) NOT NULL,
-    administrator	VARCHAR(128) NOT NULL,
+	shopID		VARCHAR(128) NOT NULL PRIMARY KEY,
+	dispName VARCHAR(128),
+    address	VARCHAR(128),
+    owner	VARCHAR(128),
+    category	VARCHAR(128),
+    administrator	VARCHAR(128),
     insertDate	DATETIME NOT NULL,
     updateDate	DATETIME NOT NULL,
     delFlg	TINYINT(2) DEFAULT 0,
-    intro	TEXT DEFAULT "",
+    intro	TEXT,
     logo	VARBINARY(10240) BINARY
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=UTF8;
+
+
+
+
