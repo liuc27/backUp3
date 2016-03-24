@@ -22,9 +22,13 @@ exports.index = (req, res) ->
         .send err.msg
     else
       # MySQL処理
-      userOper.findUser input, (results) ->
-        #console.log results
-        output = results
+      userOper.getUser input, (results) ->
+        console.log results
+
+        output =
+          code: results.code
+          result: results.User
+
         if results.code
           outCode = 200
         else
@@ -51,10 +55,13 @@ exports.show = (req, res) ->
         .send err.msg
     else
       # MySQL処理
-      userOper.findUser input, (results) ->
-        #console.log results
-        if reulsts.length
-          output = results[0]
+      userOper.getUser input, (results) ->
+        console.log results
+
+        output =
+          code: results.code
+          result: results.User[0]
+
         if results.code
           outCode = 200
         else
@@ -73,8 +80,8 @@ exports.create = (req, res) ->
   input = req.body
 
   # Test inputデータ
+  # curl -X POST http://localhost:3000/users
   #input =
-  #  "id": "a68548ee2c65aa442d2adffdf47fce43"
   #  "account":"chaeh01"
   #  "password":"poipoi"
   #  "name":"chaehyungjun"
@@ -90,7 +97,10 @@ exports.create = (req, res) ->
       # MySQL処理
       userOper.insertUser input, (results) ->
         console.log results
-        output = results
+        output =
+          code: results.code
+          result: results
+
         if results.code
           outCode = 200
         else
@@ -108,9 +118,10 @@ exports.update = (req, res) ->
   input = req.body
   input.id = req.params.id
   # Test inputデータ
+  # curl -X PUT http://localhost:3000/users/:id
   #input =
-  #  "id": req.params.id
-  #  "account":"limh"
+  #  "userID": req.params.id
+  #  "account":"chaeh01"
   #  "password":"mengqiao"
   #  "name":"liminhui2"
   #  "nickName":"hogehoge"
@@ -125,7 +136,9 @@ exports.update = (req, res) ->
       # MySQL処理
       userOper.updateUser input, (results) ->
         console.log results
-        output = results
+        output =
+          code: results.code
+          result: results
         if results.code
           outCode = 200
         else
