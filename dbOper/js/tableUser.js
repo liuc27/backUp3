@@ -288,16 +288,16 @@ User.prototype.getUser = function(userInfo, callback) {
 				if (common.inArray(this.tableColumns, obj.column)) {
 					if (obj.from != undefined) {
 						if (scopeSql == undefined) {
-							scopeSql = obj.column + ">=" + obj.from; 
+							scopeSql = obj.column + '>="' + obj.from + '"'; 
 						} else {
-							scopeSql += obj.column + ">=" + obj.from;
+							scopeSql += obj.column + '>="' + obj.from + '"';
 						}
 					}
 					if (obj.to != undefined) {
 						if (scopeSql == undefined) {
-                                                        scopeSql = obj.column + "<=" + obj.to;
+                                                        scopeSql = obj.column + '<="' + obj.to + '"';
                                                 } else {
-                                                        scopeSql += " AND " + obj.column + "<=" + obj.to;
+                                                        scopeSql += " AND " + obj.column + '<="' + obj.to + '"';
                                                 }
 					}
 				}
