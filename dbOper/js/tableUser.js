@@ -4,18 +4,22 @@ var my = require('mysql');
 var config = require('./dbConfig');
 var moment = require('moment');
 var tableName = "USER";
+var Common = require('./common.js');
 
 var myCon = my.createConnection(config);
 //myCon.connect();
+
+var common = new Common();
 
 module.exports = User;
 
 function User () {
 	this.tableColumns = new Array("account", "password", "name", "nickName", "phone", "address",
-		"postNum", "email", "birthday", "adminFlg", "certificatedFlg", "deliverAddress",
-		"currentDeliverAddr", "intro", "image"
+		"postNum", "email", "birthday", "oauthSource", "birthday", "adminFlg", "certificatedFlg", 
+		"gender", "deliverAddress", "currentDeliverAddr", "intro", "image", "point", "idCard",
+		"insertDate", "updateDate", "delFlg"
 	);
-	this.neccessaryColumns = new Array("account");
+	//this.neccessaryColumns = new Array("account");
 };
 
 /*
@@ -30,7 +34,7 @@ User.prototype.insertUser = function(userInfo, callback) {
 		if (objUser.account == undefined) {
 			var result = {
 				"code":0,
-				"msg":"account"
+				"msg":"account is neccessary"
 			}
 			callback(result);
 			return;
@@ -41,58 +45,17 @@ User.prototype.insertUser = function(userInfo, callback) {
 		var data = new Array();
 		data.push(userID);
 
-                insertSql += ", account = ?";
-		data.push(objUser.account);
-		
-		if (objUser.password != undefined) {
-			insertSql += ", password = ?";
-			data.push(objUser.password);
-		}
-		if (objUser.name != undefined) {
-                        insertSql += ", name = ?";
-                        data.push(objUser.name);
-                }
-		if (objUser.nickName != undefined) {
-			insertSql += ", nickName = ?";
-			data.push(objUser.nickName);
-		}
-		if (objUser.email != undefined) {
-                        insertSql += ", email = ?";
-                        data.push(objUser.email);
-                }
-		if (objUser.phone != undefined) {
-			insertSql += ", phone = ?";
-			data.push(objUser.phone);
-		}
-		if (objUser.address != undefined) {
-			insertSql += ", address = ?";
-			data.push(objUser.address);
-		}
-		if (objUser.postNum != undefined) {
-			insertSql += ", postNum = ?";
-			data.push(objUser.postNum);
-		}
-		if (objUser.oauthSource != undefined) {
-			insertSql += ", oauthSource = ?";
-			data.push(oauthSource);
-		}
-		if (objUser.birthday != undefined) {
-			insertSql += ", birthday = ?";
-			data.push(objUser.birthday);
-		}
-		if (objUser.deliverAddress != undefined) {
-			insertSql += ", deliverAddress = ?";
-			data.push(objUser.deliverAddress);
-		}
-		if (objUser.intro != undefined) {
-			insertSql += ", intro = ?";
-			data.push(objUser.intro);
-		}
-		if (objUser.image != undefined) {
-			insertSql += ", image = ?";
-			data.push(objUser.image);
-		}
-
+		for(var key in objUser){
+            		var attrName = key;
+            		var attrValue = objUser[key];
+			if (attrName == "insertDate" || attrName == "updateDate") {
+				continue;
+			}
+			if (common.inArray(this.tableColumns, attrName) && attrValue != undefined) {
+				insertSql += ", " + attrName + " = ?";
+				data.push(attrValue);
+			}
+        	}
 
 		var insertDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
 		insertSql += ", insertDate = ?";
@@ -127,7 +90,6 @@ User.prototype.insertUser = function(userInfo, callback) {
 				});
 			});
 		}
-		// "birthday", "adminFlg", "certificatedFlg", "deliverAddress","currentDeliverAddr", "intro", "image"
 	} catch (e) {
 		if (connected == true) {
 			console.log("catch exception, database connected, close it");
@@ -165,102 +127,21 @@ User.prototype.updateUser = function(userInfo, callback) {
 		var updateSql = undefined;
 		var data = new Array();
 
-		if (objUser.password != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET password = ?";
-			} else {
-				updateSql += ", password = ?";
-			}
-			data.push(objUser.password);
-		}
-		if (objUser.name != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER set name = ?";
-			} else {
-				updateSql += ", name = ?";
-			}
-			data.push(objUser.name);
-		}
-		if (objUser.email != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET email = ?";
-			} else {
-				updateSql += ", email = ?";
-			}
-			data.push(objUser.email);
-		}
-		if (objUser.nickName != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET nickName = ?";
-			} else {
-				updateSql += ", nickName = ?";
-			}
-			data.push(objUser.nickName);
-		}
-		if (objUser.phone != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET phone = ?";
-			} else {
-				updateSql += ", phone = ?";
-			}
-			data.push(objUser.phone);
-		}
-		if (objUser.address != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET address = ?";
-			} else {
-				updateSql += ", address = ?";
-			}
-			data.push(objUser.address);
-		}
-		if (objUser.postNum != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET postNum = ?";
-			} else {
-				updateSql += ", postNum = ?";
-			}
-			data.push(objUser.postNum);
-		}
-		if (objUser.oauthSource != undefined) {
-                        if (updateSql == undefined) {
-                                updateSql = "UPDATE USER SET oauthSource = ?";
-                        } else {
-                                updateSql += ", oauthSource = ?";
+		for(var key in objUser){
+                        var attrName = key;
+                        var attrValue = objUser[key];
+                        if (attrName == "userID" || attrName == "account" || attrName == "insertDate" || attrName == "updateDate") {
+                                continue;
                         }
-                        data.push(objUser.oauthSource);
+                        if (common.inArray(this.tableColumns, attrName) && attrValue != undefined) {
+				if (updateSql != undefined) {
+                                	updateSql += ", " + attrName + " = ?";
+				} else {
+					updateSql = "UPDATE USER SET " + attrName + " = ?"
+				}
+                                data.push(attrValue);
+                        }
                 }
-		if (objUser.birthday != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET birthday = ?";
-			} else {
-				updateSql += ", birthday = ?";
-			}
-			data.push(objUser.birthday);
-		}
-		if (objUser.deliverAddress != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET deliverAddress = ?";
-			} else {
-				updateSql += ", deliverAddress = ?";
-			}
-			data.push(objUser.deliverAddress);
-		}
-		if (objUser.intro != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET intro = ?";
-			} else {
-				updateSql += ", intro = ?";
-			}
-			data.push(objUser.intro);
-		}
-		if (objUser.image != undefined) {
-			if (updateSql == undefined) {
-				updateSql = "UPDATE USER SET image = ?";
-			} else {
-				updateSql += ", image = ?";
-			}
-			data.push(objUser.image);
-		}
 
 		var updateDate = moment(new Date()).format('YYYY/MM/DD HH:mm:ss');
 		if (updateSql == undefined) {
@@ -278,7 +159,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 		var whereSql = undefined;
 		if (objUser.userID != undefined) {
 			whereSql = " WHERE userID = ?";
-			data.push(objUser.useID);
+			data.push(objUser.userID);
 		} else {
 			whereSql = " WHERE account = ?";
 			data.push(objUser.account);
@@ -286,8 +167,8 @@ User.prototype.updateUser = function(userInfo, callback) {
 
 		var sql = updateSql + whereSql + ";";
 		console.log("update sql:" + sql);
+		console.log(data);
 		if (sql != undefined) {
-			console.log("update sql is:" + sql);
 			myCon.connect(function(err,callback2){
 				connected = true;
 				myCon.query(sql, data, function(err, results){
@@ -314,7 +195,12 @@ User.prototype.updateUser = function(userInfo, callback) {
 		if (connected == true) {
 			myCon.end();
 		}
-		console.log("catch exception:" + e.name + "; msg:" + e.message);
+		if (e.stack) {
+			console.log("catch exception:" + e.name);
+			console.log(e.stack);
+		} else {
+			console.log("catch exception:" + e.name + "; msg:" + e.message, e);
+		}
 		var result = {
 			"code":0,
 			"msg":"catch exception:" + e.message
@@ -328,7 +214,7 @@ User.prototype.getUser = function(userInfo, callback) {
 		var connected = false;
 
 		var objUser = userInfo;
-		if (objUser.userID == undefined && objUser.account == undefined && objUser.email == undefined) {
+		/*if (objUser.userID == undefined && objUser.account == undefined && objUser.email == undefined) {
 			console.log("userID/account/email is neccessary");
 			var result = {
 				"code":0,
@@ -336,19 +222,138 @@ User.prototype.getUser = function(userInfo, callback) {
 			}
 			callback(result);
 			return;
-		}
+		}*/
 
+		var sql = undefined;
 		var selectSql = "SELECT * FROM USER";
 		var whereSql = undefined;
 		if (objUser.userID != undefined) {
 			whereSql = " WHERE userID=" + '"' + objUser.userID + '"';
 		} else if (objUser.account != undefined){
 			whereSql = " WHERE account=" + '"' + objUser.account + '"';
-		} else {
+		} else if (objUser.email != undefined){
 			whereSql = " WHERE email=" + '"' + objUser.email + '"';
 		}
+		// 下記フィルターは同じカラムで、複数値でAND、ORの状況まだ対応していない
+		if (objUser.filterAnd != undefined) {
+			var filterAndObj  = objUser.filterAnd;
+			if (!common.jsonIsArray(filterAndObj)) {
+				filterAndObj = [filterAndObj];
+			}
+			// filterAnd が配列の場合, 複数指定
+			for(var i = 0; i < filterAndObj.length; i++) {
+    				var obj = filterAndObj[i];
+				if (common.inArray(this.tableColumns, obj.column)) {
+					if (whereSql == undefined) {
+                                               	whereSql = " WHERE " + obj.column + '="' + obj.value + '"';
+                                       	} else {
+                                               	whereSql += " AND " + obj.column + '="' + obj.value + '"';
+                                       	}
+				}
 
-		var sql = selectSql + whereSql + ";";
+			}
+		}
+		if (objUser.filterOr != undefined) {
+			var whereOrSql = undefined;
+			var filterOrObj = objUser.filterOr;
+			if (!common.jsonIsArray(filterOrObj)) {
+				filterOrObj = [filterOrObj];
+			}
+			for (var i = 0; i < filterOrObj.length; i++) {
+				var obj = filterOrObj[i];
+				if (common.inArray(this.tableColumns, obj.column)) {
+					if (whereOrSql == undefined) {
+                                                whereOrSql = " " + obj.column + '="' + obj.value + '"';
+                                        } else {
+                                                whereOrSql += " OR " + obj.column + '="' + obj.value + '"';
+                                        }
+				}
+			}
+			if (whereOrSql != undefined) {
+				if (whereSql == undefined) {
+					whereSql = " WHERE (" + whereOrSql + ")";
+				} else {
+					whereSql += " OR (" + whereOrSql + ")";
+				}
+			}
+		}
+		if (objUser.scope != undefined) {
+			var scopeSql = undefined;
+			var scopeObj = objUser.scope;
+			if (!common.jsonIsArray(scopeObj)) {
+				scopeObj = [scopeObj];
+			}
+			for (var i = 0; i < scopeObj.length; i++) {
+				var obj = scopeObj[i];
+				if (common.inArray(this.tableColumns, obj.column)) {
+					if (obj.from != undefined) {
+						if (scopeSql == undefined) {
+							scopeSql = obj.column + '>="' + obj.from + '"'; 
+						} else {
+							scopeSql += obj.column + '>="' + obj.from + '"';
+						}
+					}
+					if (obj.to != undefined) {
+						if (scopeSql == undefined) {
+                                                        scopeSql = obj.column + '<="' + obj.to + '"';
+                                                } else {
+                                                        scopeSql += " AND " + obj.column + '<="' + obj.to + '"';
+                                                }
+					}
+				}
+			}
+			if (scopeSql != undefined) {
+				if (whereSql == undefined) {
+                                        whereSql = " WHERE (" + scopeSql + ")";
+                                } else {
+                                        whereSql += " AND (" + scopeSql + ")";
+                                }
+			}
+		}
+		var limitSql = undefined;
+		if (objUser.start != undefined && objUser.count != undefined) {
+			limitSql = "limit " + objUser.start + "," + objUser.count;
+		} else if (objUser.count != undefined) {
+			limitSql = "limit " + objUser.count;
+		}
+
+		var sortSql = undefined;
+		if (objUser.sort != undefined) {
+			console.log(objUser.sort);
+			var sortObj = objUser.sort;
+			if (!common.jsonIsArray(sortObj)) {
+				sortObj = [sortObj];
+			}
+			for (var i = 0; i < sortObj.length; i++) {
+				var obj = sortObj[i];
+				if (common.inArray(this.tableColumns, obj.column)) {
+					var type = "";
+					if (obj.type == -1) {
+						type = "desc";
+					} else if (obj.type == 1) {
+						type = "asc";
+					}
+					if (sortSql == undefined) {
+						sortSql = "ORDER BY " + obj.column + " " + type;
+					} else {
+						sortSql += ", " + obj.column + " " + type;
+					}
+				}
+			}
+		}
+
+		sql = selectSql;
+		if (whereSql != undefined) {
+			sql += " " + whereSql;
+		}
+		if (sortSql != undefined) {
+			sql += " " + sortSql;
+		}
+		if (limitSql != undefined) {
+                        sql += " " + limitSql;
+                }
+
+		console.log(sql);
 		myCon.connect(function(err,callback2){
 			connected = true;
 			myCon.query(sql, function(err, results){
@@ -374,7 +379,12 @@ User.prototype.getUser = function(userInfo, callback) {
 		if (connected == true) {
 			myCon.end();
 		}
-		console.log("catch exception:" + e.name + "; msg:" + e.message);
+		if (e.stack) {
+                        console.log("catch exception:" + e.name);
+                        console.log(e.stack);
+                } else {
+                        console.log("catch exception:" + e.name + "; msg:" + e.message, e);
+                }
 		var result = {
 			"code":0,
 			"msg":"catch exception:" + e.message

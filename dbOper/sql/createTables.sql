@@ -9,15 +9,17 @@ CREATE TABLE IF NOT EXISTS USER
 	address		VARCHAR(1024),
 	postNum		VARCHAR(16),
 	email		VARCHAR(128),
-	oauthSource	VARCHAR(128);
-	birthday	DATE,
+	oauthSource	VARCHAR(128),
+	birthday	DATETIME,
 	adminFlg	TINYINT(2) DEFAULT 0,
 	certificatedFlg	TINYINT(2) DEFAULT 0,
+	gender		TINYINT(3) DEFAULT 2,
 	deliverAddress	TEXT,
-	currentDeliverAddr	TEXTT,
+	currentDeliverAddr	TEXT,
 	intro		TEXT,
-	image		MEDIUMBLOB,
+	image		VARCHAR(1024),
 	point		BIGINT DEFAULT 0,
+	idCard		VARCHAR(1024),
 	insertDate	DATETIME NOT NULL,
 	updateDate	DATETIME NOT NULL,
 	delFlg		TINYINT(2) DEFAULT 0
@@ -35,7 +37,7 @@ CREATE TABLE IF NOT EXISTS SHOP
     updateDate	DATETIME NOT NULL,
     delFlg	TINYINT(2) DEFAULT 0,
     intro	TEXT,
-    logo	VARBINARY(10240) BINARY
+    logo	VARCHAR(1024)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=UTF8;
 
 
