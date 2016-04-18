@@ -8,6 +8,7 @@ var Common = require('./common.js');
 
 var myCon = my.createConnection(config);
 //myCon.connect();
+var connected = false;
 
 var common = new Common();
 
@@ -28,18 +29,18 @@ function User () {
  */
 User.prototype.insertUser = function(userInfo, callback) {
 	try {
-		var connected = false;
+		// var connected = false;
 
 		var objUser = userInfo;
-		if (objUser.account == undefined) {
+		if (objUser.account == undefined || objUser.oauthSource == undefined) {
 			var result = {
 				"code":0,
-				"msg":"account is neccessary"
+				"msg":"account and oauthSource are neccessary"
 			}
 			callback(result);
 			return;
 		}
-		var userID = MD5(objUser.account).toString();
+		var userID = MD5(objUser.account + objUser.oauthSource).toString();
 
 		var insertSql = "INSERT INTO USER SET userID = ?";
 		var data = new Array();
@@ -71,7 +72,10 @@ User.prototype.insertUser = function(userInfo, callback) {
 			myCon.connect(function(err,callback2){
 				connected = true;
 				myCon.query(sql, data, function(err, results){
-					myCon.end();
+					if (connected == true) {
+						connected = false;
+						myCon.end();
+					}
 					if(err) {
 						var result = {
 							"code":0,
@@ -82,7 +86,7 @@ User.prototype.insertUser = function(userInfo, callback) {
 					} else {
 						var result = {
 							"code":1,
-							"msg":"Success"
+							"msg":userID
 						}
 						callback(result);
 						return;
@@ -92,12 +96,15 @@ User.prototype.insertUser = function(userInfo, callback) {
 		}
 	} catch (e) {
 		if (connected == true) {
-			console.log("catch exception, database connected, close it");
+			connected = false;
 			myCon.end();
-		} else {
-			console.log("catch exception, database dose not connet");
 		}
-		console.log("catch exception:" + e.name + "; msg:" + e.message);
+		if (e.stack) {
+                        console.log("catch exception:" + e.name);
+                        console.log(e.stack);
+                } else {
+                        console.log("catch exception:" + e.name + "; msg:" + e.message, e);
+                }
 		var result = {
 			"code":0,
 			"msg":"catch exception:" + e.message
@@ -110,7 +117,7 @@ User.prototype.insertUser = function(userInfo, callback) {
 
 User.prototype.updateUser = function(userInfo, callback) {
 	try {
-		var connected = false;
+		// var connected = false;
 
 		//console.log(userInfo);
 		var objUser = userInfo;
@@ -172,7 +179,10 @@ User.prototype.updateUser = function(userInfo, callback) {
 			myCon.connect(function(err,callback2){
 				connected = true;
 				myCon.query(sql, data, function(err, results){
-					myCon.end();
+					if (connected == true) {
+						connected = false;
+						myCon.end();
+					}
 					if(err) {
 						var result = {
 							"code":0,
@@ -193,6 +203,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 		}
 	} catch (e) {
 		if (connected == true) {
+			connected = false;
 			myCon.end();
 		}
 		if (e.stack) {
@@ -211,7 +222,7 @@ User.prototype.updateUser = function(userInfo, callback) {
 
 User.prototype.getUser = function(userInfo, callback) {
 	try {
-		var connected = false;
+		// var connected = false;
 
 		var objUser = userInfo;
 		/*if (objUser.userID == undefined && objUser.account == undefined && objUser.email == undefined) {
@@ -319,7 +330,9 @@ User.prototype.getUser = function(userInfo, callback) {
 
 		var sortSql = undefined;
 		if (objUser.sort != undefined) {
+			console.log("===== sort begin ====");
 			console.log(objUser.sort);
+			console.log("===== sort end ====");
 			var sortObj = objUser.sort;
 			if (!common.jsonIsArray(sortObj)) {
 				sortObj = [sortObj];
@@ -357,7 +370,10 @@ User.prototype.getUser = function(userInfo, callback) {
 		myCon.connect(function(err,callback2){
 			connected = true;
 			myCon.query(sql, function(err, results){
-				myCon.end();
+				if (connected == true) {
+					connected = false;
+					myCon.end();
+				}
 				if(err) {
 					var result = {
 						"code":0,
@@ -377,6 +393,7 @@ User.prototype.getUser = function(userInfo, callback) {
 		});
 	} catch (e) {
 		if (connected == true) {
+			connected = false;
 			myCon.end();
 		}
 		if (e.stack) {
@@ -395,7 +412,7 @@ User.prototype.getUser = function(userInfo, callback) {
 
 User.prototype.login = function(userInfo, callback) {
 	try {
-		var connected = false;
+		// var connected = false;
 
 		var objUser = userInfo;
 		if (objUser.account == undefined || objUser.password == undefined) {
@@ -412,7 +429,10 @@ User.prototype.login = function(userInfo, callback) {
 		myCon.connect(function(err,callback2){
 			connected = true;
 			myCon.query(sql, function(err, results){
-				myCon.end();
+				if (connected == true) {
+					connected = false;
+					myCon.end();
+				}
 				if(err) {
 					var result = {
 						"code":0,
@@ -443,9 +463,15 @@ User.prototype.login = function(userInfo, callback) {
 
 	} catch (e) {
 		if (connected == true) {
+			connected = false;
 			myCon.end();
 		}
-		console.log("catch exception:" + e.name + "; msg:" + e.message);
+		if (e.stack) {
+                        console.log("catch exception:" + e.name);
+                        console.log(e.stack);
+                } else {
+                        console.log("catch exception:" + e.name + "; msg:" + e.message, e);
+                }
 		var result = {
 			"code":0,
 			"msg":"catch exception:" + e.message
