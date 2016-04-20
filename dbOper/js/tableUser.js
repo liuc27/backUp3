@@ -121,11 +121,10 @@ User.prototype.updateUser = function(userInfo, callback) {
 
 		//console.log(userInfo);
 		var objUser = userInfo;
-		if (objUser.userID == undefined && objUser.account == undefined) {
-			console.log("userID/account is neccessary");
+		if (objUser.userID == undefined && (objUser.account == undefined || objUser.oauthSource == undefined)) {
 			var result = {
 				"code":0,
-				"msg":"userID/account is neccessary"
+				"msg":"userID || (account && oauthSource ) is neccessary"
 			}
 			callback(result);
 			return;
@@ -137,7 +136,9 @@ User.prototype.updateUser = function(userInfo, callback) {
 		for(var key in objUser){
                         var attrName = key;
                         var attrValue = objUser[key];
-                        if (attrName == "userID" || attrName == "account" || attrName == "insertDate" || attrName == "updateDate") {
+                        if (attrName == "userID" || attrName == "account" 
+			    || attrName == "insertDate" || attrName == "updateDate"
+			    || attrName == "oauthSource") {
                                 continue;
                         }
                         if (common.inArray(this.tableColumns, attrName) && attrValue != undefined) {
@@ -168,8 +169,9 @@ User.prototype.updateUser = function(userInfo, callback) {
 			whereSql = " WHERE userID = ?";
 			data.push(objUser.userID);
 		} else {
-			whereSql = " WHERE account = ?";
+			whereSql = " WHERE account = ? AND oauthSource = ?";
 			data.push(objUser.account);
+			data.push(objUser.oauthSource);
 		}
 
 		var sql = updateSql + whereSql + ";";
@@ -242,6 +244,11 @@ User.prototype.getUser = function(userInfo, callback) {
 			whereSql = " WHERE userID=" + '"' + objUser.userID + '"';
 		} else if (objUser.account != undefined){
 			whereSql = " WHERE account=" + '"' + objUser.account + '"';
+			if (objUser.oauthSource != undefined) {
+				whereSql += " AND oauthSource=" + '"' + objUser.oauthSource + '"';
+			} else {
+				whereSql += ' AND oauthSource="local"';
+			}
 		} else if (objUser.email != undefined){
 			whereSql = " WHERE email=" + '"' + objUser.email + '"';
 		}
