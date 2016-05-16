@@ -49,7 +49,7 @@ User.prototype.insertUser = function(userInfo, callback) {
 		for(var key in objUser){
             		var attrName = key;
             		var attrValue = objUser[key];
-			if (attrName == "insertDate" || attrName == "updateDate") {
+			if (attrName == "insertDate" || attrName == "updateDate" || attrName == "userID") {
 				continue;
 			}
 			if (common.inArray(this.tableColumns, attrName) && attrValue != undefined) {
