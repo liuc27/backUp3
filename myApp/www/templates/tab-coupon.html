@@ -33,7 +33,7 @@
 
     <div></div>
     <div ng-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
-      <a href="#/tab/coupon-category/{{item._id}}" class=" item item-thumbnail-left cardSize">
+      <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left cardSize">
         <img class="product_image" src="{{ item.image }}">
 
         <div style="float:right;margin-top: 2vw">
