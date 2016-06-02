@@ -417,6 +417,64 @@ User.prototype.getUser = function(userInfo, callback) {
 	}
 };
 
+User.prototype.searchUser = function(word, callback) {
+	try {
+		if (word == undefined) {
+                        console.log("word is neccessary");
+                        var result = {
+                                "code":0,
+                                "msg":"word is neccessary"
+                        }
+                        callback(result);
+                        return;
+                }
+
+		var sql = 'SELECT * FROM USER WHERE intro like "' + "%" + word + "%" + '" OR nickName like "' + "%" + word + "%" + '"';
+
+		console.log("SQL:" + sql);
+                myCon.connect(function(err,callback2){
+                        connected = true;
+                        myCon.query(sql, function(err, results){
+                                if (connected == true) {
+                                        connected = false;
+                                        myCon.end();
+                                }
+                                if(err) {
+                                        var result = {
+                                                "code":0,
+                                                "msg":err
+                                        }
+                                        callback(result);
+                                        return;
+                                } else {
+                                        var result = {
+                                                "code":1,
+                                                "User":results
+                                        }
+                                        callback(result);
+                                        return;
+                                }
+                        });
+                });
+	} catch (e) {
+                if (connected == true) {
+                        connected = false;
+                        myCon.end();
+                }
+                if (e.stack) {
+                        console.log("catch exception:" + e.name);
+                        console.log(e.stack);
+                } else {
+                        console.log("catch exception:" + e.name + "; msg:" + e.message, e);
+                }
+                var result = {
+                        "code":0,
+                        "msg":"catch exception:" + e.message
+                }
+                callback(result);
+	}
+};
+
 User.prototype.login = function(userInfo, callback) {
 	try {
 		// var connected = false;
@@ -486,4 +544,5 @@ User.prototype.login = function(userInfo, callback) {
 		callback(result);
 	}
 }
+
 
