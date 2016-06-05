@@ -12,15 +12,35 @@ getData = (query, field) ->
 exports.index = (req, res) ->
   console.log "index"
 
-  input = req.query
+  param = req.query
+  #adminFlg = query.adminFlg
+  #certificatedFlg = query.certificatedFlg
+  #delFlg = query.delFlg
+  #search = query.search
+  #skip = query.skip
+  #limit = query.limit
+  #sort = query.sort
   
   #console.log input
   # Validation
-  v.checkParam input, (err) ->
+  v.checkParam param, (err) ->
     if err
       res.status err.code
         .send err.msg
     else
+      input = {}
+
+      # skip, limit
+      if param.limit
+        input.start = param.skip ? 0
+        input.count = param.limit
+      # sort
+      if param.sort
+        input.sort =
+          column: param.sort ? "userID"
+          type: "asc"
+
+      console.log input
       # MySQL処理
       userOper.getUser input, (results) ->
         console.log results
@@ -45,7 +65,7 @@ exports.show = (req, res) ->
   console.log "show"
 
   input = req.query
-  input.id = req.params.id
+  input.userID = req.params.id
 
   #console.log input
   # Validation
