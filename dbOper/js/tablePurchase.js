@@ -12,43 +12,42 @@ var connected = false;
 
 var common = new Common();
 
-module.exports = Shop;
+module.exports = Purchase;
 
-function Shop () {
-	this.tableColumns = new Array("shopID", "owner", "name", "displayName", "address", "category", 
-                "administrator", "latitude", "longitude",
-		"insertDate", "updateDate", "delFlg","intro","logo"
+function Purchase () {
+	this.tableColumns = new Array("purchaseID", "userID", "shopID", "productID", "count", 
+		"usedCount", "insertDate", "updateDate", "delFlg", "useLimitDate", "payedFlg", "eluvation"
 	);
-	//this.neccessaryColumns = new Array("account");
 };
 
 /*
- *  shopInfo is JSON format
+ *  purInfo is JSON format
  *
  */
-Shop.prototype.insertShop = function(shopInfo, callback) {
+Purchase.prototype.insertPur = function(purInfo, callback) {
 	try {
 		// var connected = false;
 
-		var obj = shopInfo;
-		if (obj.owner == undefined || obj.name == undefined || obj.dispName == undefined) {
+		var obj = purInfo;
+		if (obj.userID == undefined || obj.productID == undefined)) {
 			var result = {
 				"code":0,
-				"msg":"owner, name and dispName are neccessary"
+				"msg":"userID and productID are neccessary"
 			}
 			callback(result);
 			return;
 		}
-		var shopID = MD5(obj.owner + obj.name).toString();
+		var purchaseID = undefined;
+		purchaseID = MD5(obj.userID + obj.productID);
 
-		var insertSql = "INSERT INTO SHOP SET shopID = ?";
+		var insertSql = "INSERT INTO PURCHASE SET purchaseID = ?";
 		var data = new Array();
-		data.push(shopID);
+		data.push(purchaseID);
 
 		for(var key in obj){
             		var attrName = key;
             		var attrValue = obj[key];
-			if (attrName == "insertDate" || attrName == "updateDate" || attrName == "shopID") {
+			if (attrName == "insertDate" || attrName == "updateDate" || attrName == "purchaseID") {
 				continue;
 			}
 			if (common.inArray(this.tableColumns, attrName) && attrValue != undefined) {
@@ -85,7 +84,7 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 					} else {
 						var result = {
 							"code":1,
-							"msg":shopID
+							"msg":purchaseID
 						}
 						callback(result);
 						return;
@@ -114,15 +113,15 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 
 };
 
-Shop.prototype.updateShop = function(shopInfo, callback) {
+Purchase.prototype.updatePur = function(purInfo, callback) {
 	try {
 		// var connected = false;
 
-		var obj = shopInfo;
-		if (obj.shopID == undefined && (obj.owner == undefined || obj.name == undefined)) {
+		var obj = purInfo;
+		if (obj.purchaseID == undefined && (obj.userID == undefined || obj.productID == undefined)) {
 			var result = {
 				"code":0,
-				"msg":"shopID || (owner && name ) is neccessary"
+				"msg":"purchaseID || (userID && productID) is neccessary"
 			}
 			callback(result);
 			return;
@@ -134,15 +133,15 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 		for(var key in obj){
                         var attrName = key;
                         var attrValue = obj[key];
-                        if (attrName == "shopID" || attrName == "owner" || attrName == "name" 
-			    || attrName == "insertDate" || attrName == "updateDate") {
+                        if (attrName == "purchaseID" || attrName == "userID" || attrName == "shopID" 
+			    || attrName == "productID" || attrName == "insertDate" || attrName == "updateDate") {
                                 continue;
                         }
                         if (common.inArray(this.tableColumns, attrName) && attrValue != undefined) {
 				if (updateSql != undefined) {
                                 	updateSql += ", " + attrName + " = ?";
 				} else {
-					updateSql = "UPDATE SHOP SET " + attrName + " = ?"
+					updateSql = "UPDATE PURCHASE SET " + attrName + " = ?"
 				}
                                 data.push(attrValue);
                         }
@@ -162,13 +161,13 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 		data.push(updateDate);
 
 		var whereSql = undefined;
-		if (obj.shopID != undefined) {
-			whereSql = " WHERE shopID = ?";
-			data.push(obj.shopID);
+		if (obj.purchaseID != undefined) {
+			whereSql = " WHERE purchaseID = ?";
+			data.push(obj.purchaseID);
 		} else {
-			whereSql = " WHERE owner = ? AND name = ?";
-			data.push(obj.owner);
-			data.push(obj.name);
+			whereSql = " WHERE userID = ? AND productID = ?";
+			data.push(obj.userID);
+			data.push(obj.productID);
 		}
 
 		var sql = updateSql + whereSql + ";";
@@ -219,38 +218,30 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 	}
 };
 
-Shop.prototype.getShop = function(shopInfo, callback) {
+Purchase.prototype.getPur = function(purInfo, callback) {
 	try {
 		// var connected = false;
 
-		var obj = shopInfo;
+		var obj = purInfo;
 
 		var sql = undefined;
-		var selectSql = "SELECT * FROM SHOP";
+		var selectSql = "SELECT * FROM PURCHASE";
 		var whereSql = undefined;
-		if (obj.shopID != undefined) {
-			whereSql = " WHERE shopID=" + '"' + obj.shopID + '"';
-		}
-		if (obj.owner != undefined){
-			if (whereSql == undefined) {
-				whereSql = " WHERE owner=" + '"' + obj.owner + '"';
+		if (obj.purchaseID != undefined) {
+			whereSql = " WHERE purchaseID=" + '"' + obj.purchaseID + '"';
+		} else if (obj.userID != undefined) {
+			if (obj.shopID == undefined) {
+				whereSql = " WHERE userID=" + '"' + obj.userID + '"';
 			} else {
-				whereSql += " AND owner=" + '"' + obj.owner + '"';
+				whereSql = " WHERE userID=" + '"' + obj.userID + '" AND ' + "shopID=" + '"' + obj.shopID + '"'; 
 			}
-		}
-		if (obj.name != undefined){
-			if (whereSql == undefined) {
-				whereSql = " WHERE name=" + '"' + obj.name + '"';
-			} else {
-				whereSql += " AND name=" + '"' + obj.name + '"';
-			}
-		}
-		if (obj.category != undefined) {
-			if (whereSql == undefined) {
-                                whereSql = " WHERE category=" + '"' + obj.category + '"';
-                        } else {
-                                whereSql += " AND category=" + '"' + obj.category + '"';
+		} else {
+			var result = {
+                                "code":0,
+                                "msg":"purchaseID || userID is neccessary"
                         }
+                        callback(result);
+                        return;
 		}
 		var limitSql = undefined;
 		if (obj.start != undefined && obj.count != undefined) {
@@ -313,7 +304,7 @@ Shop.prototype.getShop = function(shopInfo, callback) {
 				} else {
 					var result = {
 						"code":1,
-						"Shop":results
+						"Purchase":results
 					}
 					callback(result);
 					return;
@@ -339,62 +330,4 @@ Shop.prototype.getShop = function(shopInfo, callback) {
 	}
 };
 
-Shop.prototype.searchShop = function(word, callback) {
 
-        try {
-                if (word == undefined) {
-                        console.log("word is neccessary");
-                        var result = {
-                                "code":0,
-                                "msg":"word is neccessary"
-                        }
-                        callback(result);
-                        return;
-                }
-
-                var sql = 'SELECT * FROM SHOP WHERE intro like "' + "%" + word + "%" + '" OR dispName like "' + "%" + word + "%" + '"';
-
-                console.log(sql);
-                myCon.connect(function(err,callback2){
-                        connected = true;
-                        myCon.query(sql, function(err, results){
-                                if (connected == true) {
-                                        connected = false;
-                                        myCon.end();
-                                }
-
-                                if(err) {
-                                        var result = {
-                                                "code":0,
-                                                "msg":err
-                                        }
-                                        callback(result);
-                                        return;
-                                } else {
-                                        var result = {
-                                                "code":1,
-                                                "Shop":results
-                                        }
-                                        callback(result);
-                                        return;
-                                }
-                        });
-                });
-	} catch (e) {
-                if (connected == true) {
-                        connected = false;
-                        myCon.end();
-                }
-                if (e.stack) {
-                        console.log("catch exception:" + e.name);
-                        console.log(e.stack);
-                } else {
-                        console.log("catch exception:" + e.name + "; msg:" + e.message, e);
-                }
-                var result = {
-                        "code":0,
-                        "msg":"catch exception:" + e.message
-                }
-                callback(result);
-        }
-};
