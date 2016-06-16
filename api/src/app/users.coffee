@@ -136,7 +136,7 @@ exports.update = (req, res) ->
   console.log "update"
 
   input = req.body
-  input.id = req.params.id
+  input.userID = req.params.id
   # Test inputデータ
   # curl -X PUT http://localhost:3000/users/:id
   #input =
