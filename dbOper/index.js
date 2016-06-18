@@ -26,6 +26,18 @@ function loadClass(className) {
     case 'User':
       Class = require('./js/tableUser');
       break;
+    case 'Shop':
+      Class = require('./js/tableShop');
+      break;
+    case 'Product':
+      Class = require('./js/tableProduct');
+      break;
+    case 'Favorite':
+      Class = require('./js/tableFavorite');
+      break;
+    case 'Purchase':
+      Class = require('./js/tableShop');
+      break;
     default:
       throw new Error('Cannot find class \'' + className + '\'');
   }

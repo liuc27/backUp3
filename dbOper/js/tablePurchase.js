@@ -3,7 +3,7 @@ var MD5 = require('crypto-js/md5');
 var my = require('mysql');
 var config = require('./dbConfig');
 var moment = require('moment');
-var tableName = "SHOP";
+var tableName = "PURCHASE";
 var Common = require('./common.js');
 
 var myCon = my.createConnection(config);
@@ -16,7 +16,7 @@ module.exports = Purchase;
 
 function Purchase () {
 	this.tableColumns = new Array("purchaseID", "userID", "shopID", "productID", "count", 
-		"usedCount", "insertDate", "updateDate", "delFlg", "useLimitDate", "payedFlg", "eluvation"
+		"usedCount", "insertDate", "updateDate", "delFlg", "useLimitDate", "paidFlg", "eluvation"
 	);
 };
 
@@ -29,10 +29,10 @@ Purchase.prototype.insertPur = function(purInfo, callback) {
 		// var connected = false;
 
 		var obj = purInfo;
-		if (obj.userID == undefined || obj.productID == undefined)) {
+		if (obj.userID == undefined || obj.productID == undefined) || obj.shopID == undefined) {
 			var result = {
 				"code":0,
-				"msg":"userID and productID are neccessary"
+				"msg":"userID, productID and shopID are neccessary"
 			}
 			callback(result);
 			return;
