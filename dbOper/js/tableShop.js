@@ -15,7 +15,7 @@ var common = new Common();
 module.exports = Shop;
 
 function Shop () {
-	this.tableColumns = new Array("shopID", "owner", "name", "displayName", "address", "category", 
+	this.tableColumns = new Array("shopID", "owner", "name", "dispName", "address", "category", 
                 "administrator", "latitude", "longitude",
 		"insertDate", "updateDate", "delFlg","intro","logo"
 	);

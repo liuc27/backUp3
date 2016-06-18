@@ -3,7 +3,7 @@ var MD5 = require('crypto-js/md5');
 var my = require('mysql');
 var config = require('./dbConfig');
 var moment = require('moment');
-var tableName = "SHOP";
+var tableName = "FAVORITE";
 var Common = require('./common.js');
 
 var myCon = my.createConnection(config);
