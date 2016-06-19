@@ -12,43 +12,43 @@ var connected = false;
 
 var common = new Common();
 
-module.exports = Shop;
+module.exports = Product;
 
-function Shop () {
-	this.tableColumns = new Array("shopID", "owner", "name", "dispName", "address", "category", 
-                "administrator", "latitude", "longitude",
-		"insertDate", "updateDate", "delFlg","intro","logo"
+function Product () {
+	this.tableColumns = new Array("productID", "shopID", "name", "displayName", "category", 
+                "intro", "detail", "origPrice", "newPrice", "discountRate", "dispBeginDate", "dispEndDate",
+		"insertDate", "updateDate", "delFlg","imgList","count","saledCount","evulation"
 	);
 	//this.neccessaryColumns = new Array("account");
 };
 
 /*
- *  shopInfo is JSON format
+ *  productInfo is JSON format
  *
  */
-Shop.prototype.insertShop = function(shopInfo, callback) {
+Product.prototype.insertProduct = function(productInfo, callback) {
 	try {
 		// var connected = false;
 
-		var obj = shopInfo;
-		if (obj.owner == undefined || obj.name == undefined || obj.dispName == undefined) {
+		var obj = productInfo;
+		if (obj.shopID == undefined || obj.name == undefined) {
 			var result = {
 				"code":0,
-				"msg":"owner, name and dispName are neccessary"
+				"msg":"shopID and name are neccessary"
 			}
 			callback(result);
 			return;
 		}
-		var shopID = MD5(obj.owner + obj.name).toString();
+		var productID = MD5(obj.shopID + obj.name).toString();
 
-		var insertSql = "INSERT INTO SHOP SET shopID = ?";
+		var insertSql = "INSERT INTO PRODUCT SET productID = ?";
 		var data = new Array();
-		data.push(shopID);
+		data.push(productID);
 
 		for(var key in obj){
             		var attrName = key;
             		var attrValue = obj[key];
-			if (attrName == "insertDate" || attrName == "updateDate" || attrName == "shopID") {
+			if (attrName == "insertDate" || attrName == "updateDate" || attrName == "productID") {
 				continue;
 			}
 			if (common.inArray(this.tableColumns, attrName) && attrValue != undefined) {
@@ -85,7 +85,7 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 					} else {
 						var result = {
 							"code":1,
-							"msg":shopID
+							"msg":productID
 						}
 						callback(result);
 						return;
@@ -114,15 +114,15 @@ Shop.prototype.insertShop = function(shopInfo, callback) {
 
 };
 
-Shop.prototype.updateShop = function(shopInfo, callback) {
+Product.prototype.updateProduct = function(productInfo, callback) {
 	try {
 		// var connected = false;
 
-		var obj = shopInfo;
-		if (obj.shopID == undefined && (obj.owner == undefined || obj.name == undefined)) {
+		var obj = productInfo;
+		if (obj.productID == undefined && (obj.shopID == undefined || obj.name == undefined)) {
 			var result = {
 				"code":0,
-				"msg":"shopID || (owner && name ) is neccessary"
+				"msg":"productID || (shopID && name ) is neccessary"
 			}
 			callback(result);
 			return;
@@ -134,7 +134,7 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 		for(var key in obj){
                         var attrName = key;
                         var attrValue = obj[key];
-                        if (attrName == "shopID" || attrName == "owner" || attrName == "name" 
+                        if (attrName == "productID" || attrName == "shopID" || attrName == "name" 
 			    || attrName == "insertDate" || attrName == "updateDate") {
                                 continue;
                         }
@@ -142,7 +142,7 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 				if (updateSql != undefined) {
                                 	updateSql += ", " + attrName + " = ?";
 				} else {
-					updateSql = "UPDATE SHOP SET " + attrName + " = ?"
+					updateSql = "UPDATE PRODUCT SET " + attrName + " = ?"
 				}
                                 data.push(attrValue);
                         }
@@ -162,12 +162,12 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 		data.push(updateDate);
 
 		var whereSql = undefined;
-		if (obj.shopID != undefined) {
-			whereSql = " WHERE shopID = ?";
-			data.push(obj.shopID);
+		if (obj.productID != undefined) {
+			whereSql = " WHERE productID = ?";
+			data.push(obj.productID);
 		} else {
-			whereSql = " WHERE owner = ? AND name = ?";
-			data.push(obj.owner);
+			whereSql = " WHERE shopID = ? AND name = ?";
+			data.push(obj.shopID);
 			data.push(obj.name);
 		}
 
@@ -219,23 +219,23 @@ Shop.prototype.updateShop = function(shopInfo, callback) {
 	}
 };
 
-Shop.prototype.getShop = function(shopInfo, callback) {
+Product.prototype.getProduct = function(productInfo, callback) {
 	try {
 		// var connected = false;
 
-		var obj = shopInfo;
+		var obj = productInfo;
 
 		var sql = undefined;
-		var selectSql = "SELECT * FROM SHOP";
+		var selectSql = "SELECT * FROM PRODUCT";
 		var whereSql = undefined;
-		if (obj.shopID != undefined) {
-			whereSql = " WHERE shopID=" + '"' + obj.shopID + '"';
-		}
-		if (obj.owner != undefined){
+		if (obj.productID != undefined) {
+			whereSql = " WHERE productID=" + '"' + obj.productID + '"';
+		} 
+		/*if (obj.shopID != undefined){
 			if (whereSql == undefined) {
-				whereSql = " WHERE owner=" + '"' + obj.owner + '"';
+				whereSql = " WHERE shopID=" + '"' + obj.shopID + '"';
 			} else {
-				whereSql += " AND owner=" + '"' + obj.owner + '"';
+				whereSql += " AND shopID=" + '"' + obj.shopID + '"';
 			}
 		}
 		if (obj.name != undefined){
@@ -251,7 +251,85 @@ Shop.prototype.getShop = function(shopInfo, callback) {
                         } else {
                                 whereSql += " AND category=" + '"' + obj.category + '"';
                         }
-		}
+		}*/
+
+		if (obj.filterAnd != undefined) {
+                        var filterAndObj  = obj.filterAnd;
+                        if (!common.jsonIsArray(filterAndObj)) {
+                                filterAndObj = [filterAndObj];
+                        }
+                        // filterAnd が配列の場合, 複数指定
+                        for(var i = 0; i < filterAndObj.length; i++) {
+                                var objFilter = filterAndObj[i];
+                                if (common.inArray(this.tableColumns, objFilter.column)) {
+                                        if (whereSql == undefined) {
+                                                whereSql = " WHERE " + objFilter.column + '="' + objFilter.value + '"';
+                                        } else {
+                                                whereSql += " AND " + objFilter.column + '="' + objFilter.value + '"';
+                                        }
+                                }
+
+                        }
+                }
+                if (obj.filterOr != undefined) {
+                        var whereOrSql = undefined;
+                        var filterOrObj = obj.filterOr;
+                        if (!common.jsonIsArray(filterOrObj)) {
+                                filterOrObj = [filterOrObj];
+                        }
+                        for (var i = 0; i < filterOrObj.length; i++) {
+                                var objFilter = filterOrObj[i];
+                                if (common.inArray(this.tableColumns, objFilter.column)) {
+                                        if (whereOrSql == undefined) {
+                                                whereOrSql = " " + objFilter.column + '="' + objFilter.value + '"';
+                                        } else {
+                                                whereOrSql += " OR " + objFilter.column + '="' + objFilter.value + '"';
+                                        }
+                                }
+                        }
+                        if (whereOrSql != undefined) {
+                                if (whereSql == undefined) {
+                                        whereSql = " WHERE (" + whereOrSql + ")";
+                                } else {
+                                        whereSql += " OR (" + whereOrSql + ")";
+                                }
+                        }
+                }
+
+		if (obj.scope != undefined) {
+                        var scopeSql = undefined;
+                        var scopeObj = obj.scope;
+                        if (!common.jsonIsArray(scopeObj)) {
+                                scopeObj = [scopeObj];
+                        }
+                        for (var i = 0; i < scopeObj.length; i++) {
+                                var scope = scopeObj[i];
+                                if (common.inArray(this.tableColumns, scope.column)) {
+                                        if (scope.from != undefined) {
+                                                if (scopeSql == undefined) {
+                                                        scopeSql = scope.column + '>="' + scope.from + '"';
+                                                } else {
+                                                        scopeSql += scope.column + '>="' + scope.from + '"';
+                                                }
+                                        }
+                                        if (scope.to != undefined) {
+                                                if (scopeSql == undefined) {
+                                                        scopeSql = scope.column + '<="' + scope.to + '"';
+                                                } else {
+                                                        scopeSql += " AND " + scope.column + '<="' + scope.to + '"';
+                                                }
+                                        }
+                                }
+                        }
+                        if (scopeSql != undefined) {
+                                if (whereSql == undefined) {
+                                        whereSql = " WHERE (" + scopeSql + ")";
+                                } else {
+                                        whereSql += " AND (" + scopeSql + ")";
+                                }
+                        }
+                }
+
 		var limitSql = undefined;
 		if (obj.start != undefined && obj.count != undefined) {
 			limitSql = "limit " + obj.start + "," + obj.count;
@@ -313,7 +391,7 @@ Shop.prototype.getShop = function(shopInfo, callback) {
 				} else {
 					var result = {
 						"code":1,
-						"Shop":results
+						"Product":results
 					}
 					callback(result);
 					return;
@@ -339,7 +417,7 @@ Shop.prototype.getShop = function(shopInfo, callback) {
 	}
 };
 
-Shop.prototype.searchShop = function(word, callback) {
+Product.prototype.searchProduct = function(word, callback) {
 
         try {
                 if (word == undefined) {
@@ -352,7 +430,7 @@ Shop.prototype.searchShop = function(word, callback) {
                         return;
                 }
 
-                var sql = 'SELECT * FROM SHOP WHERE intro like "' + "%" + word + "%" + '" OR dispName like "' + "%" + word + "%" + '"';
+                var sql = 'SELECT * FROM PRODUCT WHERE intro like "' + "%" + word + "%" + '" OR dispName like "' + "%" + word + "%" + '"';
 
                 console.log(sql);
                 myCon.connect(function(err,callback2){
@@ -362,7 +440,6 @@ Shop.prototype.searchShop = function(word, callback) {
                                         connected = false;
                                         myCon.end();
                                 }
-
                                 if(err) {
                                         var result = {
                                                 "code":0,
@@ -373,7 +450,7 @@ Shop.prototype.searchShop = function(word, callback) {
                                 } else {
                                         var result = {
                                                 "code":1,
-                                                "Shop":results
+                                                "Product":results
                                         }
                                         callback(result);
                                         return;

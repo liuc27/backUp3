@@ -1,6 +1,7 @@
 angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
-  .controller('CouponCtrl', function ($scope, $http,$ionicScrollDelegate, $ionicSlideBoxDelegate, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
+  .controller('CouponCtrl', function ($scope, $http, $stateParams,$ionicScrollDelegate, $ionicSlideBoxDelegate, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
+
 
       $scope.nextSlide = function() {
         $ionicSlideBoxDelegate.next();
@@ -15,7 +16,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
     $scope.chooseMenuItem = function (menu, $index) {
       $scope.chosenItem.value = menu.type
-      $scope.selectedIndex = $index
+      console.log(menu.type)
       console.log($index)
     }
 
@@ -41,8 +42,89 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
       });
       return exist;
     }
-    $scope.menus = types.getMenu()
+    $scope.menus = types.getMenu();
+    console.log($scope.menus);
     $scope.doRefresh = types.doRefresh()
+
+    console.log($stateParams);
+    if($stateParams!=undefined){
+    $scope.selectedIndex = $stateParams;
+    if($stateParams.couponId!=undefined)
+    $scope.chosenItem.value = $scope.menus[$stateParams.couponId].type;
+    console.log($scope.chosenItem.value)
+    console.log($stateParams)
+
+}
+
+  })
+  .controller('CouponCategorySelectedCtrl', function ($scope, $http, $stateParams,$ionicScrollDelegate, $ionicSlideBoxDelegate, $rootScope, localStorageService, types, resolvedItems, resolvedShops, resolvedPossession) {
+
+
+    $scope.typeList = types.typeList();
+    $scope.orderList = types.getOrderList();
+    $scope.locationList = types.getLocationList();
+    $scope.selectedType = $scope.typeList[7];
+    $scope.selectedLocation = $scope.locationList[4];
+    $scope.selectedOrder = $scope.orderList[4];
+
+    $rootScope.hideTabs = true;
+    $scope.$on('$destroy', function() {
+      $rootScope.hideTabs = false;
+    });
+
+      $scope.nextSlide = function() {
+        $ionicSlideBoxDelegate.next();
+      }
+    console.log(resolvedItems)
+    $rootScope.items = resolvedItems.data
+    $rootScope.shops = resolvedShops.data
+    $rootScope.possession = resolvedPossession.data
+    $scope.chosenItem = {
+      "value": "all"
+    }
+
+    $scope.chooseMenuItem = function (menu, $index) {
+      $scope.chosenItem.value = menu.type
+      console.log(menu.type)
+      console.log($index)
+    }
+
+    console.log($scope.chosenItem.value)
+    console.log(resolvedPossession.data)
+
+
+    $rootScope.averageRate = function (item) {
+      return types.caculateItemAverageRate(item);
+    }
+
+
+    $rootScope.commentNumbers = function (item) {
+      return types.caculateItemCommentNumbers(item);
+    }
+
+    $scope.find = function (item) {
+      var exist = false;
+      angular.forEach($rootScope.possession, function (value) {
+        if (value == item._id) {
+          exist = true;
+        }
+      });
+      return exist;
+    }
+    $scope.menus = types.getMenu();
+    console.log($scope.menus);
+    $scope.doRefresh = types.doRefresh()
+
+    console.log($stateParams);
+    if($stateParams!=undefined){
+    $scope.selectedIndex = $stateParams;
+    if($stateParams.couponId!=undefined)
+    $scope.chosenItem.value = $scope.menus[$stateParams.couponId].type;
+    console.log($scope.chosenItem.value)
+    console.log($stateParams)
+
+}
+
   })
 
   .controller('shopsCtrl', function ($rootScope, $scope, types, resolvedShops, $ionicPopover) {

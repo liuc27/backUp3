@@ -21,7 +21,6 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
     });
   })
   .config(function ($ionicConfigProvider) {
-    $ionicConfigProvider.tabs.position('bottom');
   })
   .config(function (localStorageServiceProvider) {
     localStorageServiceProvider
@@ -115,6 +114,7 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
           }
         }
       })
+
       .state('tab.coupon', {
         url: '/coupon',
         views: {
@@ -125,6 +125,15 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
         }
       })
 
+      .state('tab.coupon-category', {
+        url: '/coupon-category/:couponId',
+        views: {
+          'tab-coupon': {
+            templateUrl: 'templates/tab-coupon-category.html',
+            controller: 'CouponCategorySelectedCtrl'
+          }
+        }
+      })
       .state('tab.coupon-detail', {
         url: '/coupon-detail/:couponId',
         views: {
