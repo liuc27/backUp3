@@ -17,6 +17,8 @@
                   ng-disabled="disableClick.value">{{favoritesText}}
           </button>
           <button ng-class="favorites" ng-if="coupon.numbers<=0">在庫切れ</button>
+          <button ng-class="favorites" ng-click="shareFacebook()">Facebookシェア</button>
+          <button ng-class="favorites" ng-click="shareGoogle()">Google+シェア</button>
         </div>
 
       </div>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+
+<ion-view title="<b>カート">
+  <!--
+  <ion-nav-buttons side="left">
+      <button  menu-toggle="left" class="button button-icon icon ion-navicon" ng-click="doSomething()">
+      </button>
+  </ion-nav-buttons>
+  -->
+  <ion-content class="padding"  scroll="true" has-bouncing="true">
+
+    <form name="cart">
+      <div class="list">
+      <tr>
+        <td>商品名</td>
+        <td>単価</td>
+      </tr>
+    </div>
+      <div class="product bordLine list  borderRadius"
+      collection-repeat="item in items | possessed : possession | reverse ">
+        <tr>
+          <td>{{item.name}}</td>
+          <td>{{item.discountPrice}}</td>
+        </tr>
+      </div>
+
+    </form>
+
+
+  </ion-content>
+</ion-view>
