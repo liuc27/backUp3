@@ -15,7 +15,7 @@ var common = new Common();
 module.exports = Product;
 
 function Product () {
-	this.tableColumns = new Array("productID", "shopID", "name", "displayName", "category", 
+	this.tableColumns = new Array("productID", "shopID", "name", "dispName", "category", 
                 "intro", "detail", "origPrice", "newPrice", "discountRate", "dispBeginDate", "dispEndDate",
 		"insertDate", "updateDate", "delFlg","imgList","count","saledCount","evulation"
 	);
