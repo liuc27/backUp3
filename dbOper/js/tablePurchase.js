@@ -29,7 +29,7 @@ Purchase.prototype.insertPur = function(purInfo, callback) {
 		// var connected = false;
 
 		var obj = purInfo;
-		if (obj.userID == undefined || obj.productID == undefined) || obj.shopID == undefined) {
+		if (obj.userID == undefined || obj.productID == undefined || obj.shopID == undefined) {
 			var result = {
 				"code":0,
 				"msg":"userID, productID and shopID are neccessary"
@@ -38,7 +38,7 @@ Purchase.prototype.insertPur = function(purInfo, callback) {
 			return;
 		}
 		var purchaseID = undefined;
-		purchaseID = MD5(obj.userID + obj.productID);
+		purchaseID = MD5(obj.userID + obj.productID).toString();
 
 		var insertSql = "INSERT INTO PURCHASE SET purchaseID = ?";
 		var data = new Array();

@@ -16,7 +16,7 @@ module.exports = Favorite;
 
 function Favorite () {
 	this.tableColumns = new Array("favoriteID", "userID", "shopID", "productID", "favType", 
-		"insertDate", "updateDate", "delFlg",
+		"insertDate", "updateDate", "delFlg"
 	);
 };
 
@@ -29,7 +29,7 @@ Favorite.prototype.insertFav = function(favInfo, callback) {
 		// var connected = false;
 
 		var obj = favInfo;
-		if (obj.userID == undefined || (obj.shopID == undefined || obj.productID == undefined)) {
+		if (obj.userID == undefined || (obj.shopID == undefined && obj.productID == undefined)) {
 			var result = {
 				"code":0,
 				"msg":"(userID and shopID) or (userID and productID) are neccessary"
@@ -38,10 +38,10 @@ Favorite.prototype.insertFav = function(favInfo, callback) {
 			return;
 		}
 		var favoriteID = undefined;
-		if (shopID != undefined) {
-			favoriteID = MD5(obj.userID + obj.shopID);
+		if (obj.shopID != undefined) {
+			favoriteID = MD5(obj.userID + obj.shopID).toString();
 		} else {
-			favoriteID = MD5(obj.userID + obj.productID);
+			favoriteID = MD5(obj.userID + obj.productID).toString();
 		}
 
 		var insertSql = "INSERT INTO FAVORITE SET favoriteID = ?";

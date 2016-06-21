@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS PURCHASE
     	insertDate  	DATETIME NOT NULL,
     	updateDate  	DATETIME NOT NULL,
     	delFlg      	TINYINT(1) DEFAULT 0,
-    	useLimitDate  	DATETIM,
+    	useLimitDate  	DATETIME,
 	paidFlg		TINYINT(1) DEFAULT 0,
 	evulation	FLOAT
 ) ENGINE=MyISAM DEFAULT CHARACTER SET=UTF8;
