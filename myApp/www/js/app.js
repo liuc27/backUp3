@@ -149,7 +149,12 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
         views: {
           'tab-types': {
             templateUrl: 'templates/tab-shops.html',
-            controller: 'shopsCtrl'
+            controller: 'shopsCtrl',
+            resolve: {
+              resolvedShops: function (types) {
+                return types.allShops()
+              }
+            }
           }
         }
       })

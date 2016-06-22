@@ -137,7 +137,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
     $scope.selectedLocation = $scope.locationList[4];
     $scope.selectedOrder = $scope.orderList[4];
 
-    //$scope.shops = resolvedShops.data
+    $scope.shops = resolvedShops.data;
 
     $scope.shopRate = {
       value: null
