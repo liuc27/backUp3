@@ -169,11 +169,14 @@ angular.module('starter.services', [])
         })
       },
       allShops: function () {
-        return $http.get("http://120.24.168.7/api/shops").success(function (data) {
+        return $http.get("http://120.24.168.7/api/shops").then(function (data) {
           console.log(data.length)
-          console.log(data)
-          shops = data
-          return data
+
+
+          shops.data = data.data
+          console.log(shops.data)
+          console.log(shops)
+          return shops
         })
       },
       doRefresh: function () {
