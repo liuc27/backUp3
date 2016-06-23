@@ -9,6 +9,7 @@ getData = (query, field) ->
     return
 
 # Favorite list 取得
+# http://localhost:3000/favorites?userID=62e052b1bf85a688897597c97c062e8a
 exports.index = (req, res) ->
   console.log "index"
 
@@ -64,6 +65,7 @@ exports.index = (req, res) ->
   return
 
 # Favorite 取得
+# http://localhost:3000/favorites/ac4bbfedfb12d85ecd493bb955eeb853
 exports.show = (req, res) ->
   console.log "show"
 
@@ -135,7 +137,7 @@ exports.update = (req, res) ->
   input = req.body
   input.favoriteID = req.params.id
   # Test inputデータ
-  # curl -X PUT http://localhost:3000/favorites/:id -d "dispName=TEST FAVORITE2&origPrice=1000&newPrice=800"
+  # curl -X PUT http://localhost:3000/favorites/ac4bbfedfb12d85ecd493bb955eeb853 -d "delFlg=1"
 
   # Validation
   v.checkParam input, (err) ->
