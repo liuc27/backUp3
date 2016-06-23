@@ -1,0 +1,17 @@
+<ion-navbar *navbar>
+  <ion-title>
+    Home
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="home">
+  <ion-list>
+    <ion-item *ngFor="let coupon of coupons">
+      <ion-avatar item-left>
+        <img src="{{coupon.picture.thumbnail}}">
+      </ion-avatar>
+      <h2>{{coupon.name.first}} {{coupon.name.last}}</h2>
+      <p>{{coupon.email}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
