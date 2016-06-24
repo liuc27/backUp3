@@ -1,21 +1,21 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {CouponService} from '../../providers/coupon-service/coupon-service';
+import {ProductService} from '../../providers/product-service/product-service';
 
 @Component({
   templateUrl: 'build/pages/product/product.html',
-  providers:[CouponService]
+  providers:[ProductService]
 })
 export class ProductPage {
-  public coupons:any;
-  constructor(private navController: NavController,public couponService:CouponService) {
-  this.loadCoupons();
+  public products:any;
+  constructor(private navController: NavController,public productService:ProductService) {
+  this.loadProducts();
   }
 
-  loadCoupons(){
-    this.couponService.load()
+  loadProducts(){
+    this.productService.load()
         .then(data => {
-          this.coupons = data;
+          this.products = data;
         });
   }
 }

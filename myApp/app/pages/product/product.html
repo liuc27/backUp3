@@ -1,17 +1,37 @@
-<ion-navbar *navbar>
-  <ion-title>
-    Product
-  </ion-title>
+
+<ion-navbar *navbar hideBackButton>
+  <ion-buttons start>
+    <button>
+      tokyo<ion-icon name="ios-arrow-down"></ion-icon>
+    </button>
+  </ion-buttons>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-buttons end>
+    <button>
+      <ion-icon name="md-alert"></ion-icon>
+    </button>
+  </ion-buttons>
 </ion-navbar>
 
-<ion-content class="product">
+<ion-content >
+  <div style="margin : 2vw 2vw">
+  <ion-row flex-wrap: wrap>
+    <ion-col width-20  align="center" *ngFor="let product of products" >
+      <button round  primary >
+        <ion-icon name="add"></ion-icon>
+      </button>food
+    </ion-col>
+</ion-row>
+  </div>
+<div class="product">
   <ion-list>
-    <ion-item *ngFor="let coupon of coupons">
+    <ion-item *ngFor="let product of products">
       <ion-avatar item-left>
-        <img src="{{coupon.picture.thumbnail}}">
+        <img src="{{product.picture.thumbnail}}">
       </ion-avatar>
-      <h2>{{coupon.name.first}} {{coupon.name.last}}</h2>
-      <p>{{coupon.email}}</p>
+      <h2>{{product.name.first}} {{product.name.last}}</h2>
+      <p>{{product.email}}</p>
     </ion-item>
   </ion-list>
-</ion-content>
+</div>
+  </ion-content>
