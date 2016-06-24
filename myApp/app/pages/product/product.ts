@@ -3,10 +3,10 @@ import {NavController} from 'ionic-angular';
 import {CouponService} from '../../providers/coupon-service/coupon-service';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html',
+  templateUrl: 'build/pages/product/product.html',
   providers:[CouponService]
 })
-export class HomePage {
+export class ProductPage {
   public coupons:any;
   constructor(private navController: NavController,public couponService:CouponService) {
   this.loadCoupons();
