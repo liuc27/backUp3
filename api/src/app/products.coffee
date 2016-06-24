@@ -1,14 +1,14 @@
 Promise = require("q").Promise
 v = require("../lib/validator")
 dbOper = require("../../dbOper")
-userOper = dbOper.getUserInstance()
+productOper = dbOper.getProductInstance()
 
 getData = (query, field) ->
   return Promise (resolve, reject) ->
     console.log "get"
     return
 
-# User list 取得
+# Product list 取得
 exports.index = (req, res) ->
   console.log "index"
 
@@ -37,17 +37,17 @@ exports.index = (req, res) ->
       # sort
       if param.sort
         input.sort =
-          column: param.sort ? "userID"
+          column: param.sort ? "productID"
           type: "asc"
 
       console.log input
       # MySQL処理
-      userOper.getUser input, (results) ->
+      productOper.getProduct input, (results) ->
         console.log results
 
         output =
           code: results.code
-          result: results.User
+          result: results.Product
 
         if results.code
           outCode = 200
@@ -60,12 +60,12 @@ exports.index = (req, res) ->
  
   return
 
-# User 取得
+# Product 取得
 exports.show = (req, res) ->
   console.log "show"
 
   input = req.query
-  input.userID = req.params.id
+  input.productID = req.params.id
 
   #console.log input
   # Validation
@@ -75,12 +75,12 @@ exports.show = (req, res) ->
         .send err.msg
     else
       # MySQL処理
-      userOper.getUser input, (results) ->
+      productOper.getProduct input, (results) ->
         console.log results
 
         output =
           code: results.code
-          result: results.User[0]
+          result: results.Product[0]
 
         if results.code
           outCode = 200
@@ -93,20 +93,14 @@ exports.show = (req, res) ->
  
   return
 
-# User 追加
+# Product 追加
 exports.create = (req, res) ->
   console.log "create"
 
   input = req.body
 
   # Test inputデータ
-  # curl -X POST http://localhost:3000/users
-  #input =
-  #  "account":"chaeh01"
-  #  "password":"poipoi"
-  #  "name":"chaehyungjun"
-  #  "nickName":"hj"
-  #  "email":"poipoi.chae@gmail.com"
+  # curl -X POST http://localhost:3000/products -d "name=testProduct&dispName=TEST PRODUCT&shopID=767792164ce5faad5a468738b0c83fee"
 
   # Validation
   v.checkParam input, (err) ->
@@ -115,7 +109,7 @@ exports.create = (req, res) ->
         .send err.msg
     else
       # MySQL処理
-      userOper.insertUser input, (results) ->
+      productOper.insertProduct input, (results) ->
         console.log results
         output =
           code: results.code
@@ -131,21 +125,14 @@ exports.create = (req, res) ->
     return
   return
 
-# User 更新
+# Product 更新
 exports.update = (req, res) ->
   console.log "update"
 
   input = req.body
-  input.userID = req.params.id
+  input.productID = req.params.id
   # Test inputデータ
-  # curl -X PUT http://localhost:3000/users/:id
-  #input =
-  #  "userID": req.params.id
-  #  "account":"chaeh01"
-  #  "password":"mengqiao"
-  #  "name":"liminhui2"
-  #  "nickName":"hogehoge"
-  #  "email":"mengmengqiaoqiao@gmail.com"
+  # curl -X PUT http://localhost:3000/products/:id -d "dispName=TEST PRODUCT2&origPrice=1000&newPrice=800"
 
   # Validation
   v.checkParam input, (err) ->
@@ -154,7 +141,7 @@ exports.update = (req, res) ->
         .send err.msg
     else
       # MySQL処理
-      userOper.updateUser input, (results) ->
+      productOper.updateProduct input, (results) ->
         console.log results
         output =
           code: results.code
@@ -170,7 +157,7 @@ exports.update = (req, res) ->
  
   return
 
-# User 削除
+# Product 削除
 exports.destroy = (req, res) ->
   console.log "destroy"
   res.status 404

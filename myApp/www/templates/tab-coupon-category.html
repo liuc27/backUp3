@@ -1,38 +1,16 @@
 <ion-view title="クーポン" hide-nav-bar="false">
 
   <ion-content class="padding" scroll="true" has-bouncing="true">
-    <div class="bar bar-header item-input-inset">
-      <label class="item-input-wrapper">
-        <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" placeholder="" ng-model="searchbar.value">
-      </label>
-      <button class="button button-clear" ng-click="searchbar.value = null">
-        キャンセル
-      </button>
+    <div style="margin-bottom: 2vw">
+        <select class="selectorStyle" ng-model="selectedType" ng-options="item as item.name for item in typeList"></select>
+        <select class="selectorStyle" ng-model="selectedLocation" ng-options="item as item.name for item in locationList"></select>
+        <select class="selectorStyle" ng-model="selectedOrder" ng-options="item as item.name for item in orderList"></select>
     </div>
+
     <ion-refresher pulling-text="更新中" on-refresh="doRefresh()">
     </ion-refresher>
 
-
-<ion-slide-box on-slide-changed="slideHasChanged($index)">
-<ion-slide class="box list  borderRadius menu">
-    <div ng-repeat="menu in menus | orderBy :'id'" class="menuItemBox">
-      <div class="col">
-        <a href="#/tab/coupon-category/{{menu.id}}" style='text-decoration:none;'>
-        <button ng-click="chooseMenuItem(menu,$index)"
-                class=" menuItem {{menu.icon}} menuButton "
-                ng-class="{ 'selected-class-name': $index == selectedIndex }"
-                style="background:{{menu.color}}; "></button>
-        </br>
-        <div class="menuFont">{{menu.name}}</div>
-      </div>
-    </div>
-</ion-slide>
-    </ion-slide-box>
-
-
-    <div></div>
-    <div ng-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
+    <div class=" bordLine"  ng-repeat="item in items | typeFilter : chosenItem.value | filter:searchbar.value | orderBy :'-id'">
       <a href="#/tab/coupon-detail/{{item._id}}" class=" item item-thumbnail-left cardSize">
         <img class="product_image" src="{{ item.image }}">
 

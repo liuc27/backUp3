@@ -10,6 +10,31 @@ exports.getUserInstance = function getUserInstance() {
   return new User();
 };
 
+exports.getShopInstance = function getShopInstance() {
+  var Shop       = loadClass('Shop');
+
+  return new Shop();
+};
+
+exports.getProductInstance = function getProductInstance() {
+  var Product       = loadClass('Product');
+
+  return new Product();
+};
+
+exports.getFavoriteInstance = function getFavoriteInstance() {
+  var Favorite       = loadClass('Favorite');
+
+  return new Favorite();
+};
+
+exports.getPurchaseInstance = function getPurchaseInstance() {
+  var Purchase       = loadClass('Purchase');
+
+  return new Purchase();
+};
+
+
 /**
  * Load the given class.
  * @private
@@ -25,6 +50,18 @@ function loadClass(className) {
   switch (className) {
     case 'User':
       Class = require('./js/tableUser');
+      break;
+    case 'Shop':
+      Class = require('./js/tableShop');
+      break;
+    case 'Product':
+      Class = require('./js/tableProduct');
+      break;
+    case 'Favorite':
+      Class = require('./js/tableFavorite');
+      break;
+    case 'Purchase':
+      Class = require('./js/tablePurchase');
       break;
     default:
       throw new Error('Cannot find class \'' + className + '\'');

@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS FAVORITE
+(
+        favoriteID          VARCHAR(128) NOT NULL PRIMARY KEY,
+	userID		VARCHAR(128) NOT NULL,
+        productID 	VARCHAR(128),
+    	shopID     	VARCHAR(128),
+	favType		VARCHAR(32),
+    	insertDate  	DATETIME NOT NULL,
+    	updateDate  	DATETIME NOT NULL,
+    	delFlg      	TINYINT(1) DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARACTER SET=UTF8;

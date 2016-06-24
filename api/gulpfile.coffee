@@ -13,6 +13,11 @@ gulp.task "server", () ->
     .pipe coffee()
     .pipe gulp.dest "./"
 
+gulp.task "lib", () ->
+  return gulp.src "./src/lib/*"
+    .pipe coffee()
+    .pipe gulp.dest "./lib/"
+
 gulp.task "app", () ->
   return gulp.src "./src/app/*"
     .pipe coffee()
@@ -20,9 +25,8 @@ gulp.task "app", () ->
 
 gulp.task "watch", () ->
   gulp.watch "./src/*.coffee", ["server"]
-  gulp.watch [
-    "./src/app/*.coffee"
-  ], ["app"]
+  gulp.watch "./src/lib/*.coffee", ["lib"]
+  gulp.watch "./src/app/*.coffee", ["app"]
 
 gulp.task "nodemon", () ->
   nodemon
@@ -33,6 +37,7 @@ gulp.task "nodemon", () ->
 gulp.task "del", () ->
   return del.sync [
     "./app"
+    "./lib"
     "./*.js"
   ]
 
@@ -40,6 +45,7 @@ gulp.task "build", (done) ->
   return runSequence "del",
   [
     "server"
+    "lib"
     "app"
   ]
 
@@ -47,6 +53,7 @@ gulp.task "default", ["watch"], (done) ->
   return runSequence "del",
     [
       "server"
+      "lib"
       "app"
     ],
     "nodemon"
