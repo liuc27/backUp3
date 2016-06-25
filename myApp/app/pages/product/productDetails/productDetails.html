@@ -1,0 +1,10 @@
+<ion-navbar *navbar>
+    <ion-title>
+        {{ product.name }}
+    </ion-title>
+</ion-navbar>
+
+<ion-content padding>
+    <ion-icon [name]="'logo-' + product.icon" [ngStyle]="{'color': product.color}"></ion-icon>
+
+</ion-content>
