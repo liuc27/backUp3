@@ -264,8 +264,8 @@ angular.module('starter.services', [])
           console.log(data.length);
 
           if (data.length == 0) {
-            localStorageService.remove("usernameData");
-            username = null;
+            //localStorageService.remove("usernameData");
+            //username = null;
           } else {
             return data;
           }
