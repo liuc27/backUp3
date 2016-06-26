@@ -32,6 +32,9 @@ exports.create = (req, res) ->
         url = "https://www.googleapis.com/oauth2/v3/userinfo?access_token=#{param.token}"
       else if param.provider is "yahoo"
         url = "https://userinfo.yahooapis.jp/yconnect/v1/attribute?schema=openid&access_token=#{param.token}"
+      else
+        res.status 400
+          .send "Bad Request"
       # Endpointへアクセス
       request.get(url, (err, httpResponse, body) ->
         if err
