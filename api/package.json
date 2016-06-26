@@ -23,6 +23,7 @@
     "moment": "2.10.6",
     "nodemon": "1.8.0",
     "q": "1.4.1",
+    "request": "2.72.0",
     "run-sequence": "1.1.4",
     "validator": "4.4.0",
     "vinyl-source-stream": "1.1.0"
