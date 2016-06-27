@@ -4,10 +4,30 @@
   }
 
   .swiper-pagination {
+    bottom: 10px;
   }
 
+
+  .roundButton{
+      width: 11vw;
+      height:11vw;
+      border-radius: 11vw;
+      border:0;
+      overflow:hidden;
+      margin: 1vw;
+      box-shadow: 0 0 2vw gray;
+      color:white;
+   }
+
+   .roundButton:hover{
+       width: 13vw;
+       height:13vw;
+       border-radius: 14vw;
+       margin: 0vw;
+   }
+
+   .flexWrap{
+       -webkit-flex-wrap: wrap;
+       flex-wrap: wrap;
+   }
 }
-
-
-
-
