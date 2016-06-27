@@ -17,10 +17,11 @@
   <ion-slides pager style="margin : 0vw 0vw 0vw 0vw; height: 60vw;">
     <ion-slide>
 
-    <ion-row flex-wrap: wrap>
+    <ion-row class="flexWrap">
       <ion-col width-20  align="center" *ngFor="let product of products" >
-        <button round  primary (click)="openProductDetailsPage(product) ">
-          <ion-icon name="add"></ion-icon>
+        <button class="roundButton"  primary (click)="openProductDetailsPage(product)" [ngStyle]="{'backgroundColor': red}">
+          <!--[ngStyle]="{'backgroundColor': item.color}" -->
+          <ion-icon name="heart"></ion-icon>
         </button>food
       </ion-col>
     </ion-row>
