@@ -330,6 +330,31 @@ Product.prototype.getProduct = function(productInfo, callback) {
                         }
                 }
 
+		if (obj.search != undefined) {
+                        var searchObj = obj.search;
+                        if (!common.jsonIsArray(searchObj)) {
+                                searchObj = [searchObj];
+                        }
+                        var searchSql = undefined;
+                        for (var i = 0; i < searchObj.length; i++) {
+                                var srch = searchObj[i];
+                                if (srch.column == "intro" || srch.colum == "dispName") {
+                                        if (searchSql == undefined) {
+                                                searchSql = srch.column + ' like "%' + srch.word + '%"';
+                                        } else {
+                                                searchSql += " OR " + srch.column + ' like "%' + srch.word + '%"';
+                                        }
+                                }
+                        }
+                        if (searchSql != undefined) {
+                                if (whereSql == undefined) {
+                                        whereSql = " WHERE (" + searchSql + ")";
+                                } else {
+                                        whereSql += " AND (" + searchSql + ")";
+                                }
+                        }
+                }
+
 		var limitSql = undefined;
 		if (obj.start != undefined && obj.count != undefined) {
 			limitSql = "limit " + obj.start + "," + obj.count;

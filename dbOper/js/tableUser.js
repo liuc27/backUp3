@@ -252,6 +252,30 @@ User.prototype.getUser = function(userInfo, callback) {
 		} else if (objUser.email != undefined){
 			whereSql = " WHERE email=" + '"' + objUser.email + '"';
 		}
+                if (objUser.search != undefined) {
+			var searchObj = objUser.search;
+			if (!common.jsonIsArray(searchObj)) {
+				searchObj = [searchObj];
+			}
+			var searchSql = undefined;
+			for (var i = 0; i < searchObj.length; i++) {
+				var obj = searchObj[i];
+				if (obj.column == "intro" || obj.colum == "nickName") {
+					if (searchSql == undefined) {
+						searchSql = obj.column + ' like "%' + obj.word + '%"';
+					} else {
+						searchSql += " OR " + obj.column + ' like "%' + obj.word + '%"';
+					}
+				}
+			}
+			if (searchSql != undefined) {
+				if (whereSql == undefined) {
+					whereSql = " WHERE (" + searchSql + ")";
+				} else {
+					whereSql += " AND (" + searchSql + ")";
+				}
+			}
+		}
 		// 下記フィルターは同じカラムで、複数値でAND、ORの状況まだ対応していない
 		if (objUser.filterAnd != undefined) {
 			var filterAndObj  = objUser.filterAnd;
