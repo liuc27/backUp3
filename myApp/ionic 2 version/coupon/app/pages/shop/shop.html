@@ -1,0 +1,57 @@
+<ion-navbar  *navbar hideBackButton >
+    <ion-buttons start >
+    </ion-buttons>
+
+
+    <!-- <ion-segment [(ngModel)]="productOrShop">
+        <ion-segment-button value="product">
+            product
+        </ion-segment-button>
+        <ion-segment-button value="shop">
+            shop
+        </ion-segment-button>
+    </ion-segment> -->
+
+    <ion-title>Shop Page</ion-title>
+
+    <ion-buttons end>
+        <button>
+            <ion-icon name="ios-search"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+
+<ion-content  #popoverContent class="shop">
+    <ion-toolbar class="flexWrap">
+        <div class="buttonInMenu" (click)="presentCategoryPopover($event)">
+            category
+            <ion-icon name="ios-arrow-down-outline"></ion-icon>
+        </div>
+        <div class="buttonInMenu"  (click)="presentLocationPopover($event)">
+            location
+            <ion-icon name="ios-arrow-down-outline"></ion-icon>
+        </div>
+
+        <div class="buttonInMenu"  (click)="presentOrderPopover($event)">
+            order
+            <ion-icon name="ios-arrow-down-outline"></ion-icon>
+        </div>
+    </ion-toolbar>
+
+    <div [ngSwitch]="productOrShop">
+      <ion-list>
+        <ion-item *ngFor="let shop of shops"  (click)="openshopDetailPage(shop)">
+          <ion-thumbnail item-left>
+            <img src="{{shop.picture.thumbnail}}">
+          </ion-thumbnail>
+          <h2>{{shop.name.first}} {{shop.name.last}}</h2>
+          <p>{{shop.email}}</p>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div #popoverText class="text-to-change">
+      <div> testData</div>
+    </div>
+</ion-content>
