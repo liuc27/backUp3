@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script>
+            var callbackResponse = (document.URL).split("#")[1];
+            var responseParameters = (callbackResponse).split("&");
+            var parameterMap = [];
+            for(var i = 0; i < responseParameters.length; i++) {
+                parameterMap[responseParameters[i].split("=")[0]] = responseParameters[i].split("=")[1];
+            }
+            if(parameterMap.oauth_token !== undefined && parameterMap.oauth_token !== null) {
+                var token = {
+                    oauth: {
+                        token: parameterMap.oauth_token,
+                        token_secret: parameterMap.oauth_token_secret,
+                        expires_in: parameterMap.expires_in
+                        //account_username: parameterMap.account_username
+                    }
+                };
+                window.localStorage.setItem("token", JSON.stringify(token));
+                window.localStorage.setItem("provider", "twitter");
+                window.location.href = "http://localhost:8100/#/tab/oauth";
+            } else {
+                alert("Problem authenticating");
+            }
+        </script>
+    </head>
+    <body>Redirecting...</body>
+</html>

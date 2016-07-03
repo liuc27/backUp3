@@ -654,11 +654,17 @@ app.post('/api/oauth', limiterRegister.middleware({
 }), function(req, res, next) {
     console.log(req.body)
     var token = req.body.accessToken
-    var http = require('http');
-    var url = 'https://graph.facebook.com/v2.4/me?access_token=' + token;
+    var url = null
+    if(req.body.tokenType === "facebook"){
+      url = 'https://graph.facebook.com/v2.4/me?access_token=' + token;
+    }else if(req.body.tokenType === "google"){
+      url = 'https://www.googleapis.com/oauth2/v3/userinfo?access_token=' + token;
+    }else if(req.body.tokenType === "yahoo"){
+      url = 'https://userinfo.yahooapis.jp/yconnect/v1/attribute?schema=openid&access_token=' + token;
+    }
 
     var https = require('https');
-
+    console.log(url)
     https.get(url, function(res2) {
       //console.log(res2.data)
       console.log("statusCode: ", res2.statusCode);
@@ -668,7 +674,17 @@ app.post('/api/oauth', limiterRegister.middleware({
         //facebookRes = data.name
         //process.stdout.write(data);
         console.log(JSON.parse(data));
-        var resName = JSON.parse(data).name
+        var resName = null;
+        if(req.body.tokenType === "yahoo"){
+          resName = JSON.parse(data).user_id
+        }else{
+            resName = JSON.parse(data).name
+        }
+
+        // UserName+oauthSourceが存在するかをサーチする
+        //存在した場合、oldUserとする
+        //存在しない場合、newUserとして、テーブルに入れる
+
         var jsonRes = {
           "type": "newUser",
           "id": resName

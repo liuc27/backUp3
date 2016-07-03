@@ -187,6 +187,27 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
     console.log($rootScope.items);
     $scope.possession = resolvedPossession.date
 
+
+        $scope.shareFacebook = function () {
+          var url = 'https://www.facebook.com/dialog/share?app_id=149120325435621'
+                    + '&display=popup&href=ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/www/index.html';
+
+                    window.open(url,"_blank","width=350,height=250,scrollbars=yes");
+        }
+
+        $scope.shareLine = function () {
+          var url = 'http://line.me/R/msg/text/?http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/www/index.html';
+                    window.open(url,"_blank","width=350,height=250,scrollbars=yes");
+        }
+
+        $scope.shareGoogle = function () {
+          var url = 'https://plus.google.com/share?url=http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/www/index.html';
+                    window.open(url,"_blank","width=500,height=350,scrollbars=yes");
+        }
+
+
+
+
     $scope.username = resolvedAccount ? resolvedAccount : $scope.username
     $scope.rate = {
       value: 3
@@ -225,7 +246,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
       if ($scope.username) {
 
-        $http.post("http://120.24.168.7/api/comment", {
+        $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/comment", {
           "name": $scope.coupon.name,
           "username": $scope.username,
           "comment": $scope.comment.comment,
@@ -283,7 +304,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
           console.log(resolvedPossession)
           console.log($scope.username)
           console.log(_id)
-          $http.post("http://120.24.168.7/api/add", {
+          $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/add", {
             "name": couponName,
             "username": $scope.username,
             "_id": _id
@@ -344,7 +365,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
         $scope.accessToken = JSON.parse(window.localStorage.getItem("token")).oauth.access_token;
         $scope.provider = window.localStorage.getItem("provider");
 
-        $http.post("http://127.0.0.1:3000/api/oauth",{
+        $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/oauth",{
           "tokenType": $scope.provider,
           "accessToken": $scope.accessToken
         }).success(function (data) {
@@ -410,7 +431,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
     }
 
     $scope.registerNew = function(username,password,email,nickname){
-      $http.post("http://120.24.168.7/api/registerNew",{
+      $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/registerNew",{
         "username": username,
         "password": password,
         "email": email,
@@ -505,8 +526,6 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
                     var u="https://www.facebook.com/v2.0/dialog/oauth?client_id="+client_id+"&redirect_uri="+o+
                     "&response_type="+response_type;
                     window.location.replace(u);
-
-
         };
 
         $scope.loginYahoo = function() {
@@ -517,84 +536,19 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
                     var u="https://auth.login.yahoo.co.jp/yconnect/v1/authorization?client_id="+client_id+"&redirect_uri="+o+
                     "&response_type="+response_type+"&scope="+scope;
                     window.location.replace(u);
-
-
         };
 
-
-/*
-        $scope.loginFacebook = function() {
-          //console.log("1");
-          //console.log("facebook button clicked")
-          $cordovaOauth.facebook("149120325435621", ["email", "read_stream", "user_website", "user_location", "user_relationships"]).then(function(result) {
-            localStorageService.set("accessToken", result.access_token)
-            //console.log(result.access_token)
-            $http.post("http://120.24.168.7/api/oauth",{
-              "accessToken": result.access_token
-            }).success(function (data) {
-              console.log(data)
-              if (data.type === "newUser") {
-                /*
-                $ionicPopup.alert({
-                  title: '欢迎您使用本软件。建议您在用户信息界面尽快完善个人信息。'
-                });
-                $scope.username = data.id;
-                $scope.usernameExist = true;
-                $rootScope.username = data.id;
-                localStorageService.set("usernameData", data.id)
-                $state.go('tab.coupon');
-
-                $rootScope.username = data.id
-                $scope.username = data.id
-                $scope.usernameExist = true
-                $ionicPopup.alert({
-//                  title: 'ログイン成功しました！'
-                title: data.id
-                });
-                var promise = $q(function (resolve, reject) {
-                  setTimeout(function () {
-                    if (localStorageService.set("usernameData", data.id)) {
-                      resolve('クーポンの獲得　をはじめてください!');
-                    } else {
-                      reject('エラー!');
-                    }
-                  }, 10);
-                });
-
-                promise.then(function (greeting) {
-                  //console.log(localStorageService.get("usernameData"));
-                  //alert('Success: ' + greeting);
-                  $state.go('tab.coupon');
-                }, function (reason) {
-                  //alert('Failed: ' + reason);
-                  $state.go('tab.coupon');
-                });
+        $scope.loginLine = function() {
+            var client_id="1469916875";
+            //var o="https%3A%2F%2Flocalhost%3A8100%2Foauth%2Fline_cb.html";
+            var o="https://127.0.0.1:8100/oauth/line_cb.html";
+            var response_type="code";
+            var u="https://access.line.me/dialog/oauth/weblogin?client_id="+client_id+"&redirect_uri="+o+
+            "&response_type="+response_type+"&state=12345";
+            window.location.replace(u);
+          };
 
 
-
-
-              }else if (data.type === "oldUser") {
-                $ionicPopup.alert({
-                  title: '欢迎您再次使用～赶紧的去挑选吧！'
-                });
-                $scope.username = data.id;
-                $scope.usernameExist = true;
-                $rootScope.username = data.id;
-                localStorageService.set("usernameData", data.id)
-                $state.go('tab.coupon');
-              }else{
-                $ionicPopup.alert({
-                  title: 'something went wrong.'
-                });
-                  $state.go('tab.login');
-              }
-            })
-        }, function(error) {
-          alert(error);
-          console.log(error);
-          });
-        }
-*/
 
         $scope.goRegister = function(){
           $state.go('tab.registerNew');
@@ -606,7 +560,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
                 title: '正しいユーザ名とパスワードを入力してください！'
               });
             } else{
-              $http.post("http://120.24.168.7/api/login",{
+              $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/login",{
                 "username": username,
                 "password": password
               }).success(function (data) {
@@ -710,7 +664,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
           title: '正しいユーザ名とパスワードを入力してください！'
         });
       } else {
-        $http.post("http://120.24.168.7/api/register", {
+        $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/register", {
           "username": username,
           "password": password
         }).success(function (data) {
@@ -797,7 +751,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
     $scope.sendJson = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://120.24.168.7/api/posts", $scope.product).success(function (data) {
+      $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/posts", $scope.product).success(function (data) {
         console.log(data)
         if (data == "already exists") {
           alert("商品も既に存在したため、更新失敗")
@@ -811,7 +765,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
 
     $scope.replace = function () {
       $scope.product.timeLimit = new Date($scope.year, $scope.month - 1, $scope.day, '23', '59', '59');
-      $http.post("http://120.24.168.7/api/replace", $scope.product).success(function (data) {
+      $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/replace", $scope.product).success(function (data) {
         console.log(data)
         if (data = "OK")
           alert("successfully replaced")
@@ -827,7 +781,7 @@ angular.module('starter.controllers', ['naif.base64', 'ngCordova'])
         });
       } else {
         console.log($scope.shop);
-        $http.post("http://120.24.168.7/api/registerShop", $scope.shop).success(function (data) {
+        $http.post("http://ec2-54-238-168-110.ap-northeast-1.compute.amazonaws.com:8080/api/registerShop", $scope.shop).success(function (data) {
           console.log(data)
           if (data == "OK") {
             $scope.registeredShop.done = true;
