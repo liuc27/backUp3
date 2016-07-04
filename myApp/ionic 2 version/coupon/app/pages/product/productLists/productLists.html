@@ -1,0 +1,70 @@
+<ion-navbar  *navbar hideBackButton hideTabBar>
+  <ion-buttons start (click)="showTabs()">
+    <div block button nav-pop>
+      <ion-icon name="ios-arrow-back"></ion-icon>
+      Back
+    </div>
+  </ion-buttons>
+
+  <ion-title>ProductLists Page</ion-title>
+
+  <ion-buttons end>
+    <button>
+      <ion-icon name="ios-search"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-toolbar>
+  <div class="buttonInMenu" (click)="presentCategoryPopover($event)">
+    category
+    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  </div>
+  <div class="buttonInMenu"  (click)="presentLocationPopover($event)">
+    location
+    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  </div>
+
+  <div class="buttonInMenu"  (click)="presentOrderPopover($event)">
+    order
+    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  </div>
+</ion-toolbar>
+<ion-content  #popoverContent class="productLists">
+
+
+
+  <div >
+    <ion-list class="ion-list-class" *ngFor="let product of productLists">
+
+      <ion-card class="adv-map" >
+        <div style="position: relative">
+          <img src="img/card-saopaolo.png">
+          <div class="fab-shop">
+          <ion-avatar >
+              <img src="img/card-saopaoloo.png">
+          </ion-avatar>
+        </div>
+          <button fab class="fab-favorite">
+            <ion-icon name='md-heart-outline'></ion-icon>
+          </button>
+        </div>
+
+        <ion-item>
+          <ion-icon subtle large item-left name='cloud'></ion-icon>
+          <h2>Yoshi's Island</h2>
+          <p>Iggy Koopa</p>
+          <button danger clear item-right>
+            <ion-icon name='navigate'></ion-icon>
+            Start
+          </button>
+        </ion-item>
+      </ion-card>
+
+    </ion-list>
+  </div>
+
+  <div #popoverText class="text-to-change">
+    <div> testData</div>
+  </div>
+</ion-content>

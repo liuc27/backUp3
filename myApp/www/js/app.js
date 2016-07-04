@@ -5,12 +5,22 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.rating', 'LocalStorageModule', 'ngCordova'])
+angular.module('starter', ['ionic', 'pascalprecht.translate', 'naif.base64', 'starter.controllers', 'starter.services', 'starter.filters', 'ionic.rating', 'LocalStorageModule', 'ngCordova'])
 
-  .run(function ($ionicPlatform) {
+  .run(function ($ionicPlatform,$translate) {
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
+
+      // if(typeof navigator.globalization !== "undefined") {
+      //   navigator.globalization.getPreferredLanguage(function(language) {
+      //     $translate.use((language.value).split("-")[0]).then(function(data) {
+      //       console.log("SUCCESS -> " + data);
+      //     }, function(error) {
+      //       console.log("ERROR -> " + error);
+      //     });
+      //   }, null);
+      // }
+
       if (window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
@@ -27,7 +37,20 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
       .setPrefix('myApp')
       .setNotify(true, true)
   })
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
+
+    $translateProvider.useStaticFilesLoader({
+      prefix: 'scripts/locales/',
+      suffix: '.json'
+    })
+        .registerAvailableLanguageKeys(['en', 'de'], {
+          'en' : 'en', 'en_GB': 'en', 'en_US': 'en',
+          'de' : 'de', 'de_DE': 'de', 'de_CH': 'de'
+        })
+        .preferredLanguage('en')
+        .fallbackLanguage('en')
+        .determinePreferredLanguage()
+        .useSanitizeValueStrategy('escapeParameters');
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -149,7 +172,12 @@ angular.module('starter', ['ionic', 'naif.base64', 'starter.controllers', 'start
         views: {
           'tab-types': {
             templateUrl: 'templates/tab-shops.html',
-            controller: 'shopsCtrl'
+            controller: 'shopsCtrl',
+            resolve: {
+              resolvedShops: function (types) {
+                return types.allShops()
+              }
+            }
           }
         }
       })
