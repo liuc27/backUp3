@@ -6,7 +6,7 @@
     </div>
   </ion-buttons>
 
-  <ion-title>ProductLists Page</ion-title>
+  <ion-title>productDetails Page</ion-title>
 
   <ion-buttons end>
     <button>
@@ -30,14 +30,10 @@
     <ion-icon name="ios-arrow-down-outline"></ion-icon>
   </div>
 </ion-toolbar>
-<ion-content  #popoverContent class="productLists">
+<ion-content  #popoverContent class="productDetails">
 
-
-
-  <div >
-    <ion-list class="ion-list-class" *ngFor="let product of productLists">
-
-      <ion-card class="adv-map" (click)="openProductDetailsPage(product)">
+<div  *ngFor="let product of productDetails">
+      <ion-card class="adv-map">
         <div style="position: relative">
           <img src="img/card-saopaolo.png">
           <div class="fab-shop">
@@ -51,18 +47,47 @@
         </div>
 
         <ion-item>
-          <ion-icon subtle large item-left name='cloud'></ion-icon>
-          <h2>Yoshi's Island</h2>
-          <p>Iggy Koopa</p>
+          <h2> productName</h2>
+          <p>location</p>
           <button danger clear item-right>
             <ion-icon name='navigate'></ion-icon>
             Start
           </button>
         </ion-item>
+        <ion-item actions>
+          <span item-left> 50% off</span>
+          <span item-left>2000yen</span>
+          <span item-right>
+            100already purchased
+          </span>
+        </ion-item>
       </ion-card>
 
-    </ion-list>
-  </div>
+      <ion-card class="highLightsCard">
+        <div class="spaceLine"></div>
+        <ion-card-header>
+          highLights
+        </ion-card-header>
+        <ion-list >
+          <div ion-item>
+            highLightsDetails
+          </div>
+        </ion-list>
+      </ion-card>
+
+      <ion-card class="highLightsCard">
+        <div class="spaceLine"></div>
+        <ion-card-header>
+          About This Deal
+        </ion-card-header>
+        <ion-list >
+          <div ion-item>
+            detail
+          </div>
+        </ion-list>
+      </ion-card>
+
+</div>
 
   <div #popoverText class="text-to-change">
     <div> testData</div>

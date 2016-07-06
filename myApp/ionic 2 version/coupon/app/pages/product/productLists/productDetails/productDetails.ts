@@ -6,35 +6,34 @@ import {Page,App, Events, NavController, NavParams, Popover,} from 'ionic-angula
 import {Category} from "./popoverPages/category";
 import {Location} from "./popoverPages/location";
 import {Order} from "./popoverPages/order";
-import {ProductDetails} from './productDetails/productDetails';
-import {getSelectedProductLists} from '../../../providers/productLists-GetSelectedProductLists-service/productLists-GetSelectedProductLists-service';
+import {getSelectedProductDetails} from '../../../../providers/productDetails-GetSelectedProductDetails-service/productDetails-GetSelectedProductDetails-service';
 
 @Component({
-    templateUrl: 'build/pages/product/productLists/productLists.html',
-    providers:[getSelectedProductLists]
+    templateUrl: 'build/pages/product/productLists/productDetails/productDetails.html',
+    providers:[getSelectedProductDetails]
 })
-export class ProductLists {
+export class ProductDetails {
     @ViewChild('popoverContent', {read: ElementRef}) content: ElementRef;
     @ViewChild('popoverText', {read: ElementRef}) text: ElementRef;
     product;
     productOrShop;
-    productLists;
+    productDetails;
 
     constructor(private params: NavParams,
     private nav:NavController,
     private events: Events,
-    public productListsService:getSelectedProductLists) {
+    public productDetailsService:getSelectedProductDetails) {
         this.product = params.data.product;
         this.productOrShop = "product";
         console.log(params.data);
-        this.loadSelectedProductLists();
+        this.loadSelectedproductDetails();
     }
 
-    loadSelectedProductLists() {
-      this.productListsService.load()
+    loadSelectedproductDetails() {
+      this.productDetailsService.load()
           .then(data => {
-            this.productLists = data;
-            console.log(this.productLists);
+            this.productDetails = data;
+            console.log(this.productDetails);
           });
     }
 
@@ -86,10 +85,5 @@ export class ProductLists {
     showTabs() {
       console.log("leave")
       this.events.publish('showTabs');
-    }
-
-    openProductDetailsPage(product){
-      console.log("detail open");
-      this.nav.push(ProductDetails,{product:product});
     }
 }
