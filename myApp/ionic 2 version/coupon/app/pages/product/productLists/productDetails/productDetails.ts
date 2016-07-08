@@ -2,7 +2,7 @@
  * Created by liuchao on 6/25/16.
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Page,App, Events, NavController, NavParams, Popover,} from 'ionic-angular';
+import {Page,App, Events, NavController, NavParams, Popover} from 'ionic-angular';
 import {Category} from "./popoverPages/category";
 import {Location} from "./popoverPages/location";
 import {Order} from "./popoverPages/order";
@@ -73,17 +73,5 @@ export class ProductDetails {
         });
     }
 
-    onPageWillEnter() {
-      this.hideTabs();
-    }
 
-    hideTabs(){
-      console.log("enter");
-      this.events.publish('hideTabs');
-    }
-
-    showTabs() {
-      console.log("leave")
-      this.events.publish('showTabs');
-    }
 }

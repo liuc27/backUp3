@@ -1,11 +1,9 @@
-<ion-navbar  *navbar hideBackButton hideTabBar>
-  <ion-buttons start (click)="showTabs()">
-    <div block button nav-pop>
+<ion-navbar  *navbar  hideBackButton>
+  <ion-buttons left nav-pop>
+    <div block button >
       <ion-icon name="ios-arrow-back"></ion-icon>
-      Back
     </div>
   </ion-buttons>
-
   <ion-title>productDetails Page</ion-title>
 
   <ion-buttons end>
@@ -15,24 +13,30 @@
   </ion-buttons>
 </ion-navbar>
 
-<ion-toolbar>
-  <div class="buttonInMenu" (click)="presentCategoryPopover($event)">
-    category
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+<ion-toolbar class="productDetailsToolbar">
+  <div  class="buttonInMenu">
+    <button clear (click)="presentCategoryPopover($event)">
+      category
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
-  <div class="buttonInMenu"  (click)="presentLocationPopover($event)">
-    location
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  <div  class="buttonInMenu">
+    <button clear (click)="presentLocationPopover($event)">
+      location
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
 
-  <div class="buttonInMenu"  (click)="presentOrderPopover($event)">
-    order
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  <div class="buttonInMenu">
+    <button clear (click)="presentOrderPopover($event)">
+      order
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
 </ion-toolbar>
 <ion-content  #popoverContent class="productDetails">
 
-<div  *ngFor="let product of productDetails">
+<div >
       <ion-card class="adv-map">
         <div style="position: relative">
           <img src="img/card-saopaolo.png">
@@ -49,10 +53,7 @@
         <ion-item>
           <h2> productName</h2>
           <p>location</p>
-          <button danger clear item-right>
-            <ion-icon name='navigate'></ion-icon>
-            Start
-          </button>
+
         </ion-item>
         <ion-item actions>
           <span item-left> 50% off</span>
@@ -61,6 +62,11 @@
             100already purchased
           </span>
         </ion-item>
+
+        <button full item-right>
+          Buy
+        </button>
+
       </ion-card>
 
       <ion-card class="highLightsCard">
@@ -83,6 +89,31 @@
         <ion-list >
           <div ion-item>
             detail
+          </div>
+        </ion-list>
+      </ion-card>
+
+      <ion-card class="highLightsCard">
+        <div class="spaceLine"></div>
+        <ion-card-header>
+          location
+        </ion-card-header>
+        <ion-list >
+          <div ion-item>
+            phoneNumber
+          </div>
+        </ion-list>
+      </ion-card>
+
+
+      <ion-card class="highLightsCard">
+        <div class="spaceLine"></div>
+        <ion-card-header>
+          Fine Print
+        </ion-card-header>
+        <ion-list >
+          <div ion-item>
+            restriction detail
           </div>
         </ion-list>
       </ion-card>

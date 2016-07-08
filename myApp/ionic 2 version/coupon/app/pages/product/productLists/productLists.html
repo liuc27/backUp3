@@ -1,8 +1,7 @@
-<ion-navbar  *navbar hideBackButton hideTabBar>
-  <ion-buttons start (click)="showTabs()">
-    <div block button nav-pop>
+<ion-navbar  *navbar hideBackButton>
+  <ion-buttons left (click)="popBack()">
+    <div block button >
       <ion-icon name="ios-arrow-back"></ion-icon>
-      Back
     </div>
   </ion-buttons>
 
@@ -15,19 +14,25 @@
   </ion-buttons>
 </ion-navbar>
 
-<ion-toolbar>
-  <div class="buttonInMenu" (click)="presentCategoryPopover($event)">
-    category
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+<ion-toolbar class="productListsToolbar">
+  <div  class="buttonInMenu">
+    <button clear (click)="presentCategoryPopover($event)">
+      category
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
-  <div class="buttonInMenu"  (click)="presentLocationPopover($event)">
-    location
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  <div  class="buttonInMenu">
+    <button clear (click)="presentLocationPopover($event)">
+      location
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
 
-  <div class="buttonInMenu"  (click)="presentOrderPopover($event)">
-    order
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  <div class="buttonInMenu">
+    <button clear (click)="presentOrderPopover($event)">
+      order
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
 </ion-toolbar>
 <ion-content  #popoverContent class="productLists">
@@ -37,14 +42,18 @@
   <div >
     <ion-list class="ion-list-class" *ngFor="let product of productLists">
 
-      <ion-card class="adv-map" (click)="openProductDetailsPage(product)">
+      <ion-card class="adv-map" >
         <div style="position: relative">
-          <img src="img/card-saopaolo.png">
+          <a (click)="openProductDetailsPage(product)">
+            <img src="img/card-saopaolo.png" >
+          </a>
           <div class="fab-shop">
-          <ion-avatar >
-              <img src="img/card-saopaoloo.png">
-          </ion-avatar>
-        </div>
+            <ion-avatar>
+              <a>
+                <img src="img/card-saopaoloo.png">
+              </a>
+            </ion-avatar>
+          </div>
           <button fab class="fab-favorite">
             <ion-icon name='md-heart-outline'></ion-icon>
           </button>

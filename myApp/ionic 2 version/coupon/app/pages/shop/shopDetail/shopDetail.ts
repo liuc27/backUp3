@@ -3,9 +3,9 @@
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Page,App, Events, NavController, NavParams, Popover,} from 'ionic-angular';
-import {Category} from "./popoverPages/category";
-import {Location} from "./popoverPages/location";
-import {Order} from "./popoverPages/order";
+import {shopDetailPop1} from "./popoverPages/shopDetailPop1";
+import {shopDetailPop2} from "./popoverPages/shopDetailPop2";
+import {shopDetailPop3} from "./popoverPages/shopDetailPop3";
 import {getSelectedShopDetail} from '../../../providers/shopDetail-GetSelectedShopDetail-service/shopDetail-GetSelectedShopDetail-service';
 
 @Component({
@@ -37,38 +37,38 @@ export class ShopDetail {
           });
     }
 
-    presentCategoryPopover(ev) {
-        let category = Popover.create(Category, {
+    presentShopDetailPop1Popover(ev) {
+        let shopDetailPop1Page = Popover.create(shopDetailPop1, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(category, {
+        this.nav.present(shopDetailPop1Page, {
             ev: ev
         });
     }
 
-    presentLocationPopover(ev) {
-        let location = Popover.create(Location, {
+    presentShopDetailPop2Popover(ev) {
+        let shopDetailPop2Page = Popover.create(shopDetailPop2, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(location, {
+        this.nav.present(shopDetailPop2Page, {
             ev: ev
         });
     }
 
-    presentOrderPopover(ev) {
-        let order = Popover.create(Order, {
+    presentShopDetailPop3Popover(ev) {
+        let shopDetailPop3Page = Popover.create(shopDetailPop3, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(order, {
+        this.nav.present(shopDetailPop3Page, {
             ev: ev
         });
     }

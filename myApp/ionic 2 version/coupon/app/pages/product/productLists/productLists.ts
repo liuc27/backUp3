@@ -2,11 +2,13 @@
  * Created by liuchao on 6/25/16.
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Page,App, Events, NavController, NavParams, Popover,} from 'ionic-angular';
+import {Page,App, Events, NavController, NavParams, Popover} from 'ionic-angular';
 import {Category} from "./popoverPages/category";
 import {Location} from "./popoverPages/location";
 import {Order} from "./popoverPages/order";
 import {ProductDetails} from './productDetails/productDetails';
+import {ProductPage} from '../product';
+
 import {getSelectedProductLists} from '../../../providers/productLists-GetSelectedProductLists-service/productLists-GetSelectedProductLists-service';
 
 @Component({
@@ -86,6 +88,12 @@ export class ProductLists {
     showTabs() {
       console.log("leave")
       this.events.publish('showTabs');
+    }
+
+    popBack(){
+        this.showTabs();
+        console.log("pp1");
+        this.nav.pop();
     }
 
     openProductDetailsPage(product){
