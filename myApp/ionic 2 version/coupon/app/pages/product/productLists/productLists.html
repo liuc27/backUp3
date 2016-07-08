@@ -16,38 +16,28 @@
 
 <ion-toolbar class="productListsToolbar">
   <div  class="buttonInMenu">
-    <button clear (click)="presentCategoryPopover($event)">
-      category
+    <button clear (click)="presentProductListsPop1Popover($event)">
+      Pop1
       <ion-icon name="ios-arrow-down-outline"></ion-icon>
     </button>
   </div>
   <div  class="buttonInMenu">
-    <button clear (click)="presentLocationPopover($event)">
-      location
+    <button clear (click)="presentProductListsPop2Popover($event)">
+      Pop2
       <ion-icon name="ios-arrow-down-outline"></ion-icon>
     </button>
   </div>
 
   <div class="buttonInMenu">
-    <button clear (click)="presentOrderPopover($event)">
-      order
+    <button clear (click)="presentProductListsPop3Popover($event)">
+      Pop3
       <ion-icon name="ios-arrow-down-outline"></ion-icon>
     </button>
   </div>
 </ion-toolbar>
 <ion-content  #popoverContent class="productLists">
-
-
-
   <div >
     <ion-list class="ion-list-class" *ngFor="let product of productLists">
-
-
-
-
-
-
-
 
       <ion-card class="adv-map" >
         <div style="position: relative">

@@ -3,9 +3,9 @@
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Page,App, Events, NavController, NavParams, Popover} from 'ionic-angular';
-import {Category} from "./popoverPages/category";
-import {Location} from "./popoverPages/location";
-import {Order} from "./popoverPages/order";
+import {ProductListsPop1} from "./popoverPages/productDetailsPop1";
+import {ProductListsPop2} from "./popoverPages/productDetailsPop2";
+import {ProductListsPop3} from "./popoverPages/productDetailsPop3";
 import {getSelectedProductDetails} from '../../../../providers/productDetails-GetSelectedProductDetails-service/productDetails-GetSelectedProductDetails-service';
 
 @Component({
@@ -37,38 +37,38 @@ export class ProductDetails {
           });
     }
 
-    presentCategoryPopover(ev) {
-        let category = Popover.create(Category, {
+    presentProductListsPop1Popover(ev) {
+        let productDetailsPop1 = Popover.create(ProductListsPop1, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(category, {
+        this.nav.present(productDetailsPop1, {
             ev: ev
         });
     }
 
-    presentLocationPopover(ev) {
-        let location = Popover.create(Location, {
+    presentProductListsPop2Popover(ev) {
+        let productDetailsPop2 = Popover.create(ProductListsPop2, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(location, {
+        this.nav.present(productDetailsPop2, {
             ev: ev
         });
     }
 
-    presentOrderPopover(ev) {
-        let order = Popover.create(Order, {
+    presentProductListsPop3Popover(ev) {
+        let productDetailsPop3 = Popover.create(ProductListsPop3, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(order, {
+        this.nav.present(productDetailsPop3, {
             ev: ev
         });
     }

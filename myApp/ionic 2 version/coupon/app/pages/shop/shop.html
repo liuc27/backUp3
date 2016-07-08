@@ -22,28 +22,30 @@
 </ion-navbar>
 
 
-<ion-content  #popoverContent class="shop">
-    <div class="flexWrap">
-        <div  class="buttonInMenu22">
-          <button clear (click)="presentShopPop1Popover($event)">
+<ion-toolbar class="shopToolBar">
+    <div  class="buttonInMenu">
+        <button clear (click)="presentShopPop1Popover($event)">
             shopPop1
             <ion-icon name="ios-arrow-down-outline"></ion-icon>
-          </button>
-        </div>
-        <div class="buttonInMenu22">
-          <button clear (click)="presentShopPop2Popover($event)">
+        </button>
+    </div>
+    <div class="buttonInMenu">
+        <button clear (click)="presentShopPop2Popover($event)">
             location
             <ion-icon name="ios-arrow-down-outline"></ion-icon>
-          </button>
-        </div>
+        </button>
+    </div>
 
-        <div class="buttonInMenu22">
-          <button clear (click)="presentShopPop3Popover($event)">
+    <div class="buttonInMenu">
+        <button clear (click)="presentShopPop3Popover($event)">
             order
             <ion-icon name="ios-arrow-down-outline"></ion-icon>
-          </button>
-        </div>
-      </div>
+        </button>
+    </div>
+</ion-toolbar>
+
+<ion-content  #popoverContent class="shop">
+
 
     <div [ngSwitch]="productOrShop">
       <ion-list>

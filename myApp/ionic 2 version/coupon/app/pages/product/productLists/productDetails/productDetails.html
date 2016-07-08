@@ -15,21 +15,21 @@
 
 <ion-toolbar class="productDetailsToolbar">
   <div  class="buttonInMenu">
-    <button clear (click)="presentCategoryPopover($event)">
-      category
+    <button clear (click)="presentProductListsPop1Popover($event)">
+      Pop1
       <ion-icon name="ios-arrow-down-outline"></ion-icon>
     </button>
   </div>
   <div  class="buttonInMenu">
-    <button clear (click)="presentLocationPopover($event)">
-      location
+    <button clear (click)="presentProductListsPop2Popover($event)">
+      Pop2
       <ion-icon name="ios-arrow-down-outline"></ion-icon>
     </button>
   </div>
 
   <div class="buttonInMenu">
-    <button clear (click)="presentOrderPopover($event)">
-      order
+    <button clear (click)="presentProductListsPop3Popover($event)">
+      Pop3
       <ion-icon name="ios-arrow-down-outline"></ion-icon>
     </button>
   </div>
@@ -67,7 +67,7 @@
       </div>
       <ion-item>
         <h2> productName</h2>
-        <p>location</p>
+        <p>productDetailsPop2</p>
 
       </ion-item>
       <ion-item actions>
@@ -78,9 +78,9 @@
           </span>
       </ion-item>
 
-      <button full item-right>
-        Buy
-      </button>
+      <div padding>
+        <button primary block>Buy!</button>
+      </div>
 
     </ion-card>
 
@@ -111,7 +111,7 @@
     <ion-card class="highLightsCard">
       <div class="spaceLine"></div>
       <ion-card-header>
-        location
+        productDetailsPop2
       </ion-card-header>
       <ion-list >
         <div ion-item>

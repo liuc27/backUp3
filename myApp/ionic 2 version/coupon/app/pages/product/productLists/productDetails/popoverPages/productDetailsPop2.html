@@ -1,4 +1,4 @@
-<ion-list radio-group [(ngModel)]="fontFamily" (ionChange)="changeFontFamily()" class="order">
+<ion-list radio-group [(ngModel)]="fontFamily" (ionChange)="changeFontFamily()" class="productDetailsPop3">
     <ion-row>
         <ion-col>
             <button (click)="changeFontSize('smaller')" ion-item detail-none class="text-button text-smaller">A</button>
@@ -9,16 +9,16 @@
     </ion-row>
     <ion-row class="row-dots">
         <ion-col>
-            <button (click)="changeBackground('white')" category="dot" class="dot-white" [class.selected]="background == 'white'"></button>
+            <button (click)="changeBackground('white')" productDetailsPop1="dot" class="dot-white" [class.selected]="background == 'white'"></button>
         </ion-col>
         <ion-col>
-            <button (click)="changeBackground('tan')" category="dot" class="dot-tan" [class.selected]="background == 'tan'"></button>
+            <button (click)="changeBackground('tan')" productDetailsPop1="dot" class="dot-tan" [class.selected]="background == 'tan'"></button>
         </ion-col>
         <ion-col>
-            <button (click)="changeBackground('grey')" category="dot" class="dot-grey" [class.selected]="background == 'grey'"></button>
+            <button (click)="changeBackground('grey')" productDetailsPop1="dot" class="dot-grey" [class.selected]="background == 'grey'"></button>
         </ion-col>
         <ion-col>
-            <button (click)="changeBackground('black')" category="dot" class="dot-black" [class.selected]="background == 'black'"></button>
+            <button (click)="changeBackground('black')" productDetailsPop1="dot" class="dot-black" [class.selected]="background == 'black'"></button>
         </ion-col>
     </ion-row>
     <ion-item class="text-athelas">

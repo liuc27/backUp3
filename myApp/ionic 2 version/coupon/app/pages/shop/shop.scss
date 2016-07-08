@@ -1,3 +1,17 @@
+.shopToolBar{
+  z-index: 1;
+
+  .buttonInMenu{
+    display: table-cell;
+    margin: 0!important;
+    padding: 0!important;
+    width: 33.34vw;
+    text-align:center;
+  }
+}
+
+
+
 .shop {
 
   z-index: 1;
@@ -32,14 +46,6 @@
     top: 52%;
     width: 100%;
     color: #fff;
-  }
-
-  .buttonInMenu22{
-    display: table-cell;
-    margin: 0!important;
-    padding: 0!important;
-    width: 34vw;
-    text-align:center;
   }
 
 }

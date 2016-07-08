@@ -6,7 +6,7 @@
     display: table-cell;
     margin: 0!important;
     padding: 0!important;
-    width: 34vw;
+    width: 33.34vw;
     text-align:center;
   }
 }
@@ -19,13 +19,13 @@
 .productLists{
 
   .button-icon-only ion-icon{
-    font-size: 2.6em;
+    font-size: 2.4em;
   }
 
   ion-avatar img {
-    max-width: 4.6rem;
-    max-height: 4.6rem;
-    border-radius: 2.3rem;
+    max-width: 3.2em;
+    max-height: 3.2em;
+    border-radius: 1.6em;
   }
 
   ion-card.adv-map {
@@ -33,14 +33,10 @@
     margin: 0;
   }
 
-  ion-avatar img {
-
-  }
-
   .fab-shop {
     position: absolute;
-    bottom: -2.3rem;
-    right:1.6rem;
+    bottom: -1.6em;
+    right:1.0em;
     z-index: 50;
     float: right;
     overflow:hidden;
@@ -51,12 +47,12 @@
 
   button[fab].fab-favorite {
     background-color: transparent;
-    top:0;
-    right:0.2em;
+    top:0.6em;
+    right:1.0em;
     padding: 0;
     margin: 0;
-    height:4.6em;
-    width:4.6em;
+    height:3.2em;
+    width:3.2em;
   }
 
   .item-bold {

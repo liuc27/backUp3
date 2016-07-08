@@ -5,10 +5,10 @@ import {Component} from '@angular/core';
 import {NavController, NavParams, Events} from 'ionic-angular';
 
 @Component({
-    templateUrl: 'build/pages/product/productLists/productDetails/popoverPages/order.html',
+    templateUrl: 'build/pages/product/productLists/productDetails/popoverPages/productDetailsPop1.html',
 })
 
-export class Order {
+export class ProductListsPop1 {
     background: string;
     contentEle: any;
     textEle: any;

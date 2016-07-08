@@ -3,9 +3,9 @@
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Page,App, Events, NavController, NavParams, Popover} from 'ionic-angular';
-import {Category} from "./popoverPages/category";
-import {Location} from "./popoverPages/location";
-import {Order} from "./popoverPages/order";
+import {ProductListsPop1} from "./popoverPages/productListsPop1";
+import {ProductListsPop2} from "./popoverPages/productListsPop2";
+import {ProductListsPop3} from "./popoverPages/productListsPop3";
 import {ProductDetails} from './productDetails/productDetails';
 import {ProductPage} from '../product';
 
@@ -40,38 +40,38 @@ export class ProductLists {
           });
     }
 
-    presentCategoryPopover(ev) {
-        let category = Popover.create(Category, {
+    presentProductListsPop1Popover(ev) {
+        let productListsPop1 = Popover.create(ProductListsPop1, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(category, {
+        this.nav.present(productListsPop1, {
             ev: ev
         });
     }
 
-    presentLocationPopover(ev) {
-        let location = Popover.create(Location, {
+    presentProductListsPop2Popover(ev) {
+        let productListsPop2 = Popover.create(ProductListsPop2, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(location, {
+        this.nav.present(productListsPop2, {
             ev: ev
         });
     }
 
-    presentOrderPopover(ev) {
-        let order = Popover.create(Order, {
+    presentProductListsPop3Popover(ev) {
+        let productListsPop3 = Popover.create(ProductListsPop3, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(order, {
+        this.nav.present(productListsPop3, {
             ev: ev
         });
     }
