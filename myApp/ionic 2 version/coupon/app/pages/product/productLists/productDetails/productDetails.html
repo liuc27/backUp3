@@ -1,5 +1,5 @@
 <ion-navbar  *navbar  hideBackButton>
-  <ion-buttons left nav-pop>
+  <ion-buttons left nav-pop class="leftNavButton">
     <div block button >
       <ion-icon name="ios-arrow-back"></ion-icon>
     </div>
@@ -36,89 +36,104 @@
 </ion-toolbar>
 <ion-content  #popoverContent class="productDetails">
 
-<div >
-      <ion-card class="adv-map">
-        <div style="position: relative">
-          <img src="img/card-saopaolo.png">
-          <div class="fab-shop">
+  <div >
+    <ion-card class="adv-map">
+      <div style="position: relative">
+        <ion-slides>
+          <ion-slide>
+            <a style="position: relative">
+              <img src="img/card-saopaolo.png">
+            </a>
+
+            <button fab class="fab-favorite">
+              <ion-icon name='md-heart-outline'></ion-icon>
+            </button>
+          </ion-slide>
+          <ion-slide>
+            <a style="position: relative">
+              <img src="img/card-saopaolo.png">
+            </a>
+
+            <button fab class="fab-favorite">
+              <ion-icon name='md-heart-outline'></ion-icon>
+            </button>
+          </ion-slide>
+        </ion-slides>
+        <a class="fab-shop">
           <ion-avatar >
-              <img src="img/card-saopaoloo.png">
+            <img src="img/card-saopaoloo.png">
           </ion-avatar>
-        </div>
-          <button fab class="fab-favorite">
-            <ion-icon name='md-heart-outline'></ion-icon>
-          </button>
-        </div>
+        </a>
+      </div>
+      <ion-item>
+        <h2> productName</h2>
+        <p>location</p>
 
-        <ion-item>
-          <h2> productName</h2>
-          <p>location</p>
-
-        </ion-item>
-        <ion-item actions>
-          <span item-left> 50% off</span>
-          <span item-left>2000yen</span>
+      </ion-item>
+      <ion-item actions>
+        <span item-left> 50% off</span>
+        <span item-left>2000yen</span>
           <span item-right>
             100already purchased
           </span>
-        </ion-item>
+      </ion-item>
 
-        <button full item-right>
-          Buy
-        </button>
+      <button full item-right>
+        Buy
+      </button>
 
-      </ion-card>
+    </ion-card>
 
-      <ion-card class="highLightsCard">
-        <div class="spaceLine"></div>
-        <ion-card-header>
-          highLights
-        </ion-card-header>
-        <ion-list >
-          <div ion-item>
-            highLightsDetails
-          </div>
-        </ion-list>
-      </ion-card>
+    <ion-card class="highLightsCard">
+      <div class="spaceLine"></div>
+      <ion-card-header>
+        highLights
+      </ion-card-header>
+      <ion-list >
+        <div ion-item>
+          highLightsDetails
+        </div>
+      </ion-list>
+    </ion-card>
 
-      <ion-card class="highLightsCard">
-        <div class="spaceLine"></div>
-        <ion-card-header>
-          About This Deal
-        </ion-card-header>
-        <ion-list >
-          <div ion-item>
-            detail
-          </div>
-        </ion-list>
-      </ion-card>
+    <ion-card class="highLightsCard">
+      <div class="spaceLine"></div>
+      <ion-card-header>
+        About This Deal
+      </ion-card-header>
+      <ion-list >
+        <div ion-item>
+          detail
+        </div>
+      </ion-list>
+    </ion-card>
 
-      <ion-card class="highLightsCard">
-        <div class="spaceLine"></div>
-        <ion-card-header>
-          location
-        </ion-card-header>
-        <ion-list >
-          <div ion-item>
-            phoneNumber
-          </div>
-        </ion-list>
-      </ion-card>
+    <ion-card class="highLightsCard">
+      <div class="spaceLine"></div>
+      <ion-card-header>
+        location
+      </ion-card-header>
+      <ion-list >
+        <div ion-item>
+          phoneNumber
+        </div>
+      </ion-list>
+    </ion-card>
 
 
-      <ion-card class="highLightsCard">
-        <div class="spaceLine"></div>
-        <ion-card-header>
-          Fine Print
-        </ion-card-header>
-        <ion-list >
-          <div ion-item>
-            restriction detail
-          </div>
-        </ion-list>
-      </ion-card>
+    <ion-card class="highLightsCard">
+      <div class="spaceLine"></div>
+      <ion-card-header>
+        Fine Print
+      </ion-card-header>
+      <ion-list >
+        <div ion-item>
+          restriction detail
+        </div>
+      </ion-list>
+    </ion-card>
 
-</div>
+  </div>
 
   <div #popoverText class="text-to-change">
     <div> testData</div>

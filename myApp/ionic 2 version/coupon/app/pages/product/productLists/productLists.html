@@ -1,5 +1,5 @@
 <ion-navbar  *navbar hideBackButton>
-  <ion-buttons left (click)="popBack()">
+  <ion-buttons left (click)="popBack()" class="leftNavButton">
     <div block button >
       <ion-icon name="ios-arrow-back"></ion-icon>
     </div>
@@ -42,21 +42,43 @@
   <div >
     <ion-list class="ion-list-class" *ngFor="let product of productLists">
 
+
+
+
+
+
+
+
       <ion-card class="adv-map" >
         <div style="position: relative">
-          <a (click)="openProductDetailsPage(product)">
-            <img src="img/card-saopaolo.png" >
-          </a>
-          <div class="fab-shop">
+
+          <ion-slides >
+            <ion-slide>
+              <a (click)="openProductDetailsPage(product)">
+                <img src="img/card-saopaolo.png" >
+              </a>
+              <button fab class="fab-favorite">
+                <ion-icon name='md-heart-outline'></ion-icon>
+              </button>
+            </ion-slide>
+
+            <ion-slide>
+              <a (click)="openProductDetailsPage(product)">
+                <img src="img/card-saopaolo.png" >
+              </a>
+              <button fab class="fab-favorite">
+                <ion-icon name='md-heart-outline'></ion-icon>
+              </button>
+            </ion-slide>
+          </ion-slides>
+
+          <a class="fab-shop">
             <ion-avatar>
               <a>
                 <img src="img/card-saopaoloo.png">
               </a>
             </ion-avatar>
-          </div>
-          <button fab class="fab-favorite">
-            <ion-icon name='md-heart-outline'></ion-icon>
-          </button>
+          </a>
         </div>
 
         <ion-item>

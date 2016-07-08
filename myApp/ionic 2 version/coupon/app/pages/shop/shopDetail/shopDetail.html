@@ -1,5 +1,5 @@
 <ion-navbar  *navbar hideBackButton hideTabBar>
-  <ion-buttons left (click)="showTabs()">
+  <ion-buttons left (click)="showTabs()" class="leftNavButton">
     <div block button nav-pop>
       <ion-icon name="ios-arrow-back"></ion-icon>
 
@@ -36,7 +36,7 @@
     <ion-row no-padding>
       <ion-col>
         <button clear small danger>
-          <ion-icon name='ion-chatbox-working'></ion-icon>
+          <ion-icon name='ion-chatbox'></ion-icon>
           Comment
         </button>
       </ion-col>
@@ -88,15 +88,34 @@
 
       <ion-card class="adv-map" >
         <div style="position: relative">
-          <img src="img/card-saopaolo.png">
-          <div class="fab-shop">
-          <ion-avatar >
-              <img src="img/card-saopaoloo.png">
-          </ion-avatar>
-        </div>
-          <button fab class="fab-favorite">
-            <ion-icon name='md-heart-outline'></ion-icon>
-          </button>
+
+          <ion-slides >
+            <ion-slide>
+              <a (click)="openProductDetailsPage(product)">
+                <img src="img/card-saopaolo.png" >
+              </a>
+              <button fab class="fab-favorite">
+                <ion-icon name='md-heart-outline'></ion-icon>
+              </button>
+            </ion-slide>
+
+            <ion-slide>
+              <a (click)="openProductDetailsPage(product)">
+                <img src="img/card-saopaolo.png" >
+              </a>
+              <button fab class="fab-favorite">
+                <ion-icon name='md-heart-outline'></ion-icon>
+              </button>
+            </ion-slide>
+          </ion-slides>
+
+          <a class="fab-shop">
+            <ion-avatar>
+              <a>
+                <img src="img/card-saopaoloo.png">
+              </a>
+            </ion-avatar>
+          </a>
         </div>
 
         <ion-item>
