@@ -1,5 +1,5 @@
 <ion-navbar  *navbar hideBackButton hideTabBar>
-  <ion-buttons left (click)="showTabs()" class="leftNavButton">
+  <ion-buttons left class="leftNavButton">
     <div block button nav-pop>
       <ion-icon name="ios-arrow-back"></ion-icon>
 
@@ -84,12 +84,12 @@
 
 
   <div >
-    <ion-list class="ion-list-class" *ngFor="let shop of shopDetail">
+    <ion-list class="ion-list-class" *ngFor="let product of shopDetail">
 
       <ion-card class="adv-map" >
         <div style="position: relative">
 
-          <ion-slides >
+          <ion-slides>
             <ion-slide>
               <a (click)="openProductDetailsPage(product)">
                 <img src="img/card-saopaolo.png" >
@@ -109,13 +109,6 @@
             </ion-slide>
           </ion-slides>
 
-          <a class="fab-shop">
-            <ion-avatar>
-              <a>
-                <img src="img/card-saopaoloo.png">
-              </a>
-            </ion-avatar>
-          </a>
         </div>
 
         <ion-item>

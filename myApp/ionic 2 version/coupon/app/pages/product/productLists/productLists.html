@@ -1,5 +1,5 @@
 <ion-navbar  *navbar hideBackButton>
-  <ion-buttons left (click)="popBack()" class="leftNavButton">
+  <ion-buttons left nav-pop class="leftNavButton">
     <div block button >
       <ion-icon name="ios-arrow-back"></ion-icon>
     </div>
@@ -62,7 +62,7 @@
             </ion-slide>
           </ion-slides>
 
-          <a class="fab-shop">
+          <a class="fab-shop" (click)="openShopDetailPage(product.email)">
             <ion-avatar>
               <a>
                 <img src="img/card-saopaoloo.png">

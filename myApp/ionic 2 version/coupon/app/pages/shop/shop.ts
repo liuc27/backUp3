@@ -25,6 +25,7 @@ export class ShopPage {
     private nav:NavController,
     private events: Events,
     private shopGetAllShopsService:ShopGetAllShopsService) {
+        this.events = events;
         this.product = params.data.product;
         this.productOrShop = "product";
         console.log(params.data);
@@ -32,6 +33,9 @@ export class ShopPage {
         this.loadShops();
     }
 
+    onPageWillEnter() {
+        this.events.publish('showTabs');
+    }
 
     loadShops(){
       this.shopGetAllShopsService.load()

@@ -7,6 +7,7 @@ import {ProductListsPop1} from "./popoverPages/productDetailsPop1";
 import {ProductListsPop2} from "./popoverPages/productDetailsPop2";
 import {ProductListsPop3} from "./popoverPages/productDetailsPop3";
 import {getSelectedProductDetails} from '../../../../providers/productDetails-GetSelectedProductDetails-service/productDetails-GetSelectedProductDetails-service';
+import {ShopDetail} from '../../../shop/shopDetail/shopDetail';
 
 @Component({
     templateUrl: 'build/pages/product/productLists/productDetails/productDetails.html',
@@ -27,6 +28,10 @@ export class ProductDetails {
         this.productOrShop = "product";
         console.log(params.data);
         this.loadSelectedproductDetails();
+    }
+
+    onPageWillEnter() {
+        this.events.publish('hideTabs');
     }
 
     loadSelectedproductDetails() {
@@ -73,5 +78,10 @@ export class ProductDetails {
         });
     }
 
+    openShopDetailPage(shop){
+        console.log(shop);
+        this.nav.push(ShopDetail,{shop:shop});
+
+    }
 
 }

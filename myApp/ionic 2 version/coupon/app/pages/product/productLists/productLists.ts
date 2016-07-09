@@ -8,7 +8,7 @@ import {ProductListsPop2} from "./popoverPages/productListsPop2";
 import {ProductListsPop3} from "./popoverPages/productListsPop3";
 import {ProductDetails} from './productDetails/productDetails';
 import {ProductPage} from '../product';
-
+import {ShopDetail} from '../../shop/shopDetail/shopDetail';
 import {getSelectedProductLists} from '../../../providers/productLists-GetSelectedProductLists-service/productLists-GetSelectedProductLists-service';
 
 @Component({
@@ -18,6 +18,7 @@ import {getSelectedProductLists} from '../../../providers/productLists-GetSelect
 export class ProductLists {
     @ViewChild('popoverContent', {read: ElementRef}) content: ElementRef;
     @ViewChild('popoverText', {read: ElementRef}) text: ElementRef;
+    shop;
     product;
     productOrShop;
     productLists;
@@ -30,6 +31,11 @@ export class ProductLists {
         this.productOrShop = "product";
         console.log(params.data);
         this.loadSelectedProductLists();
+        this.shop = params.data.product;
+    }
+
+    onPageWillEnter() {
+        this.events.publish('hideTabs');
     }
 
     loadSelectedProductLists() {
@@ -76,28 +82,14 @@ export class ProductLists {
         });
     }
 
-    onPageWillEnter() {
-      this.hideTabs();
-    }
-
-    hideTabs(){
-      console.log("enter");
-      this.events.publish('hideTabs');
-    }
-
-    showTabs() {
-      console.log("leave")
-      this.events.publish('showTabs');
-    }
-
-    popBack(){
-        this.showTabs();
-        console.log("pp1");
-        this.nav.pop();
-    }
-
     openProductDetailsPage(product){
       console.log("detail open");
       this.nav.push(ProductDetails,{product:product});
+    }
+
+    openShopDetailPage(shop){
+        console.log(shop);
+        this.nav.push(ShopDetail,{shop:shop});
+
     }
 }

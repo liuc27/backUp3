@@ -16,9 +16,14 @@ export class ProductPage {
   constructor(private nav:NavController,
               private params:NavParams,
               public productService:ProductService,
+              private events:Events,
               public platform:Platform) {
     this.product=params.data.product;
     this.loadProducts();
+  }
+
+  onPageWillEnter() {
+    this.events.publish('showTabs');
   }
 
   loadProducts() {
