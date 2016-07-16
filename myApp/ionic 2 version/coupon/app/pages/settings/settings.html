@@ -21,8 +21,32 @@
 
   </ion-list>
 
-  <div padding>
+  <div class="fullButtonClass">
     <button primary block>Sign In</button>
   </div>
 
+
+  <ion-list>
+    <ion-list-header>
+
+    </ion-list-header>
+
+    <a primary ion-item (click)="openOauth('facebook')">
+      <ion-icon name="logo-facebook"></ion-icon>
+      Facebook
+    </a>
+    <a primary ion-item (click)="openOauth('twitter')">
+      <ion-icon name="logo-twitter"></ion-icon>
+      Twitter
+    </a>
+    <a primary ion-item (click)="openOauth('wechat')">
+      <ion-icon name="logo-facebook"></ion-icon>
+      Wechat
+    </a>
+    <a primary ion-item (click)="openOauth('google')">
+      <ion-icon name="logo-google"></ion-icon>
+      Google
+    </a>
+
+  </ion-list>
 </ion-content>

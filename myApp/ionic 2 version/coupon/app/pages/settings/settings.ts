@@ -12,4 +12,8 @@ export class SettingsPage {
   onPageWillEnter() {
     this.events.publish('showTabs');
   }
+
+  openOauth(oauthName){
+    console.log(oauthName);
+  }
 }

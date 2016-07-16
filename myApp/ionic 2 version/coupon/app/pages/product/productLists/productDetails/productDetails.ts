@@ -67,6 +67,13 @@ export class ProductDetails {
                     }
                 },
                 {
+                    text: 'Google',
+                    icon: 'logo-google',
+                    handler: () => {
+                        console.log('Favorite clicked');
+                    }
+                },
+                {
                     text: 'Cancel',
                     role: 'cancel', // will always sort to be on the bottom
                     icon: 'md-close',
