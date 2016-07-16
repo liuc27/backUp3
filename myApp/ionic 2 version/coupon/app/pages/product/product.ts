@@ -24,7 +24,7 @@ export class ProductPage {
     this.loadProducts();
     this.menu1=[{
       id: 0,
-      name: 'dine',
+      name: 'Dine',
       icon: 'ios-wine',
       color: 'red',
       type: 'food'
@@ -49,7 +49,7 @@ export class ProductPage {
       type: 'hotel'
     }, {
       id: 4,
-      name: 'mMvie',
+      name: 'Movie',
       icon: 'ios-film',
       color: 'silver',
       type: 'movie'
@@ -74,8 +74,8 @@ export class ProductPage {
       type: 'job'
     }, {
       id: 8,
-      name: 'Medicine',
-      icon: 'ios-medical',
+      name: 'Hospital',
+      icon: 'md-add',
       color: 'lightgreen',
       type: 'job'
     }, {
