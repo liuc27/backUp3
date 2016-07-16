@@ -17,12 +17,26 @@
   <ion-slides pager class="ion-slides-class">
     <ion-slide>
 
-    <ion-row class="flexWrap">
-      <ion-col width-20  class="ion-col-class" *ngFor="let product of products" >
-        <button class="roundButton"  primary (click)="openProductListsPage(product)" [ngStyle]="{'backgroundColor': red}">
+    <ion-row class="menuClass1">
+      <ion-col width-20  class="ion-col-class" *ngFor="let menuItem of menu1" >
+        <button class="roundButton"  primary (click)="openProductListsPage(menuItem)" [ngStyle]="{'backgroundColor': menuItem.color}">
           <!--[ngStyle]="{'backgroundColor': item.color}" -->
-          <ion-icon class="ion-icon-class" name="heart"></ion-icon>
-        </button>food
+          <ion-icon class="ion-icon-class" [name]="menuItem.icon"></ion-icon>
+        </button>
+        <div >
+        {{menuItem.name}}
+      </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="menuClass2">
+      <ion-col width-20  class="ion-col-class" *ngFor="let menuItem of menu2" >
+        <button class="roundButton"  primary (click)="openProductListsPage(menuItem)" [ngStyle]="{'backgroundColor': menuItem.color}">
+          <!--[ngStyle]="{'backgroundColor': item.color}" -->
+          <ion-icon class="ion-icon-class" [name]="menuItem.icon"></ion-icon>
+        </button>
+        <div >
+        {{menuItem.name}}
+      </div>
       </ion-col>
     </ion-row>
       </ion-slide>
