@@ -1,19 +1,6 @@
-.shopDetail{
+.productDetails{
 
   z-index: 1;
-
-  .flexWrap{
-  }
-
-
-  .buttonInMenu{
-    display: table-cell;
-    margin: 0!important;
-    padding: 0!important;
-    width: 33.34vw;
-    text-align:center;
-  }
-
 
   .button-icon-only ion-icon{
     font-size: 2.2em;
@@ -32,15 +19,13 @@
 
   .fab-shop {
     position: absolute;
-    bottom: -1.6em;
+    bottom: -3.8em;
     right:1.0em;
     z-index: 50;
     float: right;
     overflow:hidden;
     background-color: transparent;
   }
-
-
 
   button[fab].fab-favorite {
     background-color: transparent;
@@ -52,9 +37,22 @@
     width:3.2em;
   }
 
+  ion-content.cards-bg {
+  }
 
   .ion-list-class{
     margin: 0;
+  }
+
+  .highLightsCard{
+    width: 100%;
+    margin:0;
+  }
+
+  .spaceLine{
+    height: 5vw;
+    background-color: #fff3f3;
+    width: 100vw;
   }
 
 }

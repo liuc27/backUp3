@@ -3,9 +3,9 @@
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {Page,App, Events, NavController, NavParams, Popover,} from 'ionic-angular';
-import {Category} from "./popoverPages/category";
-import {Location} from "./popoverPages/location";
-import {Order} from "./popoverPages/order";
+import {shopPop1} from "./popoverPages/shopPop1";
+import {shopPop2} from "./popoverPages/shopPop2";
+import {shopPop3} from "./popoverPages/shopPop3";
 import {ShopGetAllShopsService} from '../../providers/shop-get-all-shops-service/shop-get-all-shops-service';
 import {ShopDetail} from './shopDetail/shopDetail';
 
@@ -25,6 +25,7 @@ export class ShopPage {
     private nav:NavController,
     private events: Events,
     private shopGetAllShopsService:ShopGetAllShopsService) {
+        this.events = events;
         this.product = params.data.product;
         this.productOrShop = "product";
         console.log(params.data);
@@ -32,6 +33,9 @@ export class ShopPage {
         this.loadShops();
     }
 
+    onPageWillEnter() {
+        this.events.publish('showTabs');
+    }
 
     loadShops(){
       this.shopGetAllShopsService.load()
@@ -45,38 +49,38 @@ export class ShopPage {
         this.nav.push(ShopDetail,{shop:shop});
 
     }
-    presentCategoryPopover(ev) {
-        let category = Popover.create(Category, {
+    presentShopPop1Popover(ev) {
+        let shopPop1Page = Popover.create(shopPop1, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(category, {
+        this.nav.present(shopPop1Page, {
             ev: ev
         });
     }
 
-    presentLocationPopover(ev) {
-        let location = Popover.create(Location, {
+    presentShopPop2Popover(ev) {
+        let shopPop2Page = Popover.create(shopPop2, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(location, {
+        this.nav.present(shopPop2Page, {
             ev: ev
         });
     }
 
-    presentOrderPopover(ev) {
-        let order = Popover.create(Order, {
+    presentShopPop3Popover(ev) {
+        let shopPop3Page = Popover.create(shopPop3, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(order, {
+        this.nav.present(shopPop3Page, {
             ev: ev
         });
     }

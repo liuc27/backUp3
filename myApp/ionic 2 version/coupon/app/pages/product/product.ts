@@ -11,14 +11,84 @@ import {ProductLists} from './productLists/productLists';
 export class ProductPage {
   public products:any;
   public product:any;
+  private menu1:any;
+  private menu2:any;
 
 
   constructor(private nav:NavController,
               private params:NavParams,
               public productService:ProductService,
+              private events:Events,
               public platform:Platform) {
     this.product=params.data.product;
     this.loadProducts();
+    this.menu1=[{
+      id: 0,
+      name: 'dine',
+      icon: 'ios-wine',
+      color: 'red',
+      type: 'food'
+    }, {
+      id: 1,
+      name: 'Fashion',
+      icon: 'ios-basket',
+      color: '#5383FF',
+      type: 'shopping'
+
+    }, {
+      id: 2,
+      name: 'Beauty',
+      icon: 'ios-color-wand',
+      color: 'pink',
+      type: 'beauty'
+    }, {
+      id: 3,
+      name: 'Sleep',
+      icon: 'ios-moon',
+      color: '#5383FF',
+      type: 'hotel'
+    }, {
+      id: 4,
+      name: 'mMvie',
+      icon: 'ios-film',
+      color: 'silver',
+      type: 'movie'
+    }];
+    this.menu2=[{
+      id: 5,
+      name: 'Car',
+      icon: 'ios-car',
+      color: 'gold',
+      type: 'car'
+    }, {
+      id: 6,
+      name: 'Cafe',
+      icon: 'ios-cafe',
+      color: 'lightgreen',
+      type: 'job'
+    }, {
+      id: 7,
+      name: 'KaraOK',
+      icon: 'ios-musical-notes',
+      color: 'lightgreen',
+      type: 'job'
+    }, {
+      id: 8,
+      name: 'Medicine',
+      icon: 'ios-medical',
+      color: 'lightgreen',
+      type: 'job'
+    }, {
+      id: 9,
+      name: 'All',
+      icon: 'ios-eye',
+      color: 'orange',
+      type: 'all'
+    }];
+  }
+
+  onPageWillEnter() {
+    this.events.publish('showTabs');
   }
 
   loadProducts() {

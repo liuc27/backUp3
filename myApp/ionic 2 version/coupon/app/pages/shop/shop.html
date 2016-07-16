@@ -22,32 +22,40 @@
 </ion-navbar>
 
 
-<ion-content  #popoverContent class="shop">
-    <ion-toolbar class="flexWrap">
-        <div class="buttonInMenu" (click)="presentCategoryPopover($event)">
-            category
+<ion-toolbar class="shopToolBar">
+    <div  class="buttonInMenu">
+        <button clear (click)="presentShopPop1Popover($event)">
+            shopPop1
             <ion-icon name="ios-arrow-down-outline"></ion-icon>
-        </div>
-        <div class="buttonInMenu"  (click)="presentLocationPopover($event)">
+        </button>
+    </div>
+    <div class="buttonInMenu">
+        <button clear (click)="presentShopPop2Popover($event)">
             location
             <ion-icon name="ios-arrow-down-outline"></ion-icon>
-        </div>
+        </button>
+    </div>
 
-        <div class="buttonInMenu"  (click)="presentOrderPopover($event)">
+    <div class="buttonInMenu">
+        <button clear (click)="presentShopPop3Popover($event)">
             order
             <ion-icon name="ios-arrow-down-outline"></ion-icon>
-        </div>
-    </ion-toolbar>
+        </button>
+    </div>
+</ion-toolbar>
+
+<ion-content  #popoverContent class="shop">
+
 
     <div [ngSwitch]="productOrShop">
       <ion-list>
-        <ion-item *ngFor="let shop of shops"  (click)="openshopDetailPage(shop)">
-          <ion-thumbnail item-left>
-            <img src="{{shop.picture.thumbnail}}">
-          </ion-thumbnail>
-          <h2>{{shop.name.first}} {{shop.name.last}}</h2>
-          <p>{{shop.email}}</p>
-        </ion-item>
+        <button ion-item *ngFor="let shop of shops" (click)="openshopDetailPage(shop)">
+            <ion-thumbnail item-left>
+              <img src="{{shop.picture.thumbnail}}">
+            </ion-thumbnail>
+            <h2>{{shop.name.first}} {{shop.name.last}}</h2>
+            <p>{{shop.email}}</p>
+        </button>
       </ion-list>
     </div>
 

@@ -1,8 +1,7 @@
-<ion-navbar  *navbar hideBackButton hideTabBar>
-  <ion-buttons start (click)="showTabs()">
-    <div block button nav-pop>
+<ion-navbar  *navbar hideBackButton>
+  <ion-buttons left nav-pop class="leftNavButton">
+    <div block button >
       <ion-icon name="ios-arrow-back"></ion-icon>
-      Back
     </div>
   </ion-buttons>
 
@@ -15,50 +14,71 @@
   </ion-buttons>
 </ion-navbar>
 
-<ion-toolbar>
-  <div class="buttonInMenu" (click)="presentCategoryPopover($event)">
-    category
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+<ion-toolbar class="productListsToolbar">
+  <div  class="buttonInMenu">
+    <button clear (click)="presentProductListsPop1Popover($event)">
+      Pop1
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
-  <div class="buttonInMenu"  (click)="presentLocationPopover($event)">
-    location
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  <div  class="buttonInMenu">
+    <button clear (click)="presentProductListsPop2Popover($event)">
+      Pop2
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
 
-  <div class="buttonInMenu"  (click)="presentOrderPopover($event)">
-    order
-    <ion-icon name="ios-arrow-down-outline"></ion-icon>
+  <div class="buttonInMenu">
+    <button clear (click)="presentProductListsPop3Popover($event)">
+      Pop3
+      <ion-icon name="ios-arrow-down-outline"></ion-icon>
+    </button>
   </div>
 </ion-toolbar>
 <ion-content  #popoverContent class="productLists">
-
-
-
   <div >
     <ion-list class="ion-list-class" *ngFor="let product of productLists">
 
       <ion-card class="adv-map" >
         <div style="position: relative">
-          <img src="img/card-saopaolo.png">
-          <div class="fab-shop">
-          <ion-avatar >
-              <img src="img/card-saopaoloo.png">
-          </ion-avatar>
-        </div>
-          <button fab class="fab-favorite">
-            <ion-icon name='md-heart-outline'></ion-icon>
-          </button>
+
+          <ion-slides style="z-index:1;">
+            <ion-slide>
+              <a (click)="openProductDetailsPage(product)">
+                <img src="img/card-saopaolo.png" >
+              </a>
+              <a >
+                <ion-icon class="fab-favorite" name='md-heart-outline'></ion-icon>
+              </a>
+              <a class="fab-shop" (click)="openShopDetailPage(product.email)">
+                <ion-avatar >
+                  <img src="img/card-saopaoloo.png">
+                </ion-avatar>
+              </a>
+            </ion-slide>
+
+            <ion-slide>
+              <a (click)="openProductDetailsPage(product)">
+                <img src="img/card-saopaolo.png" >
+              </a>
+              <a >
+                <ion-icon class="fab-favorite" name='md-heart-outline'></ion-icon>
+              </a>
+            </ion-slide>
+          </ion-slides>
+
+          <ion-item class="productIntroduction">
+            <ion-icon subtle large item-left name='cloud'></ion-icon>
+            <h2>Yoshi's Island</h2>
+            <p>Iggy Koopa</p>
+            <button danger clear item-right>
+              <ion-icon name='navigate'></ion-icon>
+              Start
+            </button>
+          </ion-item>
+
         </div>
 
-        <ion-item>
-          <ion-icon subtle large item-left name='cloud'></ion-icon>
-          <h2>Yoshi's Island</h2>
-          <p>Iggy Koopa</p>
-          <button danger clear item-right>
-            <ion-icon name='navigate'></ion-icon>
-            Start
-          </button>
-        </ion-item>
       </ion-card>
 
     </ion-list>
@@ -68,3 +88,4 @@
     <div> testData</div>
   </div>
 </ion-content>
+

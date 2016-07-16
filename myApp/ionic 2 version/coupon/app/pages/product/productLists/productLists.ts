@@ -2,10 +2,13 @@
  * Created by liuchao on 6/25/16.
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Page,App, Events, NavController, NavParams, Popover,} from 'ionic-angular';
-import {Category} from "./popoverPages/category";
-import {Location} from "./popoverPages/location";
-import {Order} from "./popoverPages/order";
+import {Page,App, Events, NavController, NavParams, Popover} from 'ionic-angular';
+import {ProductListsPop1} from "./popoverPages/productListsPop1";
+import {ProductListsPop2} from "./popoverPages/productListsPop2";
+import {ProductListsPop3} from "./popoverPages/productListsPop3";
+import {ProductDetails} from './productDetails/productDetails';
+import {ProductPage} from '../product';
+import {ShopDetail} from '../../shop/shopDetail/shopDetail';
 import {getSelectedProductLists} from '../../../providers/productLists-GetSelectedProductLists-service/productLists-GetSelectedProductLists-service';
 
 @Component({
@@ -15,6 +18,7 @@ import {getSelectedProductLists} from '../../../providers/productLists-GetSelect
 export class ProductLists {
     @ViewChild('popoverContent', {read: ElementRef}) content: ElementRef;
     @ViewChild('popoverText', {read: ElementRef}) text: ElementRef;
+    shop;
     product;
     productOrShop;
     productLists;
@@ -27,6 +31,11 @@ export class ProductLists {
         this.productOrShop = "product";
         console.log(params.data);
         this.loadSelectedProductLists();
+        this.shop = params.data.product;
+    }
+
+    onPageWillEnter() {
+        this.events.publish('hideTabs');
     }
 
     loadSelectedProductLists() {
@@ -37,53 +46,50 @@ export class ProductLists {
           });
     }
 
-    presentCategoryPopover(ev) {
-        let category = Popover.create(Category, {
+    presentProductListsPop1Popover(ev) {
+        let productListsPop1 = Popover.create(ProductListsPop1, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(category, {
+        this.nav.present(productListsPop1, {
             ev: ev
         });
     }
 
-    presentLocationPopover(ev) {
-        let location = Popover.create(Location, {
+    presentProductListsPop2Popover(ev) {
+        let productListsPop2 = Popover.create(ProductListsPop2, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(location, {
+        this.nav.present(productListsPop2, {
             ev: ev
         });
     }
 
-    presentOrderPopover(ev) {
-        let order = Popover.create(Order, {
+    presentProductListsPop3Popover(ev) {
+        let productListsPop3 = Popover.create(ProductListsPop3, {
             contentEle: this.content.nativeElement,
             textEle: this.text.nativeElement
         });
 
         console.log("presentPopover");
-        this.nav.present(order, {
+        this.nav.present(productListsPop3, {
             ev: ev
         });
     }
 
-    onPageWillEnter() {
-      this.hideTabs();
+    openProductDetailsPage(product){
+      console.log("detail open");
+      this.nav.push(ProductDetails,{product:product});
     }
 
-    hideTabs(){
-      console.log("enter");
-      this.events.publish('hideTabs');
-    }
+    openShopDetailPage(shop){
+        console.log(shop);
+        this.nav.push(ShopDetail,{shop:shop});
 
-    showTabs() {
-      console.log("leave")
-      this.events.publish('showTabs');
     }
 }
