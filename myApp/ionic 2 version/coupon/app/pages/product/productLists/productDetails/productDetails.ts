@@ -2,10 +2,7 @@
  * Created by liuchao on 6/25/16.
  */
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {Page,App, Events, NavController, NavParams, Popover} from 'ionic-angular';
-import {ProductListsPop1} from "./popoverPages/productDetailsPop1";
-import {ProductListsPop2} from "./popoverPages/productDetailsPop2";
-import {ProductListsPop3} from "./popoverPages/productDetailsPop3";
+import {Page,App, ActionSheet, Events, NavController, NavParams, Popover} from 'ionic-angular';
 import {getSelectedProductDetails} from '../../../../providers/productDetails-GetSelectedProductDetails-service/productDetails-GetSelectedProductDetails-service';
 import {ShopDetail} from '../../../shop/shopDetail/shopDetail';
 
@@ -34,48 +31,62 @@ export class ProductDetails {
         this.events.publish('hideTabs');
     }
 
+
+    shareActionSheet() {
+        let actionSheet = ActionSheet.create({
+            title: 'SHARE',
+            cssClass: 'action-sheets-basic-page',
+            buttons: [
+                {
+                    text: 'Facebook',
+                    role: 'destructive',
+                    icon: 'logo-facebook',
+                    handler: () => {
+                        console.log('Delete clicked');
+                    }
+                },
+                {
+                    text: 'email',
+                    icon: 'ios-mail',
+                    handler: () => {
+                        console.log('Share clicked');
+                    }
+                },
+                {
+                    text: 'Wechat',
+                    icon: 'arrow-dropright-circle',
+                    handler: () => {
+                        console.log('Play clicked');
+                    }
+                },
+                {
+                    text: 'Twitter',
+                    icon: 'logo-twitter',
+                    handler: () => {
+                        console.log('Favorite clicked');
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    role: 'cancel', // will always sort to be on the bottom
+                    icon: 'md-close',
+                    handler: () => {
+                        console.log('Cancel clicked');
+                    }
+                }
+            ]
+        });
+
+        this.nav.present(actionSheet);
+
+    }
+
     loadSelectedproductDetails() {
       this.productDetailsService.load()
           .then(data => {
             this.productDetails = data;
             console.log(this.productDetails);
           });
-    }
-
-    presentProductListsPop1Popover(ev) {
-        let productDetailsPop1 = Popover.create(ProductListsPop1, {
-            contentEle: this.content.nativeElement,
-            textEle: this.text.nativeElement
-        });
-
-        console.log("presentPopover");
-        this.nav.present(productDetailsPop1, {
-            ev: ev
-        });
-    }
-
-    presentProductListsPop2Popover(ev) {
-        let productDetailsPop2 = Popover.create(ProductListsPop2, {
-            contentEle: this.content.nativeElement,
-            textEle: this.text.nativeElement
-        });
-
-        console.log("presentPopover");
-        this.nav.present(productDetailsPop2, {
-            ev: ev
-        });
-    }
-
-    presentProductListsPop3Popover(ev) {
-        let productDetailsPop3 = Popover.create(ProductListsPop3, {
-            contentEle: this.content.nativeElement,
-            textEle: this.text.nativeElement
-        });
-
-        console.log("presentPopover");
-        this.nav.present(productDetailsPop3, {
-            ev: ev
-        });
     }
 
     openShopDetailPage(shop){

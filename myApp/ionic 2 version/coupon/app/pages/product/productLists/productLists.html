@@ -42,44 +42,43 @@
       <ion-card class="adv-map" >
         <div style="position: relative">
 
-          <ion-slides >
+          <ion-slides style="z-index:1;">
             <ion-slide>
               <a (click)="openProductDetailsPage(product)">
                 <img src="img/card-saopaolo.png" >
               </a>
-              <button fab class="fab-favorite">
-                <ion-icon name='md-heart-outline'></ion-icon>
-              </button>
+              <a >
+                <ion-icon class="fab-favorite" name='md-heart-outline'></ion-icon>
+              </a>
+              <a class="fab-shop" (click)="openShopDetailPage(product.email)">
+                <ion-avatar >
+                  <img src="img/card-saopaoloo.png">
+                </ion-avatar>
+              </a>
             </ion-slide>
 
             <ion-slide>
               <a (click)="openProductDetailsPage(product)">
                 <img src="img/card-saopaolo.png" >
               </a>
-              <button fab class="fab-favorite">
-                <ion-icon name='md-heart-outline'></ion-icon>
-              </button>
+              <a >
+                <ion-icon class="fab-favorite" name='md-heart-outline'></ion-icon>
+              </a>
             </ion-slide>
           </ion-slides>
 
-          <a class="fab-shop" (click)="openShopDetailPage(product.email)">
-            <ion-avatar>
-              <a>
-                <img src="img/card-saopaoloo.png">
-              </a>
-            </ion-avatar>
-          </a>
+          <ion-item class="productIntroduction">
+            <ion-icon subtle large item-left name='cloud'></ion-icon>
+            <h2>Yoshi's Island</h2>
+            <p>Iggy Koopa</p>
+            <button danger clear item-right>
+              <ion-icon name='navigate'></ion-icon>
+              Start
+            </button>
+          </ion-item>
+
         </div>
 
-        <ion-item>
-          <ion-icon subtle large item-left name='cloud'></ion-icon>
-          <h2>Yoshi's Island</h2>
-          <p>Iggy Koopa</p>
-          <button danger clear item-right>
-            <ion-icon name='navigate'></ion-icon>
-            Start
-          </button>
-        </ion-item>
       </ion-card>
 
     </ion-list>
@@ -89,3 +88,4 @@
     <div> testData</div>
   </div>
 </ion-content>
+
