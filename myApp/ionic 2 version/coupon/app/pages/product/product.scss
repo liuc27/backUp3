@@ -24,17 +24,17 @@
     border-radius: 11vw;
     border:0;
     overflow:hidden;
-    box-shadow: 0 0 2vw gray;
     color:white;
     padding: 0;
-    margin: 0 4.5vw;
+    margin: 1vw 4.5vw;
   }
 
   .roundButton:hover{
     width: 13vw;
     height:13vw;
-    border-radius: 14vw;
-    margin: 0vw;
+    border-radius: 13vw;
+    margin:0 3.5vw;
+    box-shadow: 0 0 2vw gray;
   }
 
   .ion-icon-class{

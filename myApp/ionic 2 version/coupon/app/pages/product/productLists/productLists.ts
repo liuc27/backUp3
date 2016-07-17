@@ -39,7 +39,7 @@ export class ProductLists {
     }
 
     loadSelectedProductLists() {
-      this.productListsService.load()
+      this.productListsService.load(this.params)
           .then(data => {
             this.productLists = data;
             console.log(this.productLists);

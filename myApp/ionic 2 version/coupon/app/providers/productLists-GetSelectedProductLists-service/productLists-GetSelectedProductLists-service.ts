@@ -16,14 +16,16 @@ export class getSelectedProductLists {
     this.data = null;
   }
 
-  load() {
+  load(k) {
     if (this.data) {
       // already loaded data
+      console.log(k.data.product);
       return Promise.resolve(this.data);
     }
 
     // don't have the data yet
     return new Promise(resolve => {
+    console.log(k.data.product);
       // We're using Angular Http provider to request the data,
       // then on the response it'll map the JSON data to a parsed JS object.
       // Next we process the data and resolve the promise with the new data.

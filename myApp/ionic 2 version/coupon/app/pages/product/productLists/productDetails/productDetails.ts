@@ -16,7 +16,11 @@ export class ProductDetails {
     product;
     productOrShop;
     productDetails;
-
+    mySlideOptions = {
+      autoplay: 3500,
+      loop: true,
+      speed: 450
+    };
     constructor(private params: NavParams,
     private nav:NavController,
     private events: Events,
