@@ -26,6 +26,7 @@
     "request": "2.72.0",
     "run-sequence": "1.1.4",
     "validator": "4.4.0",
-    "vinyl-source-stream": "1.1.0"
+    "vinyl-source-stream": "1.1.0",
+    "multer": "~1.2.0"
   }
 }

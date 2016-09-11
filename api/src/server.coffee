@@ -6,6 +6,9 @@ bodyParser = require "body-parser"
 moment = require "moment"
 helmet = require "helmet"
 
+multer  = require "multer"
+upload = multer({ dest: 'public/images/' })
+
 app = express()
 server = http.createServer app
 app.use helmet()
@@ -37,6 +40,33 @@ for val in files
   if api.show then app.get "/#{val}/:id", api.show
   if api.update then app.put "/#{val}/:id", api.update
   if api.destroy then app.delete "/#{val}/:id", api.destroy
+
+app.post '/api/cloudvision', upload.array('files'), (req, res) ->
+  request = require('request')
+  image = undefined
+  reuestOption = undefined
+  base64_image = undefined
+  req.files.forEach (elem) ->
+    base64_image = new Buffer(fs.readFileSync(elem.path)).toString('base64')
+    return
+  #base64_image = req.body.image.match(/base64,(.*)$/)[1];
+  reuestOption =
+    uri: 'https://vision.googleapis.com/v1/images:annotate?key=' + config.google_vision_key
+    headers: 'Content-Type': 'application/json'
+    json: 'requests': [ {
+      'image': 'content': base64_image
+      'features': [ {
+        'type': 'TEXT_DETECTION'
+        'maxResults': 5
+      } ]
+    } ]
+  request.post reuestOption, (error, response, body) ->
+    if !error and response.statusCode == 200
+      res.status(200).json body.responses
+    else
+      res.status(200).json status: 'err'
+    return
+  return
 
 server.listen app.get("port"), ->
   console.log "Server listen
